@@ -1,7 +1,7 @@
-
 import pandas as pd
 from scipy import stats
 from itertools import combinations
+
 
 def spearmanr(df, columns):
     """
@@ -33,7 +33,3 @@ def spearmanr(df, columns):
     df_spearmanr = df_spearmanr.sort_index()
     df_spearmanr = df_spearmanr[sorted(df_spearmanr.columns.tolist())]
     return df_spearmanr
-
-
-
-

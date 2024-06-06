@@ -1,8 +1,8 @@
 from ..Utils.utils import pd
 from ..Utils.Bins import Bins
 
-class CSI(Bins):
 
+class CSI(Bins):
     def __init__(self, score=None):
         """
         Des: 计算CSI

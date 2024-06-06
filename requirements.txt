@@ -1,5 +1,5 @@
 numpy>=1.25.2
-pandas>=2.2.2
+pandas>=1.5.3
 pyspark>=3.5.0
 scipy>=1.11.2
 tqdm>=4.66.1
@@ -10,5 +10,3 @@ seaborn>=0.13.0
 statsmodels>=0.14.0
 jieba>=0.42.1
 XlsxWriter>=3.1.2
-kivi>=0.2.3
-setuptools>=69.5.1

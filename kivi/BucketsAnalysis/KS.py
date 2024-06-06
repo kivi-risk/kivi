@@ -1,4 +1,5 @@
-from ..Utils.utils import np, pd, saveCsv
+import numpy as np
+from ..Utils.utils import pd, saveCsv
 from ..Utils.Bins import Bins
 
 
