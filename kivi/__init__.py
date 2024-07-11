@@ -1,5 +1,7 @@
-from .Utils import *
+from importlib import metadata
 
-__version__ = '0.2.4'
-__author__ = "chensy"
-__pkg_info__ = "This pkg made for Risk."
+try:
+    __version__ = metadata.version(__package__)
+except metadata.PackageNotFoundError:
+    # Case where package metadata is not available.
+    __version__ = ""

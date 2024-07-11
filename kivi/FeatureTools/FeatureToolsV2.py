@@ -124,12 +124,6 @@ def gen_batch_features(
     return df_feature
 
 
-def gen_batch_features_v1(df_origin, column='info'):
-    """"""
-    df_feature=None
-    return df_feature
-
-
 def batch_derivative_index(
         df_origin, column=None, start_date=None, end_date=None,
         db_name=None, table_name=None, insert=True, spark=None):
