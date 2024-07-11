@@ -1,6 +1,10 @@
 import pandas as pd
 from .WOE import WOE
 
+
+__all__ = ["Category"]
+
+
 class Category(WOE):
     """
     类别型变量的分箱
@@ -35,4 +39,3 @@ class Category(WOE):
 
         self.woe_iv_res(Bucket, score=score, origin_border=origin_border, order=order)
         return self.res
-

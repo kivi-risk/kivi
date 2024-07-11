@@ -1,5 +1,9 @@
 from .WOE import WOE, pd
 
+
+__all__ = ["Distance"]
+
+
 class Distance(WOE):
     """
 

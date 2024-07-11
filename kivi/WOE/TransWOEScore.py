@@ -4,6 +4,15 @@ from tqdm import tqdm_notebook
 from ..utils import WarnInfo
 
 
+__all__ = [
+    "WideToLong",
+    "MatchWoe",
+    "TransRealValToWOE",
+    "SaveWOEVal",
+    "TransToWOEVal",
+]
+
+
 def WideToLong(df, features: list, id_name='uuid', dtype='float'):
     """
     描述：宽表转为长表，用于WOE分数转换
@@ -29,6 +38,7 @@ def WideToLong(df, features: list, id_name='uuid', dtype='float'):
     df_translated.reset_index(inplace=True, drop=True)
     df_translated['values'] = df_translated['values'].astype(dtype)
     return df_translated
+
 
 def MatchWoe(df_trans, df_woe, id_name='uuid', match_error='error', error_thresh=None):
     """
@@ -76,6 +86,7 @@ def MatchWoe(df_trans, df_woe, id_name='uuid', match_error='error', error_thresh
 
     return df_sample_score
 
+
 def TransRealValToWOE(df, df_woe, features, values='woe', index='uuid'):
     """
 
@@ -88,6 +99,7 @@ def TransRealValToWOE(df, df_woe, features, values='woe', index='uuid'):
     df_long_woe = MatchWoe(df_trans=df_long, df_woe=df_woe)
     df_woe_features = df_long_woe.pivot(index=index, columns='var_name', values=values)
     return df_woe_features
+
 
 def SaveWOEVal(df, df_woe, columns, id_name='uuid', join_origin=['uuid', 'target'], values='woe', disp=True):
     """
@@ -122,6 +134,7 @@ def SaveWOEVal(df, df_woe, columns, id_name='uuid', join_origin=['uuid', 'target
             df_woeval_wide = df_woeval_wide.join(df_select[join_origin].set_index(id_name), on=id_name)
             df_woeval_wides.append(df_woeval_wide)
         return df_woeval_wides
+
 
 def TransToWOEVal(df, df_woe, values='woe', batch=50):
     """

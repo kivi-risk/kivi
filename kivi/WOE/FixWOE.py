@@ -6,6 +6,17 @@ from ..utils import WarnInfo
 from ..utils.operator import NumRange
 
 
+__all__ = [
+    'SaveWOEVal',
+    "WideToLong",
+    "MatchWoe",
+    "TransRealValToWOE",
+    "FixWoeVal",
+    "WoeDeviation",
+    "ModelResultSpark",
+]
+
+
 def SaveWOEVal(df, df_woe, columns, join_origin=['uuid', 'target'], values='woe', disp=True):
     """
     描述：保存三种WOE映射值
@@ -36,6 +47,7 @@ def SaveWOEVal(df, df_woe, columns, join_origin=['uuid', 'target'], values='woe'
             df_woeval_wides.append(df_woeval_wide)
         return df_woeval_wides
 
+
 def WideToLong(df, features, id_name='uuid'):
     """
     描述：宽表转为长表，用于WOE分数转换
@@ -58,6 +70,7 @@ def WideToLong(df, features, id_name='uuid'):
     df_translated.sort_values(by='uuid', inplace=True)
     df_translated.reset_index(inplace=True, drop=True)
     return df_translated
+
 
 def MatchWoe(df_trans, df_woe, id_name='uuid', match_error='error', error_thresh=None):
     """
@@ -105,6 +118,7 @@ def MatchWoe(df_trans, df_woe, id_name='uuid', match_error='error', error_thresh
 
     return df_sample_score
 
+
 def TransRealValToWOE(df, df_woe, features, values='woe', index='uuid'):
     """
 
@@ -117,6 +131,7 @@ def TransRealValToWOE(df, df_woe, features, values='woe', index='uuid'):
     df_long_woe = MatchWoe(df_trans=df_long, df_woe=df_woe)
     df_woe_features = df_long_woe.pivot(index=index, columns='var_name', values=values)
     return df_woe_features
+
 
 def FixWoeBins(df_woe, drop_woe_val=False, groupby='var_name'):
     """
@@ -144,6 +159,7 @@ def FixWoeBins(df_woe, drop_woe_val=False, groupby='var_name'):
         df_woe_fix = df_woe_fix.append(group)
     return df_woe_fix
 
+
 def FixWoeVal(df_woe, groupby='var_name'):
     """
     描述：依据WOE值，确定WOE分箱值域范围
@@ -162,6 +178,7 @@ def FixWoeVal(df_woe, groupby='var_name'):
         group['max_woe_val'] = group.woe + (group.woe.diff(diff_val) / 2).fillna(method=method)
         df_fixed_val = df_fixed_val.append(group)
     return df_fixed_val
+
 
 def WoeDeviation(row):
     """
@@ -190,6 +207,7 @@ def WoeDeviation(row):
     else:
         val = -99999.
     return val
+
 
 def ModelResultSpark(df_match, score_shceme='sigmod'):
     """

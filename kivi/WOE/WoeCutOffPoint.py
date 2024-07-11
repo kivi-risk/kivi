@@ -1,5 +1,9 @@
 from .WOE import WOE, pd
 
+
+__all__ = ['CutOffPoint']
+
+
 class CutOffPoint(WOE):
     """
     自定义分箱截断点 woe iv 计算方式

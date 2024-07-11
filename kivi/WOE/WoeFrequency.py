@@ -1,4 +1,9 @@
-from .WOE import WOE, pd
+import pandas as pd
+from .WOE import WOE
+
+
+__all__ = ["Frequency"]
+
 
 class Frequency(WOE):
     """

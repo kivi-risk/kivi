@@ -1,6 +1,10 @@
 from .WOE import WOE, pd, np
 from sklearn.cluster import KMeans
 
+
+__all__ = ['KmeansBins']
+
+
 class KmeansBins(WOE):
     """
     描述：决策树分箱

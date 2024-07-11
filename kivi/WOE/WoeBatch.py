@@ -10,6 +10,18 @@ from .WoeTree import TreeBins
 
 from IPython.display import display
 
+
+__all__ = [
+    "AppendRebinWoe",
+    "Rebins",
+    "IntScore",
+    "FillBins",
+    "FillBinScore",
+    "WOEBatch",
+    "WOEBatchWithRebin",
+]
+
+
 def AppendRebinWoe(df_woe, df_rebin):
     """
     描述：为原始分箱增加其他类型分箱。
@@ -32,6 +44,7 @@ def AppendRebinWoe(df_woe, df_rebin):
     df_woe = df_woe.append(df_rebin)
     return df_woe
 
+
 def Rebins(df, col_name, bins, target_name='target', abnormal_vals=[]):
     """
     描述：指定分箱阈值进行重分箱。
@@ -49,6 +62,7 @@ def Rebins(df, col_name, bins, target_name='target', abnormal_vals=[]):
         align='mid', color=['#d65f5f', '#5fba7d'],)
     display(df_rebin_woe)
 
+
 def IntScore(score):
     """
     将数值分数按 5 取整
@@ -57,6 +71,7 @@ def IntScore(score):
     """
     basic_score = np.arange(0, 101, 5)
     return basic_score[np.argmin(np.abs(score - basic_score))]
+
 
 def FillBins(group, sort_by):
     """
@@ -92,6 +107,7 @@ def FillBins(group, sort_by):
     group.loc[index, 'woe_score_int'] = group.woe_score.apply(IntScore)
     group.loc[:, 'order'] = order
     return group.sort_values(by=sort_by)
+
 
 def FillBinScore(data, col_name, sort_by="min_bin"):
     '''
@@ -159,6 +175,7 @@ def WOEBatch(df, columns_name, target_name, WOEFun=Frequency, bins:[int, dict]=5
         return df_woe, None
     else:
         return df_woe, faulted_cols
+
 
 def WOEBatchWithRebin(
         df, target_name='target', WOEFun=TreeBins, bins_type=['单调上升','单调下降'],

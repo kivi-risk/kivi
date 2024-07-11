@@ -6,6 +6,11 @@ import pandas.core.algorithms as algos
 import scipy.stats.stats as stats
 
 
+__all__ = [
+    "Pearson"
+]
+
+
 class Pearson(WOE):
 
     def __init__(self, df, targetName='target', R=1, ForceBin=3, MaxBin=20):

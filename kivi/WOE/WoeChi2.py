@@ -3,6 +3,11 @@ from scipy.stats import chi2
 from .WOE import WOE, pd, np
 
 
+__all__ = [
+    "Chi2Merge"
+]
+
+
 def chi2_square(freq):
     """计算卡方值以检测目标类的频率在给定区间内是否存在显着差异。
     参考: "ChiMerge: DIscretization of Numerical Attributes"

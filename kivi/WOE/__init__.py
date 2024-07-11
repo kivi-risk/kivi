@@ -10,4 +10,3 @@ from .WoeChi2 import Chi2Merge
 from .WoeTree import TreeBins
 from .WoeKSMerge import KSMerge
 from .WOEKmeans import KmeansBins
-

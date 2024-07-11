@@ -1,6 +1,9 @@
+import pandas as pd
+from .WOE import WOE
 
 
-from .WOE import WOE, pd
+__all__ = ['TreeBins']
+
 
 class TreeBins(WOE):
     """

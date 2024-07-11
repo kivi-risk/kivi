@@ -1,6 +1,10 @@
-
-
+import numpy as np
+import pandas as pd
 from .WOE import WOE, pd, np
+
+
+__all__ = ['KSMerge']
+
 
 class KSMerge(WOE):
     """
