@@ -1,6 +1,9 @@
-import numpy as np
-from ..Utils.utils import pd, saveCsv
-from ..Utils.Bins import Bins
+import os
+import pandas as pd
+from pandas import DataFrame, Series
+from pandas.api.types import is_string_dtype, is_object_dtype, is_numeric_dtype
+from ..utils.utils import saveCsv
+from ..utils.Bins import Bins
 
 
 class KS(Bins):
@@ -33,18 +36,18 @@ class KS(Bins):
         total_bad = target.sum()
 
         if kwargs['category']:
-            bucket = DataFrame({
+            bucket = pd.DataFrame({
                 'variables': variables,
                 'target': target,
             }).groupby('variables', as_index=True)
         else:
-            bucket = DataFrame({
+            bucket = pd.DataFrame({
                 'variables': variables,
                 'target': target,
-                'Bucket': cut(variables, self.cutoffPoint, include_lowest=True)
+                'Bucket': pd.cut(variables, self.cutoffPoint, include_lowest=True)
             }).groupby('Bucket', as_index=True)
 
-        res = DataFrame({
+        res = pd.DataFrame({
             'min_bin': bucket.variables.min(),
             'max_bin': bucket.variables.max(),
             'bad': bucket.target.sum(),

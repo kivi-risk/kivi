@@ -1,5 +1,5 @@
-from ..Utils.utils import pd
-from ..Utils.Bins import Bins
+import pandas as pd
+from ..utils.Bins import Bins
 
 
 class CSI(Bins):

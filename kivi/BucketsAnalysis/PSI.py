@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from ..Utils.Bins import Bins
+from ..utils.Bins import Bins
 from .BucketsUtils import psi
 
 class PSI(Bins):
