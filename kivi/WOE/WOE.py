@@ -1,9 +1,12 @@
-from ..Utils import np, pd, logging
+import logging
+import numpy as np
+import pandas as pd
+
 
 logging.basicConfig(level=logging.INFO,
                     format='%(levelname)s: %(message)s')
 
-from ..Utils.utils import sameLength
+from ..utils.utils import sameLength
 
 def IntScore(score):
     """

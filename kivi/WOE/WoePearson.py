@@ -1,4 +1,5 @@
-from ..Utils import np, pd
+import numpy as np
+import pandas as pd
 from .WOE import WOE
 from tqdm import tqdm_notebook
 import pandas.core.algorithms as algos

@@ -1,9 +1,8 @@
-
-
-import numpy as np
+import logging
 import pandas as pd
 from tqdm import tqdm_notebook
-from ..Utils import logging, WarnInfo
+from ..utils import WarnInfo
+
 
 def WideToLong(df, features: list, id_name='uuid', dtype='float'):
     """

@@ -212,15 +212,15 @@ def decompose_number(
     decompose_values.append(number - total)
     random.shuffle(decompose_values)
     return decompose_values
-
-def do_work(img_path, use_gpu=False):
-    """"""
-    result = ocr.ocr(img_path)
-    return result
-
-def run_with_mp_map(items, do_work, processes=None, chunksize=1):
-    """"""
-    with Pool(processes=processes) as pool:
-        results = pool.map(do_work, items, chunksize=chunksize)
-    return results
+#
+# def do_work(img_path, use_gpu=False):
+#     """"""
+#     result = ocr.ocr(img_path)
+#     return result
+#
+# def run_with_mp_map(items, do_work, processes=None, chunksize=1):
+#     """"""
+#     with Pool(processes=processes) as pool:
+#         results = pool.map(do_work, items, chunksize=chunksize)
+#     return results
 

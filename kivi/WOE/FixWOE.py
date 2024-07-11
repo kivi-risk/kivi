@@ -1,7 +1,9 @@
+import logging
 import numpy as np
 import pandas as pd
 from pyspark.sql import functions as F
-from ..Utils import NumRange, logging, WarnInfo
+from ..utils import WarnInfo
+from ..utils.Operator import NumRange
 
 
 def SaveWOEVal(df, df_woe, columns, join_origin=['uuid', 'target'], values='woe', disp=True):
