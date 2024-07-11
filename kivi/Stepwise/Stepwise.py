@@ -1,6 +1,6 @@
 import pandas as pd
 from tqdm import tqdm
-from ..utils.Operator import StatsLogit
+from ..utils.operator import StatsLogit
 from ..ModelEval import RocAucKs
 import statsmodels.api as sm
 

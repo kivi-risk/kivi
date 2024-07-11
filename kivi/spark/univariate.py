@@ -4,7 +4,10 @@ from pyspark.ml.regression import LinearRegression
 from pyspark.ml.stat import ChiSquareTest
 
 
-class SparkUnivariate():
+__all__ = ['SparkUnivariate']
+
+
+class SparkUnivariate(object):
     """
 
     """
@@ -16,4 +19,3 @@ class SparkUnivariate():
 
     def modelRes(self, col):
         return None
-

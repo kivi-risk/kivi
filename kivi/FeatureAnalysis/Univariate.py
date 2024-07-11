@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm_notebook
 import statsmodels.api as sm
-from ..utils.Operator import Div, mode
+from ..utils.operator import Div, mode
 from ..ModelTools.Metrics import KSTest, RocAucKs, Chi2
 
 

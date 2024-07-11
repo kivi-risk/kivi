@@ -1,6 +1,6 @@
 import numpy as np
 import pandas  as pd
-from ..utils.Operator import StatsLogit, NumRange
+from ..utils.operator import StatsLogit, NumRange
 import statsmodels.api as sm
 from ..BucketsAnalysis import psi
 

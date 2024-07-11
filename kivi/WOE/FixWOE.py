@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from pyspark.sql import functions as F
 from ..utils import WarnInfo
-from ..utils.Operator import NumRange
+from ..utils.operator import NumRange
 
 
 def SaveWOEVal(df, df_woe, columns, join_origin=['uuid', 'target'], values='woe', disp=True):
