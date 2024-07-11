@@ -1,9 +1,7 @@
 from typing import Callable, Union, Optional
 import pandas as pd
 from pyspark.sql import functions as F
-from pyspark.sql.types import DoubleType, FloatType
-from pyspark.sql.dataframe import DataFrame
-from .config import *
+from pyspark.sql.types import DoubleType
 
 
 __all__ = [

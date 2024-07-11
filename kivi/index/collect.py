@@ -1,13 +1,12 @@
-from typing import List, Union, Callable, Optional
+from typing import List, Dict, Union, Callable, Optional
 from pyspark.sql import functions as F
 from pyspark.sql import SparkSession
 from pyspark.sql import DataFrame
 from pyspark.sql.types import FloatType
 from itertools import product
-from kivi.SparkSupport import InsertIntoHive
+from ..spark import insert_into_hive
 from .operator import *
 from .schema import *
-from .config import *
 from .utils import *
 from .date import *
 
@@ -27,7 +26,7 @@ class CollectIndex(LoggerMixin):
             index_fields: List[IndexField],
             spark: SparkSession,
             reset: Optional[bool] = False,
-            desc: Optional[str] = None,
+            group_mapping: Optional[Dict[str, str]] = None,
             decimal: Optional[int] = 6,
             logger: Optional[Callable] = None,
             verbose: Optional[bool] = False,
@@ -36,7 +35,7 @@ class CollectIndex(LoggerMixin):
         self.index_fields = index_fields
         self.spark = spark
         self.reset = reset
-        self.desc = desc
+        self.group_mapping = group_mapping
         self.decimal = decimal
         self.logger = logger
         self.verbose = verbose
@@ -73,7 +72,7 @@ class CollectIndex(LoggerMixin):
 
     def _save_index(self, df: DataFrame, index_field: IndexField, load_date: str, index_name: str):
         """"""
-        InsertIntoHive(
+        insert_into_hive(
             df, db_name=index_field.save_db, table_name=index_field.save_table, spark=self.spark,
             partition=['load_date', 'index_name'], partition_val=[load_date, index_name],
         )
@@ -95,7 +94,7 @@ class CollectIndex(LoggerMixin):
         start_date = get_start_and_end_date(biz_date=index_field.load_date, month=month)
         self.df_origin = self._get_data(
             df=self.df, column=index_field.columns, start_date=start_date, end_date=index_field.load_date)
-        group_col = id_level_mapping.get(id_level)
+        group_col = self.group_mapping.get(id_level)
 
         if isinstance(index_field.columns, str):
             agg_columns = [index_field.columns]
