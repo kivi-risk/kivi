@@ -1,7 +1,7 @@
 from tqdm import tqdm
 from ..spark import unpivot, insert_into_hive, get_index_partition
-from ..Utils.utils_date import date_range
-from ..Utils.Operator import operator_mapping
+from ..utils.date import date_range
+from ..spark.operator import operator_mapping
 from pyspark.sql import functions as F
 from pyspark.sql.types import *
 from ..spark import pct_rank
