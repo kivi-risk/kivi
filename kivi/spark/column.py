@@ -4,7 +4,7 @@ try:
     from pyspark.sql import DataFrame as TypeSparkDataFrame
 except ImportError:
     print("pyspark not installed, please install it first. < pip install pyspark >")
-from typing import Any, List, Dict, Optional
+from typing import Any, List, Dict
 
 
 __all__ = [

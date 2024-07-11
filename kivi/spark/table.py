@@ -12,7 +12,7 @@ from typing import List, Optional
 from tqdm import tqdm
 import pandas as pd
 from pandas import DataFrame as TypePandasDataFrame
-from ..Utils import mkdir
+from ..utils.utils import mkdir
 from .column import get_table_columns
 
 __all__ = [
