@@ -8,7 +8,7 @@ from sklearn.utils import column_or_1d, check_consistent_length
 from numpy import log
 from pandas import cut, DataFrame, merge, Series
 from pandas.api.types import is_numeric_dtype, is_object_dtype
-from ..Utils import saveCsv, Bins
+from ..utils import saveCsv, Bins
 
 
 class Calibration:
