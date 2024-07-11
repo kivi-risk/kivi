@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from ..Utils.Operator import NumRange
+from ..utils.Operator import NumRange
 
 def PDToScore(PD, base_score=300, pdo=17, log='log2'):
     """
