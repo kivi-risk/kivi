@@ -1,10 +1,10 @@
-from ..SparkSupport import unpivot, InsertIntoHive, get_part_info
+from tqdm import tqdm
+from ..spark import unpivot, insert_into_hive, get_index_partition
 from ..Utils.utils_date import date_range
-from ..Utils import tqdm_notebook, Window
 from ..Utils.Operator import operator_mapping
-
 from pyspark.sql import functions as F
 from pyspark.sql.types import *
+from ..spark import pct_rank
 
 
 __all__ = [
@@ -12,7 +12,6 @@ __all__ = [
     'features_agg',
     'batch_unpivot',
     'gen_batch_features',
-    'gen_batch_features_v1',
 ]
 
 
@@ -139,7 +138,7 @@ def batch_derivative_index(
     """
     dates = date_range(start_date, end_date)
 
-    for load_date in tqdm_notebook(dates, desc=column):
+    for load_date in tqdm(dates, desc=column):
         df_features = gen_batch_features(
             df_origin, column=column, now_date=load_date, month_range=[3, 6, 9, 12], spark=spark)
 
@@ -153,7 +152,7 @@ def batch_derivative_index(
             df_features = df_features.where(F.col('index_name') == index_name)
             if df_features.count() > 0:
                 if insert:
-                    InsertIntoHive(
+                    insert_into_hive(
                         df_features, db_name=db_name, table_name=table_name, spark=spark,
                         partition=['index_name', 'load_date'],
                         partition_val=[index_name, load_date], )
@@ -164,25 +163,6 @@ def batch_derivative_index(
         df_features.unpersist()
 
     return None
-
-
-def pct_rank(
-        df, column_name, index_name=None,
-        partitionby=['load_date', 'industry']):
-    """
-    描述：返回依据行业作为窗口的行业排名 DataFrame
-    :param df: 原始数据
-    :param column_name: 新指标名称
-    :param index_name: 原指标名称
-    :param partitionby: 窗口字段
-    :return: spark DataFrame
-    """
-    if index_name is None:
-        index_name = column_name
-    # window of industry rank
-    wind_indu = Window.partitionBy(*partitionby).orderBy(F.desc(column_name))
-    df = df.withColumn(f'rank_indu_{index_name}',F.percent_rank().over(wind_indu))
-    return df
 
 
 def index_indu_pct(db_name, table_name, spark, sqlContext, part_info=None, industry_level='l1_code', tmp_table_name='temp_table'):
@@ -201,7 +181,7 @@ def index_indu_pct(db_name, table_name, spark, sqlContext, part_info=None, indus
         'industry_l1_code','industry_l2_code','industry_l3_code','industry_l4_code',]
 
     if part_info is None:
-        part_info = get_part_info(db_name, table_name, spark)
+        part_info = get_index_partition(db_name, table_name, spark)
     else:
         pass
 
@@ -237,7 +217,7 @@ def index_indu_pct(db_name, table_name, spark, sqlContext, part_info=None, indus
 
                 # return df_index,Load_date,pct_col,db_name,table_name
                 df_index = df_index.select('uuid', F.col(pct_col).alias('index_val'))
-                InsertIntoHive(
+                insert_into_hive(
                     df_index, db_name, table_name, spark=spark,
                     partition=['load_date', 'index_name'],
                     partition_val=[load_date, pct_col])
