@@ -2,16 +2,9 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm_notebook
 import statsmodels.api as sm
-import warnings
-warnings.filterwarnings('ignore')
-
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.classification import LogisticRegression
-from pyspark.ml.regression import LinearRegression
-from pyspark.ml.stat import ChiSquareTest
-
-from ..Utils.Operator import Div, mode
+from ..utils.Operator import Div, mode
 from ..ModelTools.Metrics import KSTest, RocAucKs, Chi2
+
 
 def StatsMetrics(column_info, model, column_name):
     """
@@ -107,16 +100,5 @@ def StatsUnivariate(df, col_description=dict(), target_name='target'):
         'pvalue_intercept', 'param', 'pvalue_param', 'fpr', 'tpr', 'auc', 'ks',
         'chi_statistic', 'chi_pvalue']]
 
-class SparkUnivariate():
-    """
 
-    """
-    def __init__(self, df, target_name='target', na='drop'):
-        self.df = df
-
-    def describe(self, ):
-        df_res = self.df.describe()
-
-    def modelRes(self, col):
-        return None
 
