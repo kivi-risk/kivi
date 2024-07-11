@@ -1,5 +1,5 @@
 import pandas as pd
-from ..Utils import sortColumns
+from ..utils import sortColumns
 
 class AnalysisCategory:
 
