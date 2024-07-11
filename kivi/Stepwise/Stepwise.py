@@ -1,11 +1,11 @@
-
 import pandas as pd
-
-from ..Utils import tqdm_notebook, StatsLogit
+from tqdm import tqdm
+from ..utils.Operator import StatsLogit
 from ..ModelEval import RocAucKs
 import statsmodels.api as sm
 
-def param_to_weight(params):
+
+def param_to_weight(model, ret_info, params):
     """"""
     #### 拟合权重
     df_param = pd.DataFrame(model.params.drop('const'), columns=['param'])
@@ -27,6 +27,7 @@ def eval_model(df_woeval, columns, model):
     predict = model.predict(df_endog)
     metrics = RocAucKs(df_woeval.target, predict)
     return metrics
+
 
 def eval_model_train_oot(
         df_woeval_train, df_woeval_oot,
@@ -84,7 +85,7 @@ def one_step(model_features, columns, disp=False):
     model_metrics = []
     ret = ['model', 'df_param', 'ks_train', 'auc_train', 'ks_oot', 'auc_oot']
 
-    for col in tqdm_notebook(columns):
+    for col in tqdm(columns):
         if col not in model_features:
             try:
                 model_features_new = model_features + [col]
