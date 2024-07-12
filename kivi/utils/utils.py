@@ -16,7 +16,6 @@ __all__ = [
     'getFolders',
     'saveCsv',
     'sortColumns',
-    'sameLength',
     'mkdir',
     'Pk',
     'Json',
@@ -65,6 +64,7 @@ def getFolders(path):
             Folders.append(folder)
     return Folders
 
+
 def saveCsv(df, csvName):
     """
 
@@ -100,17 +100,6 @@ def sortColumns(dfCount) -> list:
         newCols += item
     return newCols
 
-def sameLength(*args):
-    """
-    描述：
-
-    参数：
-    """
-    length = [len(item) for item in args]
-    if len(set(length)) == 1:
-        return True
-    else:
-        Exception(ValueError, 'args must be same length!')
 
 def mkdir(filename):
     """
