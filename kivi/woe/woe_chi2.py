@@ -1,10 +1,14 @@
 import inspect
+import numpy as np
+import pandas as pd
 from scipy.stats import chi2
-from .WOE import WOEMixin, pd, np
+from pandas import DataFrame, Series
+from typing import Any, List, Union, Optional
+from .base import WOEMixin
 
 
 __all__ = [
-    "Chi2Merge"
+    "Chi2Bins"
 ]
 
 
@@ -41,8 +45,7 @@ def BinsChiTest(m, pt_value, pt_column, pt_index):
 
 
 def pivot_table(index, column):
-    """
-    """
+    """ """
     df_pivot = pd.DataFrame(np.vstack([index, column]).T, columns=['index', 'column'])
     df_pivot['cnt'] = 1
 
@@ -98,7 +101,7 @@ def assign_interval_unique(x, boundaries):
 
 
 def chi_merge_vector(x, y, m=2, confidence_level=0.9, max_intervals=None,
-                     min_intervals=2, initial_intervals=100):
+                     min_intervals=2, initial_intervals=100) -> List[Union[int, float]]:
     """合并相似的相邻 m 个区间，直到所有相邻区间彼此显着不同。
 
     Parameters
@@ -196,15 +199,31 @@ def chi_merge_vector(x, y, m=2, confidence_level=0.9, max_intervals=None,
         # 对每对 m 个相邻区间执行卡方检验，使用第 i 个区间的索引作为区间对的索引
         adjacent_index, chi2_array = BinsChiTest(m, pt_value, pt_column, pt_index)
 
-    return unique_intervals[:, 1]
+    return unique_intervals[:, 1].tolist()
 
-class Chi2Merge(WOEMixin):
-    """
-    描述：
-    """
-    def __init__(self, variables, target, init_bins=10, min_bins=3, max_bins=5, m=2, abnormal_vals=[], fill_bin=True, confidence_level=0.9):
+
+class Chi2Bins(WOEMixin):
+    """ chi2 分箱 """
+    bins: Optional[Union[int, List[Union[int, float]]]]
+
+    def __init__(
+            self,
+            variables: Series,
+            target: Series,
+            init_bins: Optional[int] = 10,
+            min_bins: Optional[int] = 3,
+            max_bins: Optional[int] = 5,
+            m: Optional[int] = 2,
+            abnormal_vals: Optional[List[Union[str, int, float]]] = None,
+            fill_bin: Optional[bool] = True,
+            confidence_level: Optional[float] = 0.9,
+            decimal: Optional[int] = 6,
+            weight: Optional[Any] = None,
+            *args: Any,
+            **kwargs: Any,
+    ):
         """
-        描述：Chi2Merge 分箱
+        描述：Chi2Bins 分箱
 
         :param variables: 待分箱变量
         :param target: 目标标签变量
@@ -216,41 +235,50 @@ class Chi2Merge(WOEMixin):
         :param fill_bin: 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_bin 为 True ，为该分箱填充 0.5。
         :param confidence_level: 卡方检验置信度
 
-        示例：
-        >>> woe = Chi2Merge(variables, target)
-        >>> woe.fit()
+        Example:
+            woe = Chi2Bins(variables, target)
+            woe.fit()
         """
-        self.m = m
+        self.variables = variables
+        self.target = target
         self.init_bins = init_bins
         self.min_bins = min_bins
         self.max_bins = max_bins
+        self.m = m
+        self.abnormal_vals = abnormal_vals
+        self.fill_bin = fill_bin
         self.confidence_level = confidence_level
-        self.data_init(variables, target, fill_bin=fill_bin, abnormal_vals=abnormal_vals)
+        self.decimal = decimal
+        self.args = args
+        self.kwargs = kwargs
+        self.data_prepare(
+            variables=variables, target=target, weight=weight)
 
-    def fit(self, score=True, origin_border=False, order=True):
+    def fit(
+            self,
+            score: Optional[bool] = True,
+            origin_border: Optional[bool] = False,
+            order: Optional[bool] = True,
+            **kwargs: Any,
+    ) -> DataFrame:
         """
         :param score: 是否增加 WOEMixin score。
         :param origin_border: 是否增加 分箱中的最大值与最小值。
         :param order: 是否增加单调性判断。
         :return: DataFrame WOEMixin result.
         """
-
-        self.cutoffpoint = chi_merge_vector(
+        self.bins = chi_merge_vector(
             self.variables.to_numpy(), self.target.to_numpy(), m=self.m,
             confidence_level=self.confidence_level, max_intervals=self.max_bins,
             min_intervals=self.min_bins, initial_intervals=self.init_bins,)
-
-        self.cutoffpoint = self.cutoffpoint.tolist()
-        self.cutoffpoint.insert(0, -np.inf)
-
-        value_cut, self.fix_cutoffpoint = pd.cut(
-            self.variables, self.cutoffpoint, include_lowest=True, retbins=True)
-
-        Bucket = pd.DataFrame({
+        self.bins = self.bins
+        self.bins.insert(0, -np.inf)
+        _bucket, _bins = pd.cut(
+            self.variables, self.bins, include_lowest=True, retbins=True, duplicates="drop")
+        bucket = pd.DataFrame({
             'variables': self.variables,
             'target': self.target,
-            'bucket': value_cut,
-        }).groupby('bucket', as_index=True)
-
-        self.cal_woe_iv(Bucket, score=score, origin_border=origin_border, order=order)
-        return self.res
+            'bucket': _bucket,
+        }).groupby('bucket', as_index=True, observed=False)
+        self.cal_woe_iv(bucket, score=score, origin_border=origin_border, order=order)
+        return self.woe

@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm_notebook
 
-from .WoeCategory import Category
-from .WoeCutOffPoint import CutOffPoint
-from .WoeFrequency import Frequency
-from .WoeChi2 import Chi2Merge
-from .WoeTree import TreeBins
+from .woe_category import CategoryBins
+from .woe_manually import ManuallyBins
+from .woe_frequency import FrequencyBins
+from .woe_chi2 import Chi2Bins
+from .woe_tree import TreeBins
 
 from IPython.display import display
 
@@ -55,7 +55,7 @@ def Rebins(df, col_name, bins, target_name='target', abnormal_vals=[]):
     :return:
     """
     target, x = df[target_name], df[col_name]
-    cut = CutOffPoint(x, target, cutoffpoint=bins, fill_bin=True, abnormal_vals=abnormal_vals)
+    cut = ManuallyBins(x, target, cutoffpoint=bins, fill_bin=True, abnormal_vals=abnormal_vals)
     df_rebin_woe = cut.fit()
     df_rebin_woe = df_rebin_woe.style.bar(
         subset=['bad_rate', 'woe', 'score'],
@@ -127,7 +127,7 @@ def FillBinScore(data, col_name, sort_by="min_bin"):
     return df_new_woe
 
 
-def WOEBatch(df, columns_name, target_name, WOEFun=Frequency, bins:[int, dict]=5, abnormal_vals=[], **kwargs):
+def WOEBatch(df, columns_name, target_name, WOEFun=FrequencyBins, bins:[int, dict]=5, abnormal_vals=[], **kwargs):
     """
     描述：批量计算WOE IV值
 
@@ -150,13 +150,13 @@ def WOEBatch(df, columns_name, target_name, WOEFun=Frequency, bins:[int, dict]=5
     woes = []
     for col_name in tqdm_notebook(columns_name, desc='计算WOE'):
         try:
-            if WOEFun == Category:
+            if WOEFun == CategoryBins:
                 woe = WOEFun(df[col_name], df[target_name], abnormal_vals=abnormal_vals)
-            elif WOEFun == CutOffPoint:
+            elif WOEFun == ManuallyBins:
                 woe = WOEFun(df[col_name], df[target_name], cutoffpoint=bins.get(col_name), fill_bin=True, abnormal_vals=abnormal_vals)
-            elif WOEFun in [TreeBins, Frequency]:
+            elif WOEFun in [TreeBins, ManuallyBins]:
                 woe = WOEFun(df[col_name], df[target_name], bins=bins, fill_bin=True, abnormal_vals=abnormal_vals, **kwargs)
-            elif WOEFun in [Chi2Merge]:
+            elif WOEFun in [Chi2Bins]:
                 woe = WOEFun(df[col_name], df[target_name], fill_bin=True, init_bins=20, min_bins=2, max_bins=bins, abnormal_vals=abnormal_vals)
             else:
                 Exception(ValueError, 'Bin Type Error!')
