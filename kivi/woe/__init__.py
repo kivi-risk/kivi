@@ -5,7 +5,7 @@ from .woe_frequency import *
 from .woe_distance import *
 from .woe_category import *
 from .woe_manually import *
-from .WoePearson import *
+from .woe_pearson import *
 from .WoeChi2 import *
 from .woe_tree import *
 from .WoeKSMerge import *
