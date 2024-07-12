@@ -3,9 +3,9 @@ try:
 except ImportError:
     raise ImportError("Please install scikit-learn to use this module. pip install scikit-learn")
 import pandas as pd
-from pandas import DataFrame
-from typing import Any, List, Optional
-from .WOE import WOEMixin
+from pandas import Series, DataFrame
+from typing import Any, List, Union, Optional
+from .base import WOEMixin
 
 
 __all__ = ['TreeBins']
@@ -17,8 +17,15 @@ class TreeBins(WOEMixin):
 
     def __init__(
             self,
+            variables: Series,
+            target: Series,
             bins: Optional[int] = 5,
+            fill_bin: Optional[bool] = True,
+            var_name: Optional[str] = None,
+            abnormal_vals: Optional[List[Union[str, int, float]]] = None,
+            weight: Optional[Any] = None,
             dtc_weight: Optional[Any] = None,
+            decimal: Optional[int] = 6,
             *args: Any,
             **kwargs: Any,
     ):
@@ -35,10 +42,19 @@ class TreeBins(WOEMixin):
             woe = TreeBins(variables, target, bins=5, fill_bin=True)
             woe.fit()
         """
-        super().__init__(*args, **kwargs)
+        self.variables = variables
+        self.target = target
         self.bins = bins
         self.max_leaf_nodes = bins
+        self.fill_bin = fill_bin
+        self.abnormal_vals = abnormal_vals
         self.dtc_weight = dtc_weight
+        self.decimal = decimal
+        self.args = args
+        self.kwargs = kwargs
+        self.data_prepare(
+            variables=variables, target=target,
+            weight=weight, var_name=var_name)
 
     def tree_cutoff_point(self, ):
         """ """
@@ -54,7 +70,8 @@ class TreeBins(WOEMixin):
             self,
             score: Optional[bool] = True,
             origin_border: Optional[bool] = False,
-            order: Optional[bool] = True
+            order: Optional[bool] = True,
+            **kwargs: Any,
     ) -> DataFrame:
         """
 

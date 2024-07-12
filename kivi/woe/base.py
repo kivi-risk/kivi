@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
+from pandas.core.groupby.generic import DataFrameGroupBy
 from typing import Any, List, Union, Optional, Sequence
 from ..utils.logger import LoggerMixin
 from .utils import *
@@ -23,6 +24,7 @@ class WOEMixin(LoggerMixin):
     woe_columns: List[str] = [
         'var_name', 'missing_rate', 'min_bin', 'max_bin', 'total',
         'bad', 'bad_rate', 'woe', 'iv', 'iv_value', ]
+    decimal: Optional[int] = 6
 
     def _init__(
             self,
@@ -58,9 +60,13 @@ class WOEMixin(LoggerMixin):
         self._basic_count(target, weight)
         self._data_prepare(variables, target, weight)
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> DataFrame:
         """"""
-        return None
+        return self.fit()
+
+    def fit(self) -> DataFrame:
+        """"""
+        return DataFrame()
 
     def _get_var_name(self, var_name: Optional[str] = None) -> None:
         """"""
@@ -98,7 +104,7 @@ class WOEMixin(LoggerMixin):
         if pd.api.types.is_number(df.variables):
             df = df[~np.isinf(df.variables)]
 
-        if len(self.abnormal_vals) > 0:
+        if self.abnormal_vals:
             condition_abnormal = df.variables.isin(self.abnormal_vals)
             self.df_abnormal_data = df[condition_abnormal]
             self.df_missing_data = df[df.variables.isna() & ~condition_abnormal]
@@ -110,6 +116,21 @@ class WOEMixin(LoggerMixin):
 
         if weight:
             self.weight = self.df_data.weight
+        else:
+            self.weight = None
+
+    def data_prepare(
+            self,
+            variables: Optional[Series],
+            target: Optional[Series],
+            weight: Optional[Series] = None,
+            var_name: Optional[str] = None,
+    ):
+        """"""
+        self._get_var_name(var_name)
+        self._validate_data_length(variables, target)
+        self._basic_count(target, weight)
+        self._data_prepare(variables, target, weight)
 
     def _basic_count(self, target: Optional[Series], weight: Optional[Series] = None):
         """ basic count """
@@ -244,28 +265,31 @@ class WOEMixin(LoggerMixin):
         依据结果表，计算woe
             如果存在 fill_bin==True, 则需要对分箱中未包含 1 标签的情况下，全部 1 标签数量自增 0.5
         """
-        if self.fill_bin and (0 in woe.bad.tolist()):
-            woe.bad = woe.bad + 0.5
-        elif self.fill_bin and (0 in woe.good.tolist()):
-            woe.good = woe.good + 0.5
-        woe['bad_rate'] = woe['bad'] / woe['total']
-        woe['bad_attr'] = woe['bad'] / self.bad
-        woe['good_attr'] = woe['good'] / self.good
-        woe['woe'] = np.log(woe['bad_attr'] / woe['good_attr'])
-        woe['iv'] = (woe['bad_attr'] - woe['good_attr']) * woe['woe']
-        woe = woe.sort_values(by='min_bin').reset_index(drop=True)
+        if woe.empty:
+            return woe
+        else:
+            if self.fill_bin and (0 in woe.bad.tolist()):
+                woe.bad = woe.bad + 0.5
+            elif self.fill_bin and (0 in woe.good.tolist()):
+                woe.good = woe.good + 0.5
+            woe['bad_rate'] = woe['bad'] / woe['total']
+            woe['bad_attr'] = woe['bad'] / self.bad
+            woe['good_attr'] = woe['good'] / self.good
+            woe['woe'] = np.log(woe['bad_attr'] / woe['good_attr'])
+            woe['iv'] = (woe['bad_attr'] - woe['good_attr']) * woe['woe']
+            woe = woe.sort_values(by='min_bin').reset_index(drop=True)
 
-        if isinstance(bucket_type, int):
-            woe["bucket_type"] = bucket_type
-        if reset_boundary:
-            woe = self._reset_woe_boundary(woe)
+            if isinstance(bucket_type, int):
+                woe["bucket_type"] = bucket_type
+            if reset_boundary:
+                woe = self._reset_woe_boundary(woe)
         return woe
 
     def _add_order(self, order: Optional[bool] = True) -> None:
         """"""
         if order:
             self.woe_columns.append('order')
-            self.woe['order'] = monotony(self.woe_abnormal.woe)
+            self.woe['order'] = monotony(self.woe_normal.woe)
 
     def _add_score(self, score: Optional[bool] = True) -> None:
         """"""
@@ -293,9 +317,21 @@ class WOEMixin(LoggerMixin):
         woe['max_bin'] = right
         return woe
 
+    def _merge_woe(self, *args: DataFrame) -> DataFrame:
+        """"""
+        woes = [woe for woe in args if not woe.empty]
+        return pd.concat(woes, axis=0)
+
+    def _value_decimal(self, woe: DataFrame) -> DataFrame:
+        """"""
+        decimal_columns = ["bad_rate", "woe", "iv", "iv_value"]
+        for col in decimal_columns:
+             woe[col] = woe[col].round(self.decimal)
+        return woe
+
     def cal_woe_iv(
             self,
-            bucket: Optional[Series],
+            bucket: Optional[Union[Series, DataFrameGroupBy]],
             score: Optional[bool] = True,
             origin_border: Optional[bool] = False,
             order: Optional[bool] = True
@@ -318,7 +354,7 @@ class WOEMixin(LoggerMixin):
         self.woe_missing = self.calculate_woe(self.woe_missing, bucket_type=1)
         self.woe_abnormal = self.calculate_woe(self.woe_abnormal, bucket_type=2)
 
-        self.woe = pd.concat([self.woe_normal, self.woe_abnormal, self.woe_missing], axis=0)
+        self.woe = self._merge_woe(self.woe_normal, self.woe_abnormal, self.woe_missing)
         self.woe['iv_value'] = self.woe.iv[~np.isinf(self.woe.iv)].sum()
         self.woe['missing_rate'] = 1 - (self.woe_normal.total.sum() / self.sample_length)
         self.woe['var_name'] = self.var_name
@@ -327,4 +363,5 @@ class WOEMixin(LoggerMixin):
         self._add_order(order)
         self._add_score(score)
         self._add_origin_border(origin_border)
+        self.woe = self._value_decimal(self.woe)
         self.woe = self.woe[self.woe_columns]
