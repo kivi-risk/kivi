@@ -4,7 +4,7 @@ from .WoeBatch import *
 from .woe_frequency import *
 from .woe_distance import *
 from .woe_category import *
-from .woe_cutoff_point import *
+from .woe_manually import *
 from .WoePearson import *
 from .WoeChi2 import *
 from .woe_tree import *
