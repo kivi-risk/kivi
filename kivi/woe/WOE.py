@@ -12,7 +12,7 @@ __all__ = [
 
 
 class WOEMixin(LoggerMixin):
-    """WOE Mixin"""
+    """woe Mixin"""
     df_data: DataFrame
     df_missing_data: DataFrame
     df_abnormal_data: DataFrame
@@ -304,7 +304,7 @@ class WOEMixin(LoggerMixin):
         描述：计算 woe 结果。
 
         :param bucket:
-        :param score: 是否增加 WOE score。
+        :param score: 是否增加 woe score。
         :param origin_border: 是否增加 分箱中的最大值与最小值。
         :param order: 是否按照 min_bin 排序。
         :return: DataFrame
