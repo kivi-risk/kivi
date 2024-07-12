@@ -310,12 +310,16 @@ class WOEMixin(LoggerMixin):
         woe['max_bin_val'] = woe['max_bin']
 
         right = woe.max_bin.tolist()
-        right[-1] = np.inf
-        left = [-np.inf] + right[: -1]
-
-        woe['min_bin'] = left
-        woe['max_bin'] = right
-        return woe
+        if isinstance(right[0], str):
+            return woe
+        elif isinstance(right[0], float):
+            right[-1] = np.inf
+            left = [-np.inf] + right[: -1]
+            woe['min_bin'] = left
+            woe['max_bin'] = right
+            return woe
+        else:
+            raise ValueError("min_bin or max_bin is not str or float")
 
     def _merge_woe(self, *args: DataFrame) -> DataFrame:
         """"""
