@@ -1,11 +1,11 @@
-from .WOE import WOE, pd, np
+from .WOE import WOEMixin, pd, np
 from sklearn.cluster import KMeans
 
 
 __all__ = ['KmeansBins']
 
 
-class KmeansBins(WOE):
+class KmeansBins(WOEMixin):
     """
     描述：决策树分箱
     """
@@ -42,10 +42,10 @@ class KmeansBins(WOE):
     def fit(self, score=True, origin_border=False, order=True):
         """
 
-        :param score: 是否增加 WOE score。
+        :param score: 是否增加 WOEMixin score。
         :param origin_border: 是否增加 分箱中的最大值与最小值。
         :param order: 是否增加单调性判断。
-        :return: DataFrame WOE result.
+        :return: DataFrame WOEMixin result.
         """
         self.GetCutoffpoint()
 
@@ -56,9 +56,9 @@ class KmeansBins(WOE):
         Bucket = pd.DataFrame({
             'variables': self.variables,
             'target': self.target,
-            'Bucket': value_cut,
-        }).groupby('Bucket', as_index=True)
+            'bucket': value_cut,
+        }).groupby('bucket', as_index=True)
 
-        self.woe_iv_res(Bucket, score=score, origin_border=origin_border, order=order)
+        self.cal_woe_iv(Bucket, score=score, origin_border=origin_border, order=order)
         return self.res
 

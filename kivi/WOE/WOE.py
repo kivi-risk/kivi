@@ -1,65 +1,40 @@
-import logging
 import numpy as np
 import pandas as pd
-from ..utils.utils import sameLength
-
-
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+from pandas import Series, DataFrame
+from typing import Any, List, Union, Optional, Sequence
+from ..utils.logger import LoggerMixin
+from .utils import *
 
 
 __all__ = [
-    "IntScore",
-    "DetecMonotony",
-    "Montony",
-    "WOE",
+    "WOEMixin",
 ]
 
 
-def IntScore(score):
-    """
-    将数值分数按 5 取整
-    :param score: 浮点型分数
-    :return: 按 5 取整分数
-    """
-    basic_score = np.arange(0, 101, 5)
-    return basic_score[np.argmin(np.abs(score - basic_score))]
+class WOEMixin(LoggerMixin):
+    """WOE Mixin"""
+    df_data: DataFrame
+    df_missing_data: DataFrame
+    df_abnormal_data: DataFrame
+    woe: DataFrame
+    woe_normal: DataFrame
+    woe_missing: DataFrame
+    woe_abnormal: DataFrame
+    woe_columns: List[str] = [
+        'var_name', 'missing_rate', 'min_bin', 'max_bin', 'total',
+        'bad', 'bad_rate', 'woe', 'iv', 'iv_value', ]
 
-
-def DetecMonotony(trend_mask):
-    """"""
-    if all(trend_mask):
-        return '单调上升'
-    elif not any(trend_mask):
-        return '单调下降'
-    else:
-        return None
-
-
-def Montony(values: pd.Series):
-    """"""
-    diff = values.diff().dropna()
-    if len(diff) > 0:
-        trend_mask = (diff >= 0).tolist()
-        trend = DetecMonotony(trend_mask)
-        if trend:
-            return trend
-        else:
-            for mask_id in range(len(trend_mask)):
-                top_trend = DetecMonotony(trend_mask[: mask_id])
-                end_trend = DetecMonotony(trend_mask[mask_id: ])
-                if all([top_trend, end_trend]):
-                    trend = f'{top_trend[2:]}{end_trend[2:]}'
-                    return trend
-            return '未知'
-    else:
-        return '数据不足'
-
-
-class WOE:
-    """
-    WOE Object 为全部 WOE 的基础类函数，其方法被全部其他分箱方式调用
-    """
-    def data_init(self, variables, target, var_name=None, fill_bin=True, abnormal_vals=[], all_feature=False, weight=None):
+    def _init__(
+            self,
+            variables: Series,
+            target: Series,
+            var_name: Optional[str] = None,
+            fill_bin: Optional[bool] = True,
+            abnormal_vals: Optional[List[Union[str, int, float]]] = Any,
+            weight: Optional[Any] = None,
+            *args: Any,
+            **kwargs: Any,
+    ):
         """
         初始化
         :param variables: 待分箱变量
@@ -68,128 +43,132 @@ class WOE:
         :param var_name: 变量名称
         :param fill_bin: 是否在分箱中未包含 1 标签的情况下，全部 1 标签数量自增 1 默认为 False
         :param abnormal_vals: 特殊值分箱，在变量存在特殊值时单独分一箱，如 -1111, -9999。
-        :param all_feature: 是否为全变量模式进行分箱，为 Pearson 分箱设计，默认为 False。
         :param weight: 样本权重。
         """
+        self.variables = variables
+        self.target = target
         self.fill_bin = fill_bin
-        self.abnormal_vals=abnormal_vals
+        self.abnormal_vals = abnormal_vals
+        self.args = args
+        self.kwargs = kwargs
 
-        # 是否存在变量的名称，存在使用原名，不存在使用变量 var_name
-        if hasattr(variables, 'name'):
-            self.var_name = variables.name
+        self._get_var_name(var_name)
+        self._validate_data_length(variables, target)
+
+        self._basic_count(target, weight)
+        self._data_prepare(variables, target, weight)
+
+    def __call__(self, *args, **kwargs):
+        """"""
+        return None
+
+    def _get_var_name(self, var_name: Optional[str] = None) -> None:
+        """"""
+        if hasattr(self.variables, 'name'):
+            self.var_name = self.variables.name
         else:
             self.var_name = var_name
-        # 非全变量模式
-        if not all_feature:
-            # 检查变量与标签是否为同一长度
-            if sameLength(variables, target):
-                Exception(ValueError, 'variable and target must be the same length!')
-            # 变量名称、分箱数、基础计数
-            self.name = variables.name
 
-            self._basic_count(target, weight)
-            self.justMiss, notMiss, self.abnormal = self.findMissData(variables, target, weight)
-
-            # 拆分字段中的空箱与数值
-            self.variables = notMiss.variables
-            self.target = notMiss.target
-
-            if weight is None:
-                self.weight = None
-            else:
-                self.weight = notMiss.weight
-
-    def findMissData(self, variables, target, weight=None):
+    def _validate_data_length(self, *args) -> None:
         """
-        拆分空值数据与非空值数据
-        :param variables: 分箱变量
-        :param taget: 标签
+        检查数据长度是否一致
+        :param args: 待检查数据
+        """
+        length = [len(item) for item in args]
+        if len(set(length)) == 1:
+            pass
+        else:
+            raise ValueError('Variable and target must be the same length!')
+
+    def _data_prepare(
+            self,
+            variables: Series,
+            target: Series,
+            weight: Optional[Any] = None
+    ) -> None:
+        """
+        prepare data: 1. missing data; 2. abnormal data; 3. normal data
         """
         if weight is None:
             df = pd.DataFrame({"variables": variables, "target": target})
         else:
             df = pd.DataFrame({"variables": variables, "target": target, 'weight': weight})
 
-        # 如果变量为数值型变量，则检查是否存在正负无穷的数值，即是否存在 infinite，
-        # 一般在此处去除 infinite 的数据
+        # drop infinite values
         if pd.api.types.is_number(df.variables):
-            df = df[-np.isinf(df.variables)]
+            df = df[~np.isinf(df.variables)]
 
-        # 异常值、空值、正常值分离
         if len(self.abnormal_vals) > 0:
-            cond_abnormal = df.variables.isin(self.abnormal_vals)
-            abnormal = df[cond_abnormal]
-            justMiss = df[df.variables.isna() & ~cond_abnormal]
-            notMiss = df[df.variables.notna() & ~cond_abnormal]
+            condition_abnormal = df.variables.isin(self.abnormal_vals)
+            self.df_abnormal_data = df[condition_abnormal]
+            self.df_missing_data = df[df.variables.isna() & ~condition_abnormal]
+            self.df_data = df[df.variables.notna() & ~condition_abnormal]
         else:
-            abnormal = pd.DataFrame()
-            justMiss = df[df.variables.isna()]
-            notMiss = df[df.variables.notna()]
-        # 返回纯空值数据，非空值数据
-        return justMiss, notMiss, abnormal
+            self.df_abnormal_data = pd.DataFrame()
+            self.df_missing_data = df[df.variables.isna()]
+            self.df_data = df[df.variables.notna()]
 
-    def _basic_count(self, target, weight=None):
-        """
-        基础统计方法
-        :param target: 标签列
-        :return: None
-        """
-        # 样本长度
-        self.sampleLength = len(target)
+        if weight:
+            self.weight = self.df_data.weight
+
+    def _basic_count(self, target: Optional[Series], weight: Optional[Series] = None):
+        """ basic count """
+        self.sample_length = len(target)
 
         if weight is None:
-            # 样本量、bad 样本量
             self.total, self.bad = target.count(), target.sum()
-            # good 样本量
             self.good = self.total - self.bad
         else:
             self.total = weight.sum()
             self.bad = weight[target == 1].sum()
             self.good = weight[target == 0].sum()
 
-    def __res(self, Bucket, ):
-        """
-        基本结果表
-        :param Bucket: class groupby
-        :return: None
-        """
-        # 非空分箱的结果表
-        self.res = pd.DataFrame({
-            # min_bin, max_bin 调整为分箱的临界值，而非子分箱的最大最小值
-            'min_bin': Bucket.variables.min(),
-            'max_bin': Bucket.variables.max(),
-            'bad': Bucket.target.sum(),
-            'good': Bucket.target.count() - Bucket.target.sum(),
-            'total': Bucket.target.count(),
-        })
-        # 空箱
-        self.nan_res = pd.DataFrame()
-        if len(self.justMiss) != 0:
-            self.nan_res = pd.DataFrame({
+    def _bucket_stats(self, bucket: Optional[Series] = None) -> None:
+        """ 基本结果表 """
+        if len(bucket) > 0:
+            self.woe_normal = pd.DataFrame({
+                'min_bin': bucket.variables.min(),
+                'max_bin': bucket.variables.max(),
+                'bad': bucket.target.sum(),
+                'good': bucket.target.count() - bucket.target.sum(),
+                'total': bucket.target.count(),
+            })
+        else:
+            self.woe_normal = pd.DataFrame()
+
+        if len(self.df_missing_data) != 0:
+            self.woe_missing = pd.DataFrame({
                 'min_bin': [np.nan],
                 'max_bin': [np.nan],
-                "bad": self.justMiss.sum().target,
-                'good': self.justMiss.count().target - self.justMiss.sum().target,
-                'total': self.justMiss.count().target,
+                "bad": self.df_missing_data.target.sum(),
+                'good': self.df_missing_data.target.count() - self.df_missing_data.target.sum(),
+                'total': self.df_missing_data.target.count(),
             })
-        # 异常值
-        self.abnormal_res = pd.DataFrame()
-        if len(self.abnormal) != 0:
-            self.abnormal_res = self.abnormal.groupby('variables').agg({'target': ['sum', 'count']})
-            self.abnormal_res.columns = ['bad', 'total']
+        else:
+            self.woe_missing = pd.DataFrame()
 
-            self.abnormal_res['min_bin'] = self.abnormal_res.index
-            self.abnormal_res['max_bin'] = self.abnormal_res.index
-            self.abnormal_res['good'] = self.abnormal_res.total - self.abnormal_res.bad
+        if len(self.df_abnormal_data) != 0:
+            self.woe_abnormal = self.df_abnormal_data.groupby(
+                'variables').agg({'target': ['sum', 'count']})
+            self.woe_abnormal.columns = ['bad', 'total']
+            self.woe_abnormal['min_bin'] = self.woe_abnormal.index
+            self.woe_abnormal['max_bin'] = self.woe_abnormal.index
+            self.woe_abnormal['good'] = self.woe_abnormal.total - self.woe_abnormal.bad
+            self.woe_abnormal = self.woe_abnormal[[
+                'min_bin', 'max_bin', "bad", 'good', 'total',]]
+            self.woe_abnormal.reset_index(inplace=True, drop=True)
+        else:
+            self.woe_abnormal = pd.DataFrame()
 
-            self.abnormal_res = self.abnormal_res[[
-                'min_bin', 'max_bin', "bad", 'good', 'total',
-            ]]
-            self.abnormal_res.reset_index(inplace=True, drop=True)
-
-    def get_weighted_buckets(self, value_cut=None, df=None, variables=None, target=None, weight=None):
+    def get_weighted_buckets(
+            self,
+            value_cut: Optional[Sequence] = None,
+            df: Optional[DataFrame] = None,
+            variables: Optional[Series] = None,
+            target: Optional[Series] = None,
+            weight: Optional[Series] = None,
+    ):
         """获取加权分组"""
-
         if df is not None:
             variables = df.variables
             target = df.target
@@ -197,175 +176,155 @@ class WOE:
         else:
             pass
 
-        weight_good = weight.copy()
-        weight_bad = weight.copy()
-
-        weight_good[target == 1] = 0
-        weight_bad[target == 0] = 0
+        weight_good, weight_bad = weight.copy(), weight.copy()
+        weight_good[target == 1], weight_bad[target == 0] = 0, 0
 
         if value_cut is not None:
-            Bucket = pd.DataFrame({
+            bucket = pd.DataFrame({
                 'variables': variables,
                 'target': target,
                 'weight': weight,
                 'weight_good': weight_good,
                 'weight_bad': weight_bad,
-                'Bucket': value_cut,
-            }).groupby('Bucket', as_index=True)
+                'bucket': value_cut,
+            }).groupby('bucket', as_index=True)
         else:
-            Bucket = pd.DataFrame({
+            bucket = pd.DataFrame({
                 'variables': variables,
                 'target': target,
                 'weight': weight,
                 'weight_good': weight_good,
                 'weight_bad': weight_bad,
             }).groupby('variables', as_index=True)
-        return Bucket
+        return bucket
 
-    def weighted_buckets_stats(self, Bucket):
+    def _weighted_buckets_stats(self, bucket):
         """weighted good or bad"""
-        # 非空分箱的结果表
-        self.res = pd.DataFrame({
-            # min_bin, max_bin 调整为分箱的临界值，而非子分箱的最大最小值
-            'min_bin': Bucket.variables.min(),
-            'max_bin': Bucket.variables.max(),
-            'bad': Bucket.weight_bad.sum(),
-            'good': Bucket.weight_good.sum(),
-            'total': Bucket.weight.sum(),
-        })
-        # 空箱
-        self.nan_res = pd.DataFrame()
-        if len(self.justMiss) != 0:
-            self.nan_res = pd.DataFrame({
+        if len(bucket) > 0:
+            self.woe_normal = pd.DataFrame({
+                'min_bin': bucket.variables.min(),
+                'max_bin': bucket.variables.max(),
+                'bad': bucket.weight_bad.sum(),
+                'good': bucket.weight_good.sum(),
+                'total': bucket.weight.sum(),
+            })
+        else:
+            self.woe_normal = pd.DataFrame()
+
+        if len(self.df_missing_data) != 0:
+            self.woe_missing = pd.DataFrame({
                 'min_bin': [np.nan],
                 'max_bin': [np.nan],
-                "bad": self.justMiss.weight[self.justMiss.target == 1].sum(),
-                'good': self.justMiss.weight[self.justMiss.target == 0].sum(),
-                'total': self.justMiss.weight.sum(),
+                "bad": self.df_missing_data.weight[self.df_missing_data.target == 1].sum(),
+                'good': self.df_missing_data.weight[self.df_missing_data.target == 0].sum(),
+                'total': self.df_missing_data.weight.sum(),
             })
-        # 异常值
-        self.abnormal_res = pd.DataFrame()
-        if len(self.abnormal) != 0:
-            abnormal_bucket = self.get_weighted_buckets(df=self.abnormal)
+        else:
+            self.woe_missing = pd.DataFrame()
 
-            self.abnormal_res = pd.DataFrame({
+        if len(self.df_abnormal_data) != 0:
+            abnormal_bucket = self.get_weighted_buckets(df=self.df_abnormal_data)
+            self.woe_abnormal = pd.DataFrame({
                 'min_bin': abnormal_bucket.target.min().index,
                 'max_bin': abnormal_bucket.target.max().index,
                 'bad': abnormal_bucket.weight_bad.sum(),
                 'good': abnormal_bucket.weight_good.sum(),
                 'total': abnormal_bucket.weight.sum(),
             })
+        else:
+            self.woe_abnormal = pd.DataFrame()
 
-    def calculate_woe(self, res):
+    def calculate_woe(
+            self,
+            woe: DataFrame,
+            bucket_type: Optional[int] = 0,
+            reset_boundary: Optional[bool] = False
+    ) -> DataFrame:
         """
         依据结果表，计算woe
-        :param res: res 结果表
-        :return: res 结果表
+            如果存在 fill_bin==True, 则需要对分箱中未包含 1 标签的情况下，全部 1 标签数量自增 0.5
         """
-        # 如果存在 fill_bin==True, 则需要对分箱中未包含 1 标签的情况下，全部 1 标签数量自增 0.5
-        if self.fill_bin and (0 in res.bad.tolist()):
-            res.bad = res.bad + 0.5
-        elif  self.fill_bin and (0 in res.good.tolist()):
-            res.good = res.good + 0.5
-        # 每个箱中坏样本所占总样本数的比例
-        res['bad_rate'] = res['bad'] / res['total']
-        # 每个箱中坏样本所占坏样本总数的比例
-        res['badattr'] = res['bad'] / self.bad
-        # 每个箱中好样本所占好样本总数的比例
-        res['goodattr'] = res['good'] / self.good
-        # 计算每个箱体的woe值
-        res['woe'] = np.log(res['badattr'] / res['goodattr'])
-        res['iv'] = (res['badattr'] - res['goodattr']) * res['woe']
-        # 对箱体从大到小进行排序
-        res = (res.sort_values(by='min_bin')).reset_index(drop=True)
-        return res
+        if self.fill_bin and (0 in woe.bad.tolist()):
+            woe.bad = woe.bad + 0.5
+        elif self.fill_bin and (0 in woe.good.tolist()):
+            woe.good = woe.good + 0.5
+        woe['bad_rate'] = woe['bad'] / woe['total']
+        woe['bad_attr'] = woe['bad'] / self.bad
+        woe['good_attr'] = woe['good'] / self.good
+        woe['woe'] = np.log(woe['bad_attr'] / woe['good_attr'])
+        woe['iv'] = (woe['bad_attr'] - woe['good_attr']) * woe['woe']
+        woe = woe.sort_values(by='min_bin').reset_index(drop=True)
 
-    def woe_iv_res(self, Bucket, score=True, origin_border=False, order=True):
+        if isinstance(bucket_type, int):
+            woe["bucket_type"] = bucket_type
+        if reset_boundary:
+            woe = self._reset_woe_boundary(woe)
+        return woe
+
+    def _add_order(self, order: Optional[bool] = True) -> None:
+        """"""
+        if order:
+            self.woe_columns.append('order')
+            self.woe['order'] = monotony(self.woe_abnormal.woe)
+
+    def _add_score(self, score: Optional[bool] = True) -> None:
+        """"""
+        if score:
+            self.woe_columns.append('score')
+            neg_woe = - self.woe.woe
+            woe_score = (neg_woe - neg_woe.min()) * 100 / (neg_woe.max() - neg_woe.min())
+            self.woe['score'] = list(map(int_score, woe_score))
+
+    def _add_origin_border(self, origin_border: Optional[bool] = False) -> None:
+        """"""
+        if origin_border:
+            self.woe_columns.extend(['min_bin_val', 'max_bin_val'])
+
+    def _reset_woe_boundary(self, woe: DataFrame) -> DataFrame:
+        """"""
+        woe['min_bin_val'] = woe['min_bin']
+        woe['max_bin_val'] = woe['max_bin']
+
+        right = woe.max_bin.tolist()
+        right[-1] = np.inf
+        left = [-np.inf] + right[: -1]
+
+        woe['min_bin'] = left
+        woe['max_bin'] = right
+        return woe
+
+    def cal_woe_iv(
+            self,
+            bucket: Optional[Series],
+            score: Optional[bool] = True,
+            origin_border: Optional[bool] = False,
+            order: Optional[bool] = True
+    ) -> None:
         """
         描述：计算 woe 结果。
 
-        :param Bucket:
+        :param bucket:
         :param score: 是否增加 WOE score。
         :param origin_border: 是否增加 分箱中的最大值与最小值。
+        :param order: 是否按照 min_bin 排序。
         :return: DataFrame
         """
-        # 初始化 res 表
         if not hasattr(self, 'weight') or self.weight is None:
-            self.__res(Bucket=Bucket)
+            self._bucket_stats(bucket=bucket)
         else:
-            self.weighted_buckets_stats(Bucket=Bucket)
+            self._weighted_buckets_stats(bucket=bucket)
 
-        # 计算 woe 值
-        self.res = self.calculate_woe(self.res)
-        # 计算字段的缺失率
-        missing_rate = 1 - (self.res.total.sum() / self.sampleLength)
-        self.res['bin_type'] = 0
+        self.woe_normal = self.calculate_woe(self.woe_normal, bucket_type=0, reset_boundary=True)
+        self.woe_missing = self.calculate_woe(self.woe_missing, bucket_type=1)
+        self.woe_abnormal = self.calculate_woe(self.woe_abnormal, bucket_type=2)
 
-        # 如果变量存在空值
-        if len(self.justMiss) != 0:
-            # 计算空值结果表
-            self.nan_res = self.calculate_woe(self.nan_res)
-            self.nan_res['bin_type'] = 1
-            # 汇总空值与非空的值的计算结果表
-            self.res = self.res.append(self.nan_res)
+        self.woe = pd.concat([self.woe_normal, self.woe_abnormal, self.woe_missing], axis=0)
+        self.woe['iv_value'] = self.woe.iv[~np.isinf(self.woe.iv)].sum()
+        self.woe['missing_rate'] = 1 - (self.woe_normal.total.sum() / self.sample_length)
+        self.woe['var_name'] = self.var_name
+        self.woe.reset_index(drop=True, inplace=True)
 
-        # 如果变量存在异常值
-        if len(self.abnormal) != 0:
-            # 计算空值结果表
-            self.abnormal_res = self.calculate_woe(self.abnormal_res)
-            self.abnormal_res['bin_type'] = 2
-            # 汇总空值与非空的值的计算结果表
-            self.res = pd.concat([self.res, self.abnormal_res], axis=0)
-
-        # 计算分箱的 iv 值
-        self.res['iv_value'] = self.res.iv[-np.isinf(self.res.iv)].sum()
-        self.res['missing_rate'] = missing_rate
-
-        # 给定变量名称
-        self.res['var_name'] = self.var_name
-
-        # 重置结果表 index
-        self.res.reset_index(drop=True, inplace=True)
-
-        columns = [
-            'var_name', 'missing_rate', 'min_bin', 'max_bin', 'total',
-            'bad', 'bad_rate', 'woe', 'iv', 'iv_value', ]
-
-        if order:
-            columns.append('order')
-            woe_notna = self.res.loc[~self.res.min_bin.isna(), 'woe']
-            order = Montony(woe_notna)
-            self.res['order'] = order
-
-        if score:
-            columns.append('score')
-            neg_woe = - self.res.woe
-            woe_score = (neg_woe - neg_woe.min()) * 100 / (neg_woe.max() - neg_woe.min())
-            self.res['score'] = list(map(IntScore, woe_score))
-
-        try:
-
-            try:
-                self.res['min_bin'] = self.res['min_bin'].astype(float)
-                self.res['max_bin'] = self.res['max_bin'].astype(float)
-                var_type = 'float'
-            except:
-                var_type = 'object'
-
-            if var_type == 'float':
-                self.res['min_bin_val'] = self.res['min_bin']
-                self.res['max_bin_val'] = self.res['max_bin']
-
-                self.res.loc[self.res.max_bin[self.res.bin_type == 0].idxmax(), 'max_bin'] = np.inf
-                self.res.loc[(self.res.bin_type == 0), 'min_bin'] = [-np.inf] + self.res[self.res.bin_type == 0].max_bin[: -1].tolist()
-
-            if len(self.justMiss) > 0:
-                self.res.loc[(self.res.bin_type == 1), 'min_bin'] = np.nan
-                self.res.loc[(self.res.bin_type == 1), 'max_bin'] = np.nan
-
-            if origin_border:
-                columns += ['min_bin_val', 'max_bin_val']
-        except Exception as e:
-            print('kivi tips:', self.variables.name, e)
-
-        self.res = self.res[columns]
+        self._add_order(order)
+        self._add_score(score)
+        self._add_origin_border(origin_border)
+        self.woe = self.woe[self.woe_columns]

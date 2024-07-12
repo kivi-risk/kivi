@@ -1,11 +1,11 @@
 import pandas as pd
-from .WOE import WOE
+from .WOE import WOEMixin
 
 
 __all__ = ["Frequency"]
 
 
-class Frequency(WOE):
+class Frequency(WOEMixin):
     """
     等频分箱 woe iv 计算方式
     """
@@ -28,15 +28,15 @@ class Frequency(WOE):
 
     def fit(self, score=True, origin_border=False, order=True):
         """
-        :param score: 是否增加 WOE score。
+        :param score: 是否增加 WOEMixin score。
         :param origin_border: 是否增加 分箱中的最大值与最小值。
         :param order: 是否增加单调性判断。
-        :return: DataFrame WOE result.
+        :return: DataFrame WOEMixin result.
         """
         Bucket = pd.DataFrame({
             'variables': self.variables,
             'target': self.target,
-            'Bucket': pd.qcut(self.variables, self.bins, duplicates='drop')
-        }).groupby('Bucket', as_index=True)
-        self.woe_iv_res(Bucket, score=score, origin_border=origin_border, order=order)
+            'bucket': pd.qcut(self.variables, self.bins, duplicates='drop')
+        }).groupby('bucket', as_index=True)
+        self.cal_woe_iv(Bucket, score=score, origin_border=origin_border, order=order)
         return self.res

@@ -181,7 +181,7 @@ def WOEBatchWithRebin(
         df, target_name='target', WOEFun=TreeBins, bins_type=['单调上升','单调下降'],
         max_bin=5, min_bin=2, columns_name=None, drop_columns=['uuid', 'target'], **kwargs):
     """
-    描述：`WOE` 计算批量化并进行自动合并分箱。
+    描述：`WOEMixin` 计算批量化并进行自动合并分箱。
 
     参数：
     :param df: DataFrame 原始数据集。

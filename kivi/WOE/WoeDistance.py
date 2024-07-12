@@ -1,10 +1,10 @@
-from .WOE import WOE, pd
+from .WOE import WOEMixin, pd
 
 
 __all__ = ["Distance"]
 
 
-class Distance(WOE):
+class Distance(WOEMixin):
     """
 
     """
@@ -27,17 +27,17 @@ class Distance(WOE):
 
     def fit(self, score=True, origin_border=False, order=True):
         """
-        :param score: 是否增加 WOE score。
+        :param score: 是否增加 WOEMixin score。
         :param origin_border: 是否增加 分箱中的最大值与最小值。
         :param order: 是否增加单调性判断。
-        :return: DataFrame WOE result.
+        :return: DataFrame WOEMixin result.
         """
         Bucket = pd.DataFrame({
             'variables': self.variables,
             'target': self.target,
-            'Bucket': pd.cut(self.variables, self.bins, include_lowest=True, duplicates='drop')
-        }).groupby('Bucket', as_index=True)
+            'bucket': pd.cut(self.variables, self.bins, include_lowest=True, duplicates='drop')
+        }).groupby('bucket', as_index=True)
 
-        self.woe_iv_res(Bucket, score=score, origin_border=origin_border, order=order)
+        self.cal_woe_iv(Bucket, score=score, origin_border=origin_border, order=order)
         return self.res
 

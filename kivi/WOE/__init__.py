@@ -1,4 +1,4 @@
-from .WOE import WOE
+from .WOE import WOEMixin
 from .TransWOEScore import *
 from .WoeBatch import *
 from .WoeFrequency import Frequency

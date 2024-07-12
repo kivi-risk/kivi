@@ -135,7 +135,7 @@ def TransRealValToWOE(df, df_woe, features, values='woe', index='uuid'):
 
 def FixWoeBins(df_woe, drop_woe_val=False, groupby='var_name'):
     """
-    描述：修正 WOE 分箱中的大小边界。
+    描述：修正 WOEMixin 分箱中的大小边界。
     :param df_woe:
     :param drop_woe_var:
     :return:

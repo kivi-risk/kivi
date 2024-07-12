@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from .WOE import WOE
+from .WOE import WOEMixin
 from tqdm import tqdm_notebook
 import pandas.core.algorithms as algos
 import scipy.stats.stats as stats
@@ -11,7 +11,7 @@ __all__ = [
 ]
 
 
-class Pearson(WOE):
+class Pearson(WOEMixin):
 
     def __init__(self, df, targetName='target', R=1, ForceBin=3, MaxBin=20):
         """
@@ -82,7 +82,7 @@ class Pearson(WOE):
         n = self.MaxBin
         ForceBin = self.ForceBin
 
-        self.justMiss, self.notMiss, self.abnormal = self.findMissData(variables=variables, target=target)
+        self.justMiss, self.notMiss, self.abnormal = self._data_prepare(variables=variables, target=target)
 
         r = 0
 
@@ -91,8 +91,8 @@ class Pearson(WOE):
                 BucketGroup = pd.DataFrame({
                     "variables": self.notMiss.variables,
                     "target": self.notMiss.target,
-                    "Bucket": pd.qcut(self.notMiss.variables, n)
-                }).groupby('Bucket', as_index=True)
+                    "bucket": pd.qcut(self.notMiss.variables, n)
+                }).groupby('bucket', as_index=True)
 
                 r, p = stats.spearmanr(BucketGroup.mean().variables, BucketGroup.mean().target)
                 n -= 1
@@ -108,10 +108,10 @@ class Pearson(WOE):
             BucketGroup = pd.DataFrame({
                 "variables": self.notMiss.variables,
                 "target": self.notMiss.target,
-                "Bucket": pd.cut(self.notMiss.variables, np.unique(bins), include_lowest=True)
-            }).groupby('Bucket', as_index=True)
+                "bucket": pd.cut(self.notMiss.variables, np.unique(bins), include_lowest=True)
+            }).groupby('bucket', as_index=True)
 
-        self.woe_iv_res(BucketGroup, score=score, origin_border=origin_border, order=order)
+        self.cal_woe_iv(BucketGroup, score=score, origin_border=origin_border, order=order)
         return self.res
 
     def charBin(self, variables, target, score=True, origin_border=False, order=True):
@@ -121,18 +121,18 @@ class Pearson(WOE):
         :param target:
         :return:
         """
-        self.justMiss, self.notMiss, self.abnormal = self.findMissData(variables, target)
+        self.justMiss, self.notMiss, self.abnormal = self._data_prepare(variables, target)
         BucketGroup = self.notMiss.groupby('variables', as_index=True)
 
-        self.woe_iv_res(BucketGroup, score=score, origin_border=origin_border, order=order)
+        self.cal_woe_iv(BucketGroup, score=score, origin_border=origin_border, order=order)
         return self.res
 
     def fit(self, score=True, origin_border=False, order=True):
         """
-        :param score: 是否增加 WOE score。
+        :param score: 是否增加 WOEMixin score。
         :param origin_border: 是否增加 分箱中的最大值与最小值。
         :param order: 是否增加单调性判断。
-        :return: DataFrame WOE result.
+        :return: DataFrame WOEMixin result.
         """
         df = self.df.copy()
         target = df.pop(self.targetName)

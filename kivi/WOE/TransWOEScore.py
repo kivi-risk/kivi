@@ -106,7 +106,7 @@ def SaveWOEVal(df, df_woe, columns, id_name='uuid', join_origin=['uuid', 'target
     描述：两种种WOE映射值
 
     :param df: DataFrame 原始数据集。
-    :param df_woe: DataFrame WOE 分箱表。
+    :param df_woe: DataFrame WOEMixin 分箱表。
     :param columns: 需要转换的指标名称。
     :param join_origin: 保留原始数据中的字段信息，默认为样本 `uid` 以及标签 `target`。
     :param values: ['woe', 'score'] 转换的值，默认为 `woe` ;也可以是分数 `score`。
@@ -142,7 +142,7 @@ def TransToWOEVal(df, df_woe, values='woe', batch=50):
 
     参数：
     :param df: DataFrame 原始数据集。
-    :param df_woe: DataFrame WOE 分箱表。
+    :param df_woe: DataFrame WOEMixin 分箱表。
     :param values: 转换的值，默认为 `woe` ;也可以是分数 `score`。
     :param batch: 每个批次进行指标WOE分数转换的数量，默认为50。
     :return:
