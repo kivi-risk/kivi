@@ -312,7 +312,7 @@ class WOEMixin(LoggerMixin):
         right = woe.max_bin.tolist()
         if isinstance(right[0], str):
             return woe
-        elif isinstance(right[0], float):
+        elif isinstance(right[0], (float, int)):
             right[-1] = np.inf
             left = [-np.inf] + right[: -1]
             woe['min_bin'] = left

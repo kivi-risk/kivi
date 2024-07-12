@@ -9,4 +9,4 @@ from .WoePearson import *
 from .WoeChi2 import *
 from .woe_tree import *
 from .WoeKSMerge import *
-from .WOEKmeans import *
+from .woe_kmeans import *
