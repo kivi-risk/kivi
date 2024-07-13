@@ -4,7 +4,7 @@ import pandas as pd
 from scipy.stats import chi2
 from pandas import DataFrame, Series
 from typing import Any, List, Union, Optional
-from .base import WOEMixin
+from kivi.woe.base import WOEMixin
 
 
 __all__ = [

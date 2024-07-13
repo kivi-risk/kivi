@@ -5,7 +5,7 @@ except ImportError:
 import pandas as pd
 from pandas import Series, DataFrame
 from typing import Any, List, Union, Optional
-from .base import WOEMixin
+from kivi.woe.base import WOEMixin
 
 
 __all__ = ['TreeBins']

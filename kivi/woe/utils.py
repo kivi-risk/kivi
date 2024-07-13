@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from typing import Literal
 
 
 __all__ = [
@@ -7,6 +8,9 @@ __all__ = [
     "detect_monotony",
     "monotony",
 ]
+
+
+TypeOrder = Literal["上升下降	", "上升下降", "单调上升", "单调下降", "未知"]
 
 
 def int_score(score):

@@ -1,26 +1,21 @@
-import numpy as np
 import pandas as pd
 from pandas import DataFrame, Series
-from scipy.stats import spearmanr
 from typing import Any, List, Union, Optional
-from .base import WOEMixin
+from kivi.woe.base import WOEMixin
 
 
-__all__ = [
-    "PearsonBins"
-]
+__all__ = ["FrequencyBins"]
 
 
-class PearsonBins(WOEMixin):
-    bins: Optional[List[Union[float, int]]]
-
+class FrequencyBins(WOEMixin):
+    """
+    等频分箱 woe iv 计算方式
+    """
     def __init__(
             self,
             variables: Series,
             target: Series,
-            r: Optional[float] = 0.8,
-            min_bin: Optional[int] = 3,
-            max_bin: Optional[int] = 20,
+            bins: Optional[int] = 5,
             abnormal_vals: Optional[List[Union[str, int, float]]] = None,
             fill_bin: Optional[bool] = True,
             decimal: Optional[int] = 6,
@@ -29,21 +24,21 @@ class PearsonBins(WOEMixin):
             **kwargs: Any,
     ):
         """
-        描述：使用 Pearson 相关系数方法进行分箱分析。
+        描述：等频分箱分析。
 
-        :param r: 相关系数阈值
-        :param min_bin: 最小分箱数
-        :param max_bin: 最大分箱数
+        :param variables: 待分箱变量
+        :param target: 目标标签变量
+        :param bins: 决策树分箱中最大的叶子结点数量，一般对应的是最终分箱数量，默认为 5 。
+        :param abnormal_vals: 特殊值分箱，在变量存在特殊值时单独分一箱，如 -1111, -9999。
+        :param fill_bin: 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。
 
         Example:
-            woe = PearsonBins(r=1, min_bin=3, max_bin=20)
+            woe = Frequency(variables, target, bins=5, fill_bin=True)
             woe.fit()
         """
         self.variables = variables
         self.target = target
-        self.r = r
-        self.min_bin = min_bin
-        self.max_bin = max_bin
+        self.bins = bins
         self.fill_bin = fill_bin
         self.abnormal_vals = abnormal_vals
         self.decimal = decimal
@@ -51,25 +46,6 @@ class PearsonBins(WOEMixin):
         self.kwargs = kwargs
         self.data_prepare(
             variables=variables, target=target, weight=weight)
-
-    def pearson_bins(self):
-        """"""
-        n = self.max_bin
-        r = 0
-        while np.abs(r) < self.r and n >= self.min_bin:
-            try:
-                _bucket, self.bins = pd.qcut(self.df_data.variables, n, retbins=True, duplicates='drop')
-                bucket_group = pd.DataFrame({
-                    "variables": self.df_data.variables,
-                    "target": self.df_data.target,
-                    "bucket": _bucket,
-                }).groupby('bucket', as_index=True, observed=False)
-                r, p = spearmanr(bucket_group.mean().variables, bucket_group.mean().target)
-            except Exception as e:
-                self._logger(msg=f"[{__class__.__name__}] Error: {e}.", color="red")
-            n -= 1
-        self.bins[0] = -np.inf
-        self.bins[-1] = np.inf
 
     def fit(
             self,
@@ -84,9 +60,7 @@ class PearsonBins(WOEMixin):
         :param order: 是否增加单调性判断。
         :return: DataFrame WOEMixin result.
         """
-        self.pearson_bins()
-        _bucket, _bins = pd.cut(
-            self.df_data.variables, self.bins, include_lowest=True, retbins=True, duplicates='drop')
+        _bucket = pd.qcut(self.df_data.variables, self.bins, duplicates='drop')
         bucket = pd.DataFrame({
             'variables': self.df_data.variables,
             'target': self.df_data.target,

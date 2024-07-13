@@ -1,44 +1,42 @@
 import pandas as pd
 from pandas import DataFrame, Series
 from typing import Any, List, Union, Optional
-from .base import WOEMixin
+from kivi.woe.base import WOEMixin
 
 
-__all__ = ["FrequencyBins"]
+__all__ = ['ManuallyBins']
 
 
-class FrequencyBins(WOEMixin):
-    """
-    等频分箱 woe iv 计算方式
-    """
+class ManuallyBins(WOEMixin):
+    """ 自定义分箱截断点 woe iv 计算方式 """
     def __init__(
             self,
             variables: Series,
             target: Series,
-            bins: Optional[int] = 5,
+            bins: Optional[List[Union[int, float]]] = None,
             abnormal_vals: Optional[List[Union[str, int, float]]] = None,
             fill_bin: Optional[bool] = True,
             decimal: Optional[int] = 6,
             weight: Optional[Any] = None,
             *args: Any,
-            **kwargs: Any,
+            ** kwargs: Any,
     ):
         """
-        描述：等频分箱分析。
+        描述：自定义截断点进行分箱
 
         :param variables: 待分箱变量
         :param target: 目标标签变量
-        :param bins: 决策树分箱中最大的叶子结点数量，一般对应的是最终分箱数量，默认为 5 。
+        :param cutoffpoint: 分箱截断点
         :param abnormal_vals: 特殊值分箱，在变量存在特殊值时单独分一箱，如 -1111, -9999。
-        :param fill_bin: 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。
+        :param fill_bin: 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_bin 为 True ，为该分箱填充 0.5。
 
         Example:
-            woe = Frequency(variables, target, bins=5, fill_bin=True)
+            woe = CutOffPoint(variables, target, bins=5, fill_bin=True)
             woe.fit()
         """
         self.variables = variables
         self.target = target
-        self.bins = bins
+        self.cutoff_point = bins
         self.fill_bin = fill_bin
         self.abnormal_vals = abnormal_vals
         self.decimal = decimal
@@ -60,7 +58,7 @@ class FrequencyBins(WOEMixin):
         :param order: 是否增加单调性判断。
         :return: DataFrame WOEMixin result.
         """
-        _bucket = pd.qcut(self.df_data.variables, self.bins, duplicates='drop')
+        _bucket, _bins = pd.cut(self.df_data.variables, self.cutoff_point, include_lowest=True, retbins=True, duplicates='drop')
         bucket = pd.DataFrame({
             'variables': self.df_data.variables,
             'target': self.df_data.target,
