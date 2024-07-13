@@ -44,8 +44,8 @@ class KS(Bins):
             bucket = pd.DataFrame({
                 'variables': variables,
                 'target': target,
-                'Bucket': pd.cut(variables, self.cutoffPoint, include_lowest=True)
-            }).groupby('Bucket', as_index=True)
+                'bucket': pd.cut(variables, self.cutoffPoint, include_lowest=True)
+            }).groupby('bucket', as_index=True)
 
         res = pd.DataFrame({
             'min_bin': bucket.variables.min(),
@@ -147,7 +147,7 @@ class KS(Bins):
             # 分辨率
             dpi[int] = 150,
             # x 轴名称
-            x_label[str] = 'Bucket',
+            x_label[str] = 'bucket',
             # label 字体大小
             labelfontsize[int] = 10,
             # tick 字体大小
@@ -164,7 +164,7 @@ class KS(Bins):
         kwargs.setdefault('labelfontsize', 10)
         kwargs.setdefault('tickfontsize', 8)
         kwargs.setdefault('titlefontsize', 12)
-        kwargs.setdefault('x_label', 'Bucket')
+        kwargs.setdefault('x_label', 'bucket')
 
         markLineData = self.res[self.res.ks == self.ks]
 

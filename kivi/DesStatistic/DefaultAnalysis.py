@@ -51,7 +51,7 @@ class DefaultAnalysis:
         woe['center'] = (woe.max_bin + woe.min_bin) / 2
         woe['scaleCenter'] = (woe.center - woe.center.min()) / \
                              (woe.center.max() - woe.center.min())
-        woe['Bucket'] = '[' + \
+        woe['bucket'] = '[' + \
                         woe.min_bin.astype(str) + ', ' + woe.max_bin.astype(str) + ']'
         return woe
 

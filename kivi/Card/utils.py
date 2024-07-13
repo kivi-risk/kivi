@@ -1,9 +1,9 @@
-
-
-import numpy as np
-import pandas as pd
 from scipy.stats import beta
-import matplotlib.pyplot as plt
+
+
+__all__ = [
+    "BetaDistribution"
+]
 
 
 class BetaDistribution:

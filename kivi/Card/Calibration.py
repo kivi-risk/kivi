@@ -1,5 +1,3 @@
-
-
 import numpy as np
 import pandas as pd
 import logging
@@ -24,6 +22,7 @@ def get_omega(
         y_ratio = sum(now_y) / len(now_y)
     omega = (tau / (1-tau)) * ((1 - y_ratio) / y_ratio)
     return omega
+
 
 def calibration(X, coef, intercept, omega):
     """
@@ -123,16 +122,12 @@ class BetaCalibration(BetaDistribution):
         return None
 
 
-
-
 if __name__ == '__main__':
     np.random.seed(1)
     ranking = np.random.randint(0, 100, size=100)
     target = np.random.binomial(1, 0.3, size=100)
-
     bc = BetaCalibration(2.65, 2.95, 19, ranking, target, proba)
     print(bc.target_grade_rate, bc.CDF)
     # 根据 score predict_default 找截断点
     print(bc.score_to_rank(score=ranking))
-
     bc.count_default(target=target, score=ranking)

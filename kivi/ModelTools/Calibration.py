@@ -217,8 +217,8 @@ class ODDS(Bins):
         Bucket = DataFrame({
             'score': score,
             'target': target,
-            'Bucket': cut(score, cutoffPoint, )
-        }).groupby('Bucket', as_index=True)
+            'bucket': cut(score, cutoffPoint, )
+        }).groupby('bucket', as_index=True)
 
         res = DataFrame({
             'min_bin': Bucket.score.min(),

@@ -8,8 +8,8 @@ class Dataset:
     描述：返回用于示例文档的数据集。
 
     示例：
-    >>> df_bank = Dataset.BankData()
-    >>> df_crime = Dataset.CrimeData()
+    >>> df_bank = datasets.BankData()
+    >>> df_crime = datasets.CrimeData()
     """
     @staticmethod
     def BankData():
