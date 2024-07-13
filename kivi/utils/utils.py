@@ -1,14 +1,17 @@
 import os
+import sys
 import json
 import time
 import pickle
 import logging
 import random
 import pandas as pd
-from typing import *
+from typing import Any, List, Optional, Sequence
+from tqdm import tqdm, tqdm_notebook
 
 
 __all__ = [
+    "dispatch_tqdm",
     'WarnInfo',
     'getNowDate',
     'convertColToList',
@@ -20,6 +23,15 @@ __all__ = [
     'Pk',
     'Json',
 ]
+
+
+def dispatch_tqdm(items: Sequence, desc: Optional[str] = None) -> Any:
+    """"""
+    if 'ipykernel' in sys.modules:
+        pbar = tqdm_notebook(items, desc=desc)
+    else:
+        pbar = tqdm(items, desc=desc)
+    return pbar
 
 
 def WarnInfo(info, disp=True):
