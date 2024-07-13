@@ -85,11 +85,11 @@ class PearsonBins(WOEMixin):
         :return: DataFrame WOEMixin result.
         """
         self.pearson_bins()
-        _bucket, _ = pd.cut(
-            self.variables, self.bins, include_lowest=True, retbins=True, duplicates='drop')
+        _bucket, _bins = pd.cut(
+            self.df_data.variables, self.bins, include_lowest=True, retbins=True, duplicates='drop')
         bucket = pd.DataFrame({
-            'variables': self.variables,
-            'target': self.target,
+            'variables': self.df_data.variables,
+            'target': self.df_data.target,
             'bucket': _bucket,
         }).groupby('bucket', as_index=True, observed=False)
         self.cal_woe_iv(bucket, score=score, origin_border=origin_border, order=order)

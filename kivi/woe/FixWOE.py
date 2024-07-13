@@ -11,7 +11,6 @@ __all__ = [
     "WideToLong",
     "MatchWoe",
     "TransRealValToWOE",
-    "FixWoeVal",
     "WoeDeviation",
     "ModelResultSpark",
 ]
@@ -131,53 +130,6 @@ def TransRealValToWOE(df, df_woe, features, values='woe', index='uuid'):
     df_long_woe = MatchWoe(df_trans=df_long, df_woe=df_woe)
     df_woe_features = df_long_woe.pivot(index=index, columns='var_name', values=values)
     return df_woe_features
-
-
-def FixWoeBins(df_woe, drop_woe_val=False, groupby='var_name'):
-    """
-    描述：修正 WOEMixin 分箱中的大小边界。
-    :param df_woe:
-    :param drop_woe_var:
-    :return:
-    """
-    if drop_woe_val:
-        columns = df_woe.columns
-    else:
-        columns = df_woe.columns.tolist() + ['min_bin_val', 'max_bin_val']
-
-    df_woe_fix = pd.DataFrame(columns=columns)
-    for group_name, group in df_woe.groupby(groupby):
-        group = group.copy()
-        if not drop_woe_val:
-            group.loc[:, 'min_bin_val'] = group['min_bin']
-            group.loc[:, 'max_bin_val'] = group['max_bin']
-        group.loc[group.min_bin.idxmin(), 'min_bin'] = -np.inf
-        group.loc[group.max_bin.idxmax(), 'max_bin'] = np.inf
-        group.loc[1: , 'min_bin'] = group.max_bin[: -1].values
-        if group.max_bin.isna().sum() > 0:
-            group.loc[group.max_bin.isna(), 'min_bin'] = np.nan
-        df_woe_fix = df_woe_fix.append(group)
-    return df_woe_fix
-
-
-def FixWoeVal(df_woe, groupby='var_name'):
-    """
-    描述：依据WOE值，确定WOE分箱值域范围
-    :param df_woe:
-    :param groupby:
-    :return:
-    """
-    df_fixed_val = pd.DataFrame(columns=df_woe.columns.tolist() + ['min_woe_val', 'max_woe_val'])
-    for group_name, group in df_woe.groupby(groupby):
-        group = group.copy()
-        if group['corr'].values[0] == -1:
-            diff_val, method = -1, 'ffill'
-        elif group['corr'].values[0] == 1:
-            diff_val, method = 1, 'bfill'
-        group['min_woe_val'] = group.woe - (group.woe.diff(diff_val) / 2).fillna(method=method)
-        group['max_woe_val'] = group.woe + (group.woe.diff(diff_val) / 2).fillna(method=method)
-        df_fixed_val = df_fixed_val.append(group)
-    return df_fixed_val
 
 
 def WoeDeviation(row):

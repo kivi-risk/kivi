@@ -60,9 +60,9 @@ class CategoryBins(WOEMixin):
         :return: DataFrame WOEMixin result.
         """
         bucket = pd.DataFrame({
-            'variables': self.variables,
-            'target': self.target,
-            'bucket': self.variables,
+            'variables': self.df_data.variables,
+            'target': self.df_data.target,
+            'bucket': self.df_data.variables,
         }).groupby('bucket', as_index=True)
 
         self.cal_woe_iv(bucket, score=score, origin_border=origin_border, order=order)

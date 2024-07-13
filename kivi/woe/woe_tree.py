@@ -81,19 +81,15 @@ class TreeBins(WOEMixin):
         :return: DataFrame WOEMixin result.
         """
         self.tree_cutoff_point()
-
-        value_cut, self.fix_cutoffpoint = pd.cut(
-            self.variables, self.cutoff_point, include_lowest=True, retbins=True)
-
+        _bucket, _bins = pd.cut(self.df_data.variables, self.cutoff_point, include_lowest=True, retbins=True)
         if self.weight is None:
             bucket = pd.DataFrame({
-                'variables': self.variables,
-                'target': self.target,
-                'bucket': value_cut,
+                'variables': self.df_data.variables,
+                'target': self.df_data.target,
+                'bucket': _bucket,
             }).groupby('bucket', as_index=True)
         else:
             bucket = self.get_weighted_buckets(
-                value_cut=value_cut, variables=self.variables, target=self.target,
-                weight=self.weight)
+                value_cut=_bucket, variables=self.df_data.variables, target=self.df_data.target, weight=self.df_data.weight)
         self.cal_woe_iv(bucket, score=score, origin_border=origin_border, order=order)
         return self.woe

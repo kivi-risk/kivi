@@ -59,11 +59,12 @@ class DistanceBins(WOEMixin):
         :param order: 是否增加单调性判断。
         :return: DataFrame WOEMixin result.
         """
+        _bucket = pd.cut(self.df_data.variables, self.bins, include_lowest=True, duplicates='drop')
         bucket = pd.DataFrame({
-            'variables': self.variables,
-            'target': self.target,
-            'bucket': pd.cut(self.variables, self.bins, include_lowest=True, duplicates='drop')
-        }).groupby('bucket', as_index=True)
+            'variables': self.df_data.variables,
+            'target': self.df_data.target,
+            'bucket': _bucket,
+        }).groupby('bucket', as_index=True, observed=False)
         self.cal_woe_iv(bucket, score=score, origin_border=origin_border, order=order)
         return self.woe
 

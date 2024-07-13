@@ -58,12 +58,11 @@ class ManuallyBins(WOEMixin):
         :param order: 是否增加单调性判断。
         :return: DataFrame WOEMixin result.
         """
-        value_cut, self.fix_cutoffpoint = pd.cut(
-            self.variables, self.cutoff_point, include_lowest=True, retbins=True, duplicates='drop')
+        _bucket, _bins = pd.cut(self.df_data.variables, self.cutoff_point, include_lowest=True, retbins=True, duplicates='drop')
         bucket = pd.DataFrame({
-            'variables': self.variables,
-            'target': self.target,
-            'bucket': value_cut,
+            'variables': self.df_data.variables,
+            'target': self.df_data.target,
+            'bucket': _bucket,
         }).groupby('bucket', as_index=True, observed=False)
         self.cal_woe_iv(bucket, score=score, origin_border=origin_border, order=order)
         return self.woe
