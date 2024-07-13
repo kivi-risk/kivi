@@ -10,6 +10,7 @@ from typing import Any, List, Optional, Sequence
 
 
 __all__ = [
+    "batches",
     "dispatch_tqdm",
     'WarnInfo',
     'getNowDate',
@@ -22,6 +23,20 @@ __all__ = [
     'Pk',
     'Json',
 ]
+
+
+def batches(
+        lst: list,
+        batch_size: int,
+) -> List:
+    """
+    desc: 生成批次数据
+    :param lst: 原始List
+    :param batch_size: 批次大小
+    :return:
+    """
+    for i in range(0, len(lst), batch_size):
+        yield lst[i:i+batch_size]
 
 
 def dispatch_tqdm(items: Sequence, desc: Optional[str] = None) -> Any:
