@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
-from tqdm import tqdm_notebook
-
+from ..utils.utils import dispatch_tqdm
 from .woe_category import CategoryBins
 from .woe_manually import ManuallyBins
 from .woe_frequency import FrequencyBins
@@ -147,30 +146,28 @@ def WOEBatch(df, columns_name, target_name, WOEFun=FrequencyBins, bins:[int, dic
     """
     print(f'Samples shape: {df.shape}.')
     faulted_cols = []
-    woes = []
-    for col_name in tqdm_notebook(columns_name, desc='计算WOE'):
+    woe_container = []
+    for col_name in dispatch_tqdm(columns_name, desc='计算WOE'):
         try:
             if WOEFun == CategoryBins:
-                woe = WOEFun(df[col_name], df[target_name], abnormal_vals=abnormal_vals)
+                woe_fun = WOEFun(df[col_name], df[target_name], abnormal_vals=abnormal_vals)
             elif WOEFun == ManuallyBins:
-                woe = WOEFun(df[col_name], df[target_name], cutoffpoint=bins.get(col_name), fill_bin=True, abnormal_vals=abnormal_vals)
+                woe_fun = WOEFun(df[col_name], df[target_name], cutoffpoint=bins.get(col_name), fill_bin=True, abnormal_vals=abnormal_vals)
             elif WOEFun in [TreeBins, ManuallyBins]:
-                woe = WOEFun(df[col_name], df[target_name], bins=bins, fill_bin=True, abnormal_vals=abnormal_vals, **kwargs)
+                woe_fun = WOEFun(df[col_name], df[target_name], bins=bins, fill_bin=True, abnormal_vals=abnormal_vals, **kwargs)
             elif WOEFun in [Chi2Bins]:
-                woe = WOEFun(df[col_name], df[target_name], fill_bin=True, init_bins=20, min_bins=2, max_bins=bins, abnormal_vals=abnormal_vals)
+                woe_fun = WOEFun(df[col_name], df[target_name], fill_bin=True, init_bins=20, min_bins=2, max_bins=bins, abnormal_vals=abnormal_vals)
             else:
                 Exception(ValueError, 'Bin Type Error!')
-
-            woe_info = woe.fit(score=True, origin_border=False, order=True)
-
-            woes.append(woe_info)
+            woe = woe_fun.fit()
+            woe.reset_index(inplace=True)
+            woe_container.append(woe)
         except Exception as e:
             faulted_cols.append({col_name: e})
-    df_woe = pd.concat(woes, axis=0)
-    # 修正WOE分箱、边界与增加分数
-    # df_woe = FillBinScore(df_woe, col_name='var_name')
-    # df_woe = FixWoeBins(df_woe)
-
+    print(faulted_cols)
+    print(f'Faulted columns: {len(faulted_cols)}')
+    print(len(woe_container))
+    df_woe = pd.concat(woe_container, axis=0, ignore_index=True)
     if len(faulted_cols) == 0:
         return df_woe, None
     else:
@@ -193,9 +190,6 @@ def WOEBatchWithRebin(
     :param columns_name: 需要进行分箱的字段。
     :param drop_columns: 需要剔除分箱的字段。
     :return:
-
-    示例：
-    >>>
     """
     bins = max_bin
 
@@ -212,9 +206,6 @@ def WOEBatchWithRebin(
     df_woe_rebin = df_woe[~df_woe.order.isin(bins_type)].copy()
     columns_rebin = df_woe_rebin.var_name.unique().tolist()
 
-    # print(f'rebins: {df_woe_rebin.var_name.unique().tolist()}')
-    # print(f'nobins: {df_woe_monot.var_name.unique().tolist()}')
-
     print(f'bins: {bins}; columns_rebin: {len(columns_rebin)}; fault: {fault_cols}')
     df_woe_total = df_woe_monot.copy()
     fault_cols.append(fault_col)
@@ -223,13 +214,9 @@ def WOEBatchWithRebin(
     while len(columns_rebin) > 0 and bins >= min_bin:
         df_woe_new, fault_col_new = WOEBatch(
             df=df, columns_name=columns_rebin, target_name=target_name, WOEFun=WOEFun, bins=bins, **kwargs)
-
         df_woe_monot = df_woe_new[df_woe_new.order.isin(bins_type)].copy()
         df_woe_rebin = df_woe_new[~df_woe_new.order.isin(bins_type)].copy()
         columns_rebin = df_woe_rebin.var_name.unique().tolist()
-
-        # print(f'rebins: {df_woe_rebin.var_name.unique().tolist()}')
-        # print(f'nobins: {df_woe_monot.var_name.unique().tolist()}')
 
         df_woe_total = pd.concat([df_woe_total, df_woe_monot], axis=0)
         fault_cols.append(fault_col_new)

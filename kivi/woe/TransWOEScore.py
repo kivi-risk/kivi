@@ -1,7 +1,6 @@
 import logging
 import pandas as pd
-from tqdm import tqdm_notebook
-from ..utils import WarnInfo
+from ..utils import WarnInfo, dispatch_tqdm
 
 
 __all__ = [
@@ -153,7 +152,7 @@ def TransToWOEVal(df, df_woe, values='woe', batch=50):
     columns = df_woe.var_name.unique().tolist()
 
     df_woeval = pd.DataFrame()
-    for i in tqdm_notebook(range(int(len(columns) // batch) + 1), desc='woe batch'):
+    for i in dispatch_tqdm(range(int(len(columns) // batch) + 1), desc='woe batch'):
         low, up = int(i * batch), int((i + 1) * batch)
 
         batch_columns = columns[low: up]

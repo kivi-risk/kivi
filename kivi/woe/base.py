@@ -114,7 +114,7 @@ class WOEMixin(LoggerMixin):
             self.df_missing_data = df[df.variables.isna()]
             self.df_data = df[df.variables.notna()]
 
-        if weight:
+        if weight is not None:
             self.weight = self.df_data.weight
         else:
             self.weight = None
@@ -212,7 +212,7 @@ class WOEMixin(LoggerMixin):
                 'weight_good': weight_good,
                 'weight_bad': weight_bad,
                 'bucket': value_cut,
-            }).groupby('bucket', as_index=True)
+            }).groupby('bucket', as_index=True, observed=False)
         else:
             bucket = pd.DataFrame({
                 'variables': variables,
@@ -220,7 +220,7 @@ class WOEMixin(LoggerMixin):
                 'weight': weight,
                 'weight_good': weight_good,
                 'weight_bad': weight_bad,
-            }).groupby('variables', as_index=True)
+            }).groupby('variables', as_index=True, observed=False)
         return bucket
 
     def _weighted_buckets_stats(self, bucket):
@@ -372,5 +372,4 @@ class WOEMixin(LoggerMixin):
         self._add_score(score)
         self._add_origin_border(origin_border)
         self.woe = self._value_decimal(self.woe)
-        print(self.woe.columns, order, score)
         self.woe = self.woe[self.woe_columns]
