@@ -1,11 +1,16 @@
 import numpy as np
-import pandas  as pd
+import pandas as pd
 from ..utils.operator import StatsLogit, NumRange
 import statsmodels.api as sm
 from ..BucketsAnalysis import psi
 
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_auc_score, roc_curve, recall_score, precision_recall_curve
+
+
+__all__ = [
+    "RocAucKs"
+]
 
 
 def RocAucKs(true, predict, predict_binary=None):
