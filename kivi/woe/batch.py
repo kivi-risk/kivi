@@ -1,23 +1,19 @@
-import numpy as np
 import pandas as pd
-from ..utils.utils import dispatch_tqdm
-from .woe_category import CategoryBins
-from .woe_manually import ManuallyBins
-from .woe_frequency import FrequencyBins
-from .woe_chi2 import Chi2Bins
-from .woe_tree import TreeBins
-
+from pandas import DataFrame as TypePandasDataFrame
+from typing import Any, Dict, List, Tuple, Union, Callable, Optional
 from IPython.display import display
+
+from ..utils.utils import dispatch_tqdm
+from ..utils.logger import LoggerMixin
+from .woe_obj import *
 
 
 __all__ = [
     "AppendRebinWoe",
     "Rebins",
-    "IntScore",
-    "FillBins",
-    "FillBinScore",
     "WOEBatch",
-    "WOEBatchWithRebin",
+    "_WOEBatch",
+    "_WOEBatchWithRebin",
 ]
 
 
@@ -62,71 +58,124 @@ def Rebins(df, col_name, bins, target_name='target', abnormal_vals=[]):
     display(df_rebin_woe)
 
 
-def IntScore(score):
-    """
-    将数值分数按 5 取整
-    :param score: 浮点型分数
-    :return: 按 5 取整分数
-    """
-    basic_score = np.arange(0, 101, 5)
-    return basic_score[np.argmin(np.abs(score - basic_score))]
+class WOEBatch(LoggerMixin):
+    """"""
+    def __init__(
+            self,
+            df: TypePandasDataFrame,
+            bins: Optional[Union[int, Dict[str, List[Union[float, int]]]]] = 5,
+            max_bin: Optional[int] = 6,
+            min_bin: Optional[int] = 3,
+            woe_type: Optional[TypeWoe] = TreeBins,
+            woe_columns: Optional[List[str]] = None,
+            target_name: Optional[str] = "target",
+            observe_order: Optional[List[str]] = None,
+            abnormal_vals: Optional[List[Union[str, int, float]]] = None,
+            protect_columns: Optional[List[str]] = None,
+            logger: Optional[Callable] = None,
+            verbose: Optional[bool] = False,
+            *args: Any,
+            **kwargs: Any,
+    ):
+        """
+        描述：批量计算WOE IV值
+
+        参数：
+        :param df: DataFrame 原始数据集。
+        :param bins[int, dict]: [int]分箱数量，默认为5；[dict(var_name: bins)]依据截断点分箱。
+        :param max_bin: 允许最大分箱数量。
+        :param min_bin: 允许最小分箱数量。
+        :param woe_type: 分箱方法，默认为决策树分箱 `Frequency`。
+        :param woe_columns: 需要进行分箱的字段。
+        :param target_name: 标签名称，默认为 `target`。
+        :param observe_order: 保留分箱单调性，默认为 `['单调上升','单调下降']`；即对不满足条件的数据进行重分箱。
+        :param protect_columns: 需要剔除分箱的字段。
+
+        Example：
+            df_woe, faulted_cols = WOEBatch(
+                df, columns_name=df.drop('target', axis=1).columns, target_name='target')
+        """
+        self.df = df
+        self.bins = bins
+        self.max_bin = max_bin
+        self.min_bin = min_bin
+        self.woe_type = woe_type
+        self.woe_columns = woe_columns
+        self.target_name = target_name
+        self.abnormal_vals = abnormal_vals
+        self.logger = logger
+        self.verbose = verbose
+        self.args = args
+        self.kwargs = kwargs
+
+        self.woe_container = []
+        self.error_woe_columns = []
+        if protect_columns is None:
+            self.protect_columns = ["uuid", "target"]
+        if observe_order is None:
+            self.observe_order = ['单调上升', '单调下降']
+        self._get_woe_columns()
+
+    def __call__(self, *args, **kwargs):
+        """"""
+
+    def _get_woe_columns(self):
+        """"""
+        if self.woe_columns is None:
+            self.woe_columns = self.df.drop(self.protect_columns, axis=1).columns.tolist()
+
+    def _detect_observe_bins(self, df_woe: TypePandasDataFrame) -> Tuple[TypePandasDataFrame, TypePandasDataFrame, List[str]]:
+        """"""
+        df_woe_observe = df_woe[df_woe.order.isin(self.observe_order)].copy()
+        df_woe_rebin = df_woe[~df_woe.order.isin(self.observe_order)].copy()
+        rebin_columns = df_woe_rebin.var_name.unique().tolist()
+        return df_woe_observe, df_woe_rebin, rebin_columns
+
+    def woe_batch(self,) -> TypePandasDataFrame:
+        """"""
+        self._logger(msg=f"[{__class__.__name__}] WOE Batch samples shape: {self.df.shape}.\n", color="green")
+        for woe_column in dispatch_tqdm(self.woe_columns, desc=f'[{__class__.__name__}] Batch WOE'):
+            try:
+                if isinstance(self.woe_type, ManuallyBins):
+                    _bins = self.bins.get(woe_column)
+                else:
+                    _bins = self.bins
+                woe_fun = self.woe_type(
+                    variables=self.df[woe_column],
+                    target=self.df[self.target_name],
+                    abnormal_vals=self.abnormal_vals,
+                    bins=_bins,
+                    **self.kwargs
+                )
+                woe = woe_fun.fit()
+                self.woe_container.append(woe)
+            except Exception as e:
+                self._logger(msg=f"[{__class__.__name__}] {woe_column} WOE Error: {e}", color="red")
+                self.error_woe_columns.append({woe_column: e})
+        df_woe = pd.concat(self.woe_container, axis=0, ignore_index=True)
+        return df_woe
+
+    def woe_batch_with_rebin(self, ) -> TypePandasDataFrame:
+        """"""
+        df_woe = self.woe_batch()
+        df_woe_observe, df_woe_rebin, rebin_columns = self._detect_observe_bins(df_woe)
+
+        self._logger(msg=f'[{__class__.__name__}] Bins: {self.max_bin}; Success: {len(df_woe_observe)}; Rebin: {len(df_woe_rebin)}; Error: {len(self.error_woe_columns)}', color='green')
+        df_woe_total = df_woe_observe.copy()
+
+        self.max_bin -= 1
+        while len(rebin_columns) > 0 and self.max_bin >= self.min_bin:
+            df_woe = self.woe_batch()
+            df_woe_observe, df_woe_rebin, rebin_columns = self._detect_observe_bins(df_woe)
+            df_woe_total = pd.concat([df_woe_total, df_woe_observe], axis=0, ignore_index=True)
+            self._logger(
+                msg=f'[{__class__.__name__}] Bins: {self.max_bin}; Success: {len(df_woe_observe)}; Rebin: {len(df_woe_rebin)}; Error: {len(self.error_woe_columns)}', color='green')
+            self.max_bin -= 1
+        df_woe_total = pd.concat([df_woe_total, df_woe_rebin], axis=0, ignore_index=True)
+        return df_woe_total
 
 
-def FillBins(group, sort_by):
-    """
-    描述：
-
-    参数：
-    :param group:
-    :param sort_by:
-    :return:
-
-    示例：
-
-    """
-    group.loc[:, 'woe_score'], group.loc[:, 'woe_score_int'] = -1, -1
-
-    group = group.reset_index(drop=True)
-    group.sort_values(by='woe', inplace=True)
-
-    # select non inf data
-    index = (-np.isinf(group.woe)).tolist()
-    woe = group.woe[index]
-
-    # order or not order
-    diff = woe[1:] - woe[:-1]
-    if np.all(diff >= 0) or np.all(diff <= 0):
-        order = True
-    else:
-        order = False
-
-    neg_woe = -woe
-    woe_score = (neg_woe - neg_woe.min()) / (neg_woe.max() - neg_woe.min())
-    group.loc[index, 'woe_score'] = woe_score * 100
-    group.loc[index, 'woe_score_int'] = group.woe_score.apply(IntScore)
-    group.loc[:, 'order'] = order
-    return group.sort_values(by=sort_by)
-
-
-def FillBinScore(data, col_name, sort_by="min_bin"):
-    '''
-    fill woe score in bins
-    :param data: woe result
-    :param col_name: feature name
-    :return:
-    '''
-    df_new_woe = pd.DataFrame()
-    for groupName, group in data.groupby(col_name):
-        group = group.copy()
-        group = FillBins(group, sort_by)
-        if len(group) == 0:
-            df_new_woe = group
-        else:
-            df_new_woe = df_new_woe.append(group)
-    return df_new_woe
-
-
-def WOEBatch(df, columns_name, target_name, WOEFun=FrequencyBins, bins:[int, dict]=5, abnormal_vals=[], **kwargs):
+def _WOEBatch(df, columns_name, target_name, WOEFun=FrequencyBins, bins:[int, dict]=5, abnormal_vals=[], **kwargs):
     """
     描述：批量计算WOE IV值
 
@@ -174,7 +223,7 @@ def WOEBatch(df, columns_name, target_name, WOEFun=FrequencyBins, bins:[int, dic
         return df_woe, faulted_cols
 
 
-def WOEBatchWithRebin(
+def _WOEBatchWithRebin(
         df, target_name='target', WOEFun=TreeBins, bins_type=['单调上升','单调下降'],
         max_bin=5, min_bin=2, columns_name=None, drop_columns=['uuid', 'target'], **kwargs):
     """
