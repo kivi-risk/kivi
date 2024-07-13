@@ -18,3 +18,25 @@ class TestWoeBatch(unittest.TestCase):
         df_woe = batch.woe_batch()
         print(df_woe.shape)
 
+    def test_woe_batch_with_rebin(self):
+        """"""
+        batch = WOEBatch(self.df_bank, verbose=False)
+        df_woe = batch.woe_batch_with_rebin()
+        print(df_woe.shape)
+        print(df_woe)
+
+    def test_rebin_tools(self):
+        rebin_tool = ManualBinsTool(df=self.df_bank)
+        df_rebin_woe = rebin_tool.manual_rebin(column="age", bins=[-np.inf, 20, 22, 50, 70, np.inf])
+
+    def test_rebin_append(self):
+        batch = WOEBatch(self.df_bank, verbose=False)
+        df_woe = batch.woe_batch_with_rebin()
+
+        rebin_tool = ManualBinsTool(df=self.df_bank, verbose=False)
+        df_rebin_woe = rebin_tool.manual_rebin(column="age", bins=[-np.inf, 20, 22, 50, 70, np.inf])
+
+        print(df_woe[df_woe.var_name == "age"])
+        df = rebin_tool.append_rebin_woe(df_woe=df_woe, df_rebin=df_rebin_woe)
+        print(df[df.var_name == "age"])
+
