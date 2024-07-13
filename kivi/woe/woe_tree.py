@@ -87,7 +87,7 @@ class TreeBins(WOEMixin):
                 'variables': self.df_data.variables,
                 'target': self.df_data.target,
                 'bucket': _bucket,
-            }).groupby('bucket', as_index=True)
+            }).groupby('bucket', as_index=True, observed=False)
         else:
             bucket = self.get_weighted_buckets(
                 value_cut=_bucket, variables=self.df_data.variables, target=self.df_data.target, weight=self.df_data.weight)

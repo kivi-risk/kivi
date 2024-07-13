@@ -21,9 +21,7 @@ class WOEMixin(LoggerMixin):
     woe_normal: DataFrame
     woe_missing: DataFrame
     woe_abnormal: DataFrame
-    woe_columns: List[str] = [
-        'var_name', 'missing_rate', 'min_bin', 'max_bin', 'total',
-        'bad', 'bad_rate', 'woe', 'iv', 'iv_value', ]
+    woe_columns: Optional[List[str]]
     decimal: Optional[int] = 6
 
     def _init__(
@@ -34,6 +32,7 @@ class WOEMixin(LoggerMixin):
             fill_bin: Optional[bool] = True,
             abnormal_vals: Optional[List[Union[str, int, float]]] = Any,
             weight: Optional[Any] = None,
+            woe_columns: Optional[List[str]] = None,
             *args: Any,
             **kwargs: Any,
     ):
@@ -51,6 +50,7 @@ class WOEMixin(LoggerMixin):
         self.target = target
         self.fill_bin = fill_bin
         self.abnormal_vals = abnormal_vals
+        self.woe_columns = woe_columns
         self.args = args
         self.kwargs = kwargs
 
@@ -131,6 +131,10 @@ class WOEMixin(LoggerMixin):
         self._validate_data_length(variables, target)
         self._basic_count(target, weight)
         self._data_prepare(variables, target, weight)
+        self.woe_columns = [
+            'var_name', 'missing_rate', 'min_bin', 'max_bin', 'total',
+            'bad', 'bad_rate', 'woe', 'iv', 'iv_value',
+        ]
 
     def _basic_count(self, target: Optional[Series], weight: Optional[Series] = None):
         """ basic count """
@@ -287,13 +291,13 @@ class WOEMixin(LoggerMixin):
 
     def _add_order(self, order: Optional[bool] = True) -> None:
         """"""
-        if order:
+        if order and "order" not in self.woe_columns:
             self.woe_columns.append('order')
             self.woe['order'] = monotony(self.woe_normal.woe)
 
     def _add_score(self, score: Optional[bool] = True) -> None:
         """"""
-        if score:
+        if score and "score" not in self.woe_columns:
             self.woe_columns.append('score')
             neg_woe = - self.woe.woe
             woe_score = (neg_woe - neg_woe.min()) * 100 / (neg_woe.max() - neg_woe.min())
@@ -301,7 +305,7 @@ class WOEMixin(LoggerMixin):
 
     def _add_origin_border(self, origin_border: Optional[bool] = False) -> None:
         """"""
-        if origin_border:
+        if origin_border and "min_bin_val" not in self.woe_columns:
             self.woe_columns.extend(['min_bin_val', 'max_bin_val'])
 
     def _reset_woe_boundary(self, woe: DataFrame) -> DataFrame:
@@ -368,4 +372,5 @@ class WOEMixin(LoggerMixin):
         self._add_score(score)
         self._add_origin_border(origin_border)
         self.woe = self._value_decimal(self.woe)
+        print(self.woe.columns, order, score)
         self.woe = self.woe[self.woe_columns]
