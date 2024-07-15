@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 import pandas as pd
 from pandas import DataFrame
 from typing import Any, Dict, List, Tuple, Callable, Optional
@@ -82,6 +83,77 @@ class ManualBinsTool(LoggerMixin):
             else:
                 print(df_rebin_woe)
         return df_rebin_woe
+
+    def _add_nan_row_to_woe(
+            self,
+            woe: DataFrame,
+            score: Optional[int] = None,
+            fill_score: Optional[Dict[str, int]] = None,
+    ) -> DataFrame:
+        """"""
+        nan_row = woe.tail(1).copy()
+        order = nan_row["order"].tolist()[0]
+        for column in ["min_bin", "max_bin"]:
+            nan_row[column] = np.nan
+
+        for column in ["total", "bad", "bad_rate", "woe", "iv"]:
+            nan_row[column] = 0.
+
+        if score is not None:
+            nan_row["score"] = score
+        elif fill_score is not None and fill_score.get(order):
+            nan_row["score"] = fill_score.get(order)
+        else:
+            raise ValueError(f"score is None or {order} not find in fill_score.")
+
+        woe = pd.concat([woe, nan_row], axis=0, ignore_index=True)
+        woe.reset_index(drop=True, inplace=True)
+        return woe
+
+    def add_nan_bin(
+            self,
+            df_woe: Optional[DataFrame] = None,
+            columns: Optional[Union[List[str], Dict[str, int]]] = None,
+            fill_score: Optional[Dict[str, int]] = None,
+    ) -> DataFrame:
+        """
+        1. 对全部分箱的空值进行填充
+        2. 对指定的变量分箱进行填充
+        3. 对指定的变量填充指定的分值
+        fill_score = {
+                "单调上升": 95, "单调下降": 5,
+                "上升下降": 30, "下降上升": 30,
+                "数据不足": 30, "未知": 30
+            }
+
+        """
+        if fill_score is None:
+            fill_score = {
+                "单调上升": 95, "单调下降": 5,
+                "上升下降": 30, "下降上升": 30,
+                "数据不足": 30, "未知": 30
+            }
+
+        nan_woe_list = []
+        if columns is None:
+            columns = df_woe.var_name.unique().tolist()
+
+        if isinstance(columns, list):
+            for column in columns:
+                df_nan_woe = df_woe[df_woe.var_name == column].copy()
+                if df_nan_woe.min_bin.isna().sum() == 0:
+                    df_nan_woe = self._add_nan_row_to_woe(df_nan_woe, fill_score=fill_score)
+                    nan_woe_list.append(df_nan_woe)
+        elif isinstance(columns, dict):
+            for column, score in columns.items():
+                df_nan_woe = df_woe[df_woe.var_name == column].copy()
+                if df_nan_woe.min_bin.isna().sum() == 0:
+                    df_nan_woe = self._add_nan_row_to_woe(df_nan_woe, score=score)
+                    nan_woe_list.append(df_nan_woe)
+
+        df_nan_woe = pd.concat(nan_woe_list, axis=0, ignore_index=True)
+        df_woe = self.append_rebin_woe(df_woe, df_rebin=df_nan_woe)
+        return df_woe
 
 
 class WOEBatch(LoggerMixin):

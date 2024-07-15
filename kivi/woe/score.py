@@ -54,8 +54,18 @@ class WOEScore(LoggerMixin):
         self._prepare_data()
         self.df_private = self.df[[id_name, target_name]].copy()
 
-    def _validate_data(self):
+    def _validate_woe_data(self):
         """"""
+        _validate_mark = True
+        for group_name, group in self.df_woe.groupby('var_name'):
+            if group.min_bin.isna().sum() == 0 and self.df[group_name].isna().sum() > 0:
+                self._logger(msg=f"[{__class__.__name__}] WOE does not contain nan bin but there are nan values in the data <{group_name}>, please check the data: {group_name}.", color="magenta")
+                _validate_mark = False
+        return _validate_mark
+
+    def _validate_data(self):
+        """
+        """
         if len(self.df) != len(self.df[self.id_name].unique()):
             raise ValueError('uuid is not unique, please check your data.')
 
@@ -64,6 +74,9 @@ class WOEScore(LoggerMixin):
 
         if self.target_name not in self.df.columns.tolist():
             raise ValueError(f'target {self.target_name} not in columns, please check your data.')
+
+        if not self._validate_woe_data():
+            raise ValueError('WOE data is not valid, please check your data.')
 
     def _prepare_data(self):
         """"""

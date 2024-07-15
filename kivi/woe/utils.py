@@ -10,7 +10,7 @@ __all__ = [
 ]
 
 
-TypeOrder = Literal["上升下降	", "上升下降", "单调上升", "单调下降", "未知"]
+TypeOrder = Literal["上升下降", "下降上升", "单调上升", "单调下降", "数据不足", "未知"]
 
 
 def int_score(score):
