@@ -117,15 +117,20 @@ class ManualBinsTool(LoggerMixin):
             fill_score: Optional[Dict[str, int]] = None,
     ) -> DataFrame:
         """
-        1. 对全部分箱的空值进行填充
-        2. 对指定的变量分箱进行填充
-        3. 对指定的变量填充指定的分值
-        fill_score = {
+        :param df_woe: woe分箱结果
+        :param columns: 需要填充的变量名，有以下两种格式可以选择
+            - `List[str]`: 如` ["age", "education"] `是对这两个字段进行空箱默认值的填充，默认值参考参数`fill_score`
+            - `Dict[str, int]`: 如 ` {"age": 15, "duration": 30} ` 会对 `age` 自动空箱填充为15分，`duration` 字段填充为30分
+        :param fill_score: 填充的分值，默认如下
+            fill_score = {
                 "单调上升": 95, "单调下降": 5,
                 "上升下降": 30, "下降上升": 30,
                 "数据不足": 30, "未知": 30
             }
 
+        1. 对全部分箱的空值进行填充
+        2. 对指定的变量分箱进行填充
+        3. 对指定的变量填充指定的分值
         """
         if fill_score is None:
             fill_score = {
