@@ -26,7 +26,13 @@ class ManualBinsTool(LoggerMixin):
             *args: Any,
             **kwargs: Any
     ):
-        """"""
+        """
+        :param df: 数据集
+        :param target_name: 目标变量名
+        :param abnormal_vals: 异常值
+        :param logger: 日志
+        :param verbose: 是否打印日志
+        """
         self.df = df
         self.target_name = target_name
         self.abnormal_vals = abnormal_vals
@@ -37,7 +43,11 @@ class ManualBinsTool(LoggerMixin):
 
     @staticmethod
     def append_rebin_woe(df_woe: DataFrame, df_rebin: DataFrame) -> DataFrame:
-        """ 为原始分箱增加其他类型分箱 """
+        """
+        为原始分箱增加其他类型分箱
+        :param df_woe: 原始分箱
+        :param df_rebin: 手工分箱
+        """
         var_names = df_rebin.var_name.unique().tolist()
         df_origin = df_woe[df_woe.var_name.isin(var_names)].copy()
         
