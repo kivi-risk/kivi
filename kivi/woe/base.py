@@ -13,7 +13,10 @@ __all__ = [
 
 
 class WOEMixin(LoggerMixin):
-    """woe Mixin"""
+    """
+    woe Mixin
+    todo: 增加 bins plot
+    """
     df_data: DataFrame
     df_missing_data: DataFrame
     df_abnormal_data: DataFrame

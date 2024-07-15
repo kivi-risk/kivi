@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from kivi.datasets import Dataset
-from kivi.woe.batch import *
+from kivi.woe import *
 
 
 class TestWoeBatch(unittest.TestCase):
@@ -24,6 +24,12 @@ class TestWoeBatch(unittest.TestCase):
         df_woe = batch.woe_batch_with_rebin()
         print(df_woe.shape)
         print(df_woe)
+
+    def test_woe_rebin_times(self):
+        """"""
+        batch = WOEBatch(self.df_bank, woe_type=TreeBins, max_bin=5, min_bin=2, rebin=True, verbose=True)
+        df_woe = batch.fit()
+        print(df_woe.to_markdown())
 
     def test_rebin_tools(self):
         rebin_tool = ManualBinsTool(df=self.df_bank)

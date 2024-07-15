@@ -77,6 +77,7 @@ class ManualBinsTool(LoggerMixin):
 class WOEBatch(LoggerMixin):
     """
     todo: 自动判断分箱的数据类型，对类别型变量选择合适的分箱方式。需要检测类别的数目。
+    todo: 按照月份进行跑批，规避不同月份中出现同一UUID的情况
     """
     def __init__(
             self,
@@ -84,7 +85,8 @@ class WOEBatch(LoggerMixin):
             bins: Optional[Union[int, Dict[str, List[Union[float, int]]]]] = 5,
             max_bin: Optional[int] = 6,
             min_bin: Optional[int] = 3,
-            woe_type: Optional[TypeWoe] = TreeBins,
+            rebin: Optional[bool] = True,
+            woe_type: TypeWoe = TreeBins,
             woe_columns: Optional[List[str]] = None,
             target_name: Optional[str] = "target",
             observe_order: Optional[List[str]] = None,
@@ -100,18 +102,22 @@ class WOEBatch(LoggerMixin):
 
         参数：
         :param df: DataFrame 原始数据集。
-        :param bins[int, dict]: [int]分箱数量，默认为5；[dict(var_name: bins)]依据截断点分箱。
+        :param bins[int, dict]: [int]分箱数量，默认为 5；[dict(var_name: bins)]依据截断点分箱。
         :param max_bin: 允许最大分箱数量。
         :param min_bin: 允许最小分箱数量。
-        :param woe_type: 分箱方法，默认为决策树分箱 `Frequency`。
-        :param woe_columns: 需要进行分箱的字段。
+        :param rebin: 是否重新分箱，默认为 `True`。
+        :param woe_type: 分箱方法，默认为决策树分箱 `TreeBins`。
+        :param woe_columns: 需要进行分箱的字段，默认为全部字段。
         :param target_name: 标签名称，默认为 `target`。
         :param observe_order: 保留分箱单调性，默认为 `['单调上升','单调下降']`；即对不满足条件的数据进行重分箱。
-        :param protect_columns: 需要剔除分箱的字段。
+        :param abnormal_vals: 需要剔除异常值，如[-9099, -4404]
+        :param protect_columns: 需要剔除分箱的字段, 如不需要进行分箱的字段['uuid', 'target']。
+        :param logger: 日志记录器，默认为 `None`。
+        :param verbose: 是否打印分箱日志，默认为 `False`。
 
         Example：
-            df_woe, faulted_cols = WOEBatch(
-                df, columns_name=df.drop('target', axis=1).columns, target_name='target')
+            df_woe = WOEBatch(df, rebin=False)
+            df_woe = WOEBatch(df, max_bins=5, min_bins=2, rebin=True)
         """
         self.df = df
         self.bins = bins
@@ -121,6 +127,7 @@ class WOEBatch(LoggerMixin):
         self.woe_columns = woe_columns
         self.target_name = target_name
         self.abnormal_vals = abnormal_vals
+        self.rebin = rebin
         self.logger = logger
         self.verbose = verbose
         self.args = args
@@ -141,8 +148,12 @@ class WOEBatch(LoggerMixin):
 
     def _get_woe_columns(self):
         """"""
+        total_columns = self.df.columns.tolist()
         if self.woe_columns is None:
-            self.woe_columns = self.df.drop(self.protect_columns, axis=1).columns.tolist()
+            for column in self.protect_columns:
+                if column in total_columns:
+                    total_columns.remove(column)
+            self.woe_columns = total_columns
 
     def _detect_observe_bins(self, df_woe: DataFrame) -> Tuple[DataFrame, DataFrame, List[str]]:
         """"""
@@ -202,3 +213,11 @@ class WOEBatch(LoggerMixin):
             self.max_bin -= 1
         df_woe_total = pd.concat([df_woe_total, df_woe_rebin], axis=0, ignore_index=True)
         return df_woe_total
+
+    def fit(self) -> DataFrame:
+        """"""
+        if self.rebin:
+            df_woe = self.woe_batch_with_rebin()
+        else:
+            df_woe = self.woe_batch()
+        return df_woe

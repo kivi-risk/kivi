@@ -7,17 +7,17 @@ from .woe_chi2 import *
 from .woe_tree import *
 from .woe_ks import *
 from .woe_kmeans import *
-from typing import Union
+from typing import Union, Type
 
 
 TypeWoe = Union[
-    DistanceBins,
-    FrequencyBins,
-    CategoryBins,
-    ManuallyBins,
-    PearsonBins,
-    Chi2Bins,
-    TreeBins,
-    KSBins,
-    KmeansBins,
+    Type[DistanceBins],
+    Type[FrequencyBins],
+    Type[CategoryBins],
+    Type[ManuallyBins],
+    Type[PearsonBins],
+    Type[Chi2Bins],
+    Type[TreeBins],
+    Type[KSBins],
+    Type[KmeansBins],
 ]

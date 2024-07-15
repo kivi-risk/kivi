@@ -27,7 +27,17 @@ class WOEScore(LoggerMixin):
             **kwargs: Any
 
     ):
-        """"""
+        """
+        :param df: 原始数据
+        :param df_woe: woe编码后的数据
+        :param id_name: uuid
+        :param target_name: 目标变量名称，默认为 target
+        :param dtype: 数据类型，默认为float
+        :param batch_size: 批量大小，默认为32
+        :param error: 错误处理方式，默认为error
+        :param logger: 日志记录器，默认为None
+        :param verbose: 是否显示进度条，默认为True
+        """
         self.df = df
         self.df_woe = df_woe
         self.id_name = id_name
@@ -122,17 +132,23 @@ class WOEScore(LoggerMixin):
             columns: Optional[List[str]] = None,
             values: Optional[Literal['woe', 'score']] = "score",
             add_target: Optional[bool] = True,
+            batch_info: Optional[str] = None,
     ) -> DataFrame:
         """ 两种种WOE映射值 """
         columns = self._trans_columns(columns=columns)
         df_select = self.df[columns].copy()
         df_woe_select = self.df_woe[self.df_woe.var_name.isin(columns)].copy()
 
-        self._logger(msg=f'[{__class__.__name__}] Wide to Long ...', color="green")
+        if batch_info:
+            logger_name = f"[{__class__.__name__}] {batch_info}"
+        else:
+            logger_name = f"[{__class__.__name__}]"
+
+        self._logger(msg=f'{logger_name} Wide to Long ...', color="green")
         df_long = self.wide_to_long(df_select, columns=columns)
-        self._logger(msg=f'[{__class__.__name__}] Match WOE ...', color="green")
+        self._logger(msg=f'{logger_name} Match WOE ...', color="green")
         df_score_long = self.match_woe(df_long=df_long, df_woe=df_woe_select)
-        self._logger(msg=f'[{__class__.__name__}] Match Over ...', color="green")
+        self._logger(msg=f'{logger_name} Match Over ...', color="green")
 
         df_score_wide = df_score_long.pivot(index=self.id_name, columns='var_name', values=values)
         if add_target:
@@ -151,9 +167,12 @@ class WOEScore(LoggerMixin):
         self._logger(msg=f"Start Trans WOE Score, total columns number is {len(columns)} ...", color="green")
         batch_list = [batch for batch in batches(lst=columns, batch_size=self.batch_size)]
         _batches = []
+        batch_idx = 1
         for batch_columns in dispatch_tqdm(batch_list, desc=f'[{__class__.__name__}] WOE Batch'):
-            df_batch = self.trans_woe_score(columns=batch_columns, values=values, add_target=False)
+            df_batch = self.trans_woe_score(
+                columns=batch_columns, values=values, add_target=False, batch_info=f'[{batch_idx} / {len(batch_list)}]')
             _batches.append(df_batch)
+            batch_idx += 1
         df_score = pd.concat(_batches, axis=1, join="outer",)
         df_score = df_score.join(self.df_private.set_index(self.id_name), on=self.id_name)
         if not id_index:
