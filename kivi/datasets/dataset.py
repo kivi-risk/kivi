@@ -1,18 +1,27 @@
 import os
 import pandas as pd
 
+
 path = os.path.dirname(__file__)
+
+
+__all__ = [
+    "Dataset",
+    "MakeData",
+]
+
 
 class Dataset:
     """
     描述：返回用于示例文档的数据集。
 
-    示例：
-    >>> df_bank = datasets.BankData()
-    >>> df_crime = datasets.CrimeData()
+    Example:
+        dataset = Dataset()
+        df_bank = dataset.bank_data()
+        df_crime = dataset.crime_data()
     """
     @staticmethod
-    def BankData():
+    def bank_data():
         """
         描述：获取一份信贷数据，包括个人主体信息以及违约标签。
         :return: DataFrame
@@ -23,7 +32,7 @@ class Dataset:
         return df.drop('y', axis=1)
 
     @staticmethod
-    def CrimeData():
+    def crime_data():
         """
         描述：获取一份欺诈犯罪数据，包括个人主体信息以及欺诈标签。
         :return: DataFrame
@@ -31,23 +40,20 @@ class Dataset:
         filename = os.path.join(path, 'crime_data.csv')
         return pd.read_csv(filename)
 
+
 class MakeData:
+
     def __init__(self):
         pass
-    def get_dataset(self, ):
+
+    def dataset(self, ):
         from sklearn import datasets
         import numpy as np
         np.random.seed(0)
-
-        X, y = datasets.make_classification(
+        x, y = datasets.make_classification(
             n_samples=100000, n_features=20,
             n_informative=2, n_redundant=2)
-
         train_samples = 100
-
-        X_train = X[:train_samples]
-        X_test = X[train_samples:]
-        y_train = y[:train_samples]
-        y_test = y[train_samples:]
-
-        return X_train, X_test, y_train, y_test
+        x_train, x_test = x[:train_samples], x[train_samples:]
+        y_train, y_test = y[:train_samples], y[train_samples:]
+        return x_train, x_test, y_train, y_test

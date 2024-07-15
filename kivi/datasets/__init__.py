@@ -1,1 +1,1 @@
-from .Dataset import Dataset, MakeData
+from .dataset import Dataset, MakeData
