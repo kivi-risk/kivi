@@ -1,5 +1,3 @@
-
-
 import numpy as np
 from sklearn.linear_model import LassoCV
 import matplotlib.pyplot as plt
