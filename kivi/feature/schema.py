@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Union, Optional, Sequence
+from typing import List, Dict, Union, Optional, Sequence
 
 
 __all__ = [
@@ -56,5 +56,9 @@ class StepwiseReport(BaseModel):
     feature: List[str] = Field(default=None, description="")
     auc: Optional[float] = Field(default=None, description="")
     ks: Optional[float] = Field(default=None, description="")
+    indicator_change: Optional[float] = Field(default=None, description="")
     num_features: Optional[int] = Field(default=None, description="")
-    implication: Optional[str] = Field(default=None, description="")
+    params: Optional[Dict[str, float]] = Field(default=None, description="")
+    woe_impact: Optional[List[str]] = Field(default=None, description="")
+    positive_impact: Optional[List[str]] = Field(default=None, description="")
+    negative_impact: Optional[List[str]] = Field(default=None, description="")
