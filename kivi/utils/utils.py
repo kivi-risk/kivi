@@ -41,7 +41,7 @@ def batches(
 
 def dispatch_tqdm(items: Sequence, desc: Optional[str] = None) -> Any:
     """"""
-    if 'ipykernel' in sys.modules:
+    if 'ipython' in sys.argv[0].lower() or "ipykernel" in sys.argv[0].lower():
         from tqdm import tqdm_notebook
         pbar = tqdm_notebook(items, desc=desc)
     else:

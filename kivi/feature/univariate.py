@@ -5,9 +5,9 @@ import statsmodels.api as sm
 from typing import Any, List, Dict, Tuple, Callable, Literal, Optional
 
 from ..utils.utils import dispatch_tqdm
-from ..utils.operator import Div, mode
+from ..utils.operator import Div
 from ..utils.logger import LoggerMixin
-from ..evaluate.binary_metrics import ks_test, RocAucKs, Chi2
+from ..evaluate.binary_metrics import ks_test, BinaryMetrics, Chi2
 from .schema import *
 
 
@@ -49,7 +49,7 @@ class FeatureEvaluate(LoggerMixin):
             'var_name', 'desc', 'bad_rate', 'missing', 'miss_bad_rate', 'not_miss_bad_rate',
             'null_lift', 'not_null_lift', 'min', 'max', 'std', 'mode', 'skew', 'kurt',
             'cv', 'unique', 'bad', 'count', 'good', 'ks_test', 'R2', 'intercept',
-            'pvalue_intercept', 'param', 'pvalue_param', 'fpr', 'tpr', 'auc', 'ks',
+            'pvalue_intercept', 'param', 'pvalue_param', 'auc', 'ks',
             'chi_statistic', 'chi_pvalue'
         ]
 
@@ -154,7 +154,10 @@ class FeatureEvaluate(LoggerMixin):
             report.pvalue_intercept = model.pvalues.const
             report.param = model.params[report.var_name]
             report.pvalue_param = model.pvalues[report.var_name]
-            report = report.model_copy(update=RocAucKs(true=model.model.endog, predict=model.predict()))
+
+            binary_metrics = BinaryMetrics(target=model.model.endog, proba=model.predict())
+            metrics = binary_metrics.evaluate()
+            report = report.model_copy(update=metrics.to_univariate())
         except Exception as e:
             self._logger(msg=f'Model Error! Feature Name: {report.var_name}, Error Msg: {e}', color="red")
         return report
