@@ -7,7 +7,7 @@ from typing import Any, List, Dict, Tuple, Callable, Literal, Optional
 from ..utils.utils import dispatch_tqdm
 from ..utils.operator import Div, mode
 from ..utils.logger import LoggerMixin
-from ..evaluate.Metrics import ks_test, RocAucKs, Chi2
+from ..evaluate.binary_metrics import ks_test, RocAucKs, Chi2
 from .schema import *
 
 
