@@ -15,7 +15,6 @@ from .schema import *
 __all__ = [
     'ks_test',
     'Chi2',
-    'RocAucKs',
     'BinaryMetrics',
     'p_value',
     "BinaryMetrics",
@@ -37,24 +36,6 @@ def Chi2(X, y):
         return float(chi_statistic[0]), float(chi_pvalue[0])
     except:
         return -1, -1
-
-
-def RocAucKs(true, predict, predict_binary=None):
-    """ """
-    metrics_info = dict()
-    fpr, tpr, _ = roc_curve(true, predict)
-    ks = abs(fpr - tpr).max()
-
-    metrics_info.update({
-        'fpr': fpr.tolist(),
-        'tpr': tpr.tolist(),
-        'auc': roc_auc_score(true, predict),
-        'ks': ks,})
-
-    if predict_binary:
-        metrics_info.update({'recall': recall_score(true, predict_binary)})
-
-    return metrics_info
 
 
 class BinaryMetrics:
@@ -119,6 +100,7 @@ class BinaryMetrics:
     def precision(self):
         """"""
         self.metrics_output.precision = precision_score(y_true=self.target, y_pred=self.prediction)
+        self.metrics_output.lift = float(self.metrics_output.precision / np.array(self.target).mean())
 
     def confusion_matrix(self):
         """"""
@@ -137,7 +119,7 @@ class BinaryMetrics:
             raise ValueError('auc/roc is None, please run evaluate first')
         plt.plot(
             self.metrics_output.roc_curve.fpr, self.metrics_output.roc_curve.tpr,
-            color='darkorange', lw=2, label=f'ROC curve (area = {self.metrics_output.auc:.2f})')
+            color='darkorange', lw=2, label=f'ROC curve (area = {self.metrics_output.auc:.2f}, ks = {self.metrics_output.ks:.2f})')
         plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
         plt.xlim([0.0, 1.0])
         plt.ylim([0.0, 1.0])
