@@ -1,15 +1,13 @@
 import numpy as np
 import pandas as pd
 from pandas import DataFrame, Series
-from pydantic import BaseModel
 from typing import Any, List, Tuple, Union, Callable, Optional
 import statsmodels.api as sm
-import matplotlib.pyplot as plt
-from sklearn.metrics import precision_recall_curve
 
 from ..utils.operator import StatsLogit, NumRange
 from ..utils.logger import LoggerMixin
 from .psi import psi
+from .utils import lift
 from .binary_metrics import BinaryMetrics
 
 
@@ -82,19 +80,7 @@ class ScoreEvaluate(LoggerMixin):
 
     def lift(self, score: DataFrame) -> DataFrame:
         """ 计算模型结果的lift """
-        score["buckets"] = pd.cut(score[self.score_name], bins=self.bins, include_lowest=True)
-
-        df_buckets = score.groupby('buckets', observed=False).agg({self.target_name: ['count', 'sum']})
-        df_buckets.columns = ['total', 'bad']
-        df_buckets['good'] = df_buckets.total - df_buckets.bad
-        df_buckets['bad_rate'] = df_buckets.bad / df_buckets.total
-
-        df_buckets['cum_total'] = df_buckets.total.cumsum() / df_buckets.total.sum()
-        df_buckets['cum_bad'] = df_buckets.bad.cumsum() / df_buckets.bad.sum()
-        df_buckets['cum_good'] = df_buckets.good.cumsum() / df_buckets.good.sum()
-        df_buckets['ks'] = df_buckets.cum_bad - df_buckets.cum_good
-        df_buckets['lift'] = df_buckets.cum_bad / df_buckets.cum_total
-        return df_buckets
+        return lift(score=score, target_name=self.target_name, score_name=self.score_name, bins=self.bins)
 
     def score_lifts(self) -> DataFrame:
         """"""

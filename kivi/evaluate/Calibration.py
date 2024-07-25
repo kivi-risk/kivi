@@ -1,14 +1,13 @@
-
-
 import numpy as np
 import os
 
 from sklearn.preprocessing import label_binarize
 from sklearn.utils import column_or_1d, check_consistent_length
 from numpy import log
-from pandas import cut, DataFrame, merge, Series
-from pandas.api.types import is_numeric_dtype, is_object_dtype
-from ..utils import saveCsv, Bins
+from pandas import cut, DataFrame
+from pandas.api.types import is_numeric_dtype
+from kivi.utils import saveCsv
+from kivi.evaluate import utils
 
 
 class Calibration:
@@ -232,11 +231,7 @@ class ODDS(Bins):
         res['bad_rate'] = res['bad'] / res['total']  # 每个箱体中好样本所占总样本数的比例
         res['Ln(Odds)'] = log(res['odd_bad/good'])
         return res
-
-
-
         self.res, self.psi = self._odds(res)
-
         if self.csvName:
             saveCsv(res, self.csvName)
             return self.psi

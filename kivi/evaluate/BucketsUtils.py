@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from pyspark.sql import functions as F
 
 __all__ = [
@@ -8,7 +7,6 @@ __all__ = [
     "psi",
     "csi",
 ]
-
 
 
 def quantile(col: str, percent=0.5):
@@ -22,6 +20,7 @@ def quantile(col: str, percent=0.5):
     """
     return F.expr(f'percentile_approx({col}, {percent})')
 
+
 def getQuantiles(df, column_name, ranges=np.linspace(0, 1, 11))->list:
     """
     描述：获取字段的分位数点。
@@ -32,9 +31,9 @@ def getQuantiles(df, column_name, ranges=np.linspace(0, 1, 11))->list:
     :param ranges:
     :return : 分位数值 List
 
-    示例：获取多个字段的多个分位点
-    >>> quant_val_list = [getQuantiles(df, col) for col in cols]
-    >>> pd.DataFrame(dict(zip(cols, quant_val_list)), index=np.linspace(0, 1, 11)).T
+    Example：获取多个字段的多个分位点
+        quant_val_list = [getQuantiles(df, col) for col in cols]
+        pd.DataFrame(dict(zip(cols, quant_val_list)), index=np.linspace(0, 1, 11)).T
     """
     quantiles = [quantile(column_name, i).alias(f'i') for i in ranges]
     return df.agg(*quantiles).toPandas().values.flatten().tolist()
@@ -80,4 +79,3 @@ def csi(df_buckets, ex_name='Expected', ac_name='Actual', fill_bin=True):
     df_buckets['index'] = df_buckets['A-E'] * self.score
     df_buckets['csi'] = df_buckets['index'].sum()
     return df_buckets
-

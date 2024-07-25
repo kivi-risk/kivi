@@ -1,14 +1,16 @@
 import numpy as np
 import pandas as pd
-from ..utils.Bins import Bins
-from .BucketsUtils import psi
+from kivi.evaluate.utils import BinsMixin
+from kivi.evaluate.BucketsUtils import psi
 
-class PSI(Bins):
+
+__all__ = ['PSI']
+
+
+class PSI(BinsMixin):
 
     def __init__(self,):
-        """
-        Des: 计算PSI
-        """
+        """"""
 
     def miss_data_cnt(self, expected, actual):
         """

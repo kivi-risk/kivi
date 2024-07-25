@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from typing import Any, Sequence, Optional
+from typing import Any, List, Union, Sequence, Optional
 import matplotlib.pyplot as plt
 from scipy.stats import ks_2samp, t
 from sklearn.feature_selection import chi2
@@ -10,10 +10,12 @@ from sklearn.metrics import (
     precision_recall_curve
 )
 from .schema import *
+from .utils import lift
 
 
 __all__ = [
     'ks_test',
+    "KSValue",
     'Chi2',
     'BinaryMetrics',
     'p_value',
@@ -27,6 +29,19 @@ def ks_test(feature, target):
         return ks_2samp(feature[target == 1], feature[target == 0])
     except:
         return [-1, -1]
+
+
+def KSValue(variables, target):
+    """
+    Des: 计算KS值，计算KS-test的P-value
+    :param variables:
+    :param target:
+    :return: ks_value, p_value
+    """
+    from scipy.stats import ks_2samp
+    get_ks = lambda variables, target: ks_2samp(variables[target == 1], variables[target == 0])
+    ks_value, p_value = get_ks(variables, target)
+    return ks_value, p_value
 
 
 def Chi2(X, y):
@@ -46,12 +61,14 @@ class BinaryMetrics:
             target: Sequence,
             proba: Optional[Sequence] = None,
             prediction: Optional[Sequence] = None,
+            score: Optional[Sequence] = None,
             **kwargs: Any,
     ):
         """"""
         self.target = target
         self.proba = proba
         self.prediction = prediction
+        self.score = score
         self.metrics_output = BinaryMetricsOutput()
         self.kwargs = kwargs
         self.metrics_method = []
@@ -59,6 +76,10 @@ class BinaryMetrics:
 
     def _validate_data(self):
         """"""
+        value_length = [len(item) for item in [self.target, self.proba, self.prediction, self.score] if item is not None]
+        if value_length[0] == 0 or len(set(value_length)) > 1:
+            raise ValueError("All input data must have the same length")
+
         if self.prediction is None and self.proba is None:
             raise ValueError("Either prediction or proba must be provided")
         if self.proba is not None:
@@ -117,9 +138,18 @@ class BinaryMetrics:
         """ Des: 绘制roc图 """
         if self.metrics_output.roc_curve is None or self.metrics_output.auc is None:
             raise ValueError('auc/roc is None, please run evaluate first')
+
+        max_idx = np.argmax(abs(np.array(self.metrics_output.roc_curve.tpr) - np.array(self.metrics_output.roc_curve.fpr)))
+
         plt.plot(
             self.metrics_output.roc_curve.fpr, self.metrics_output.roc_curve.tpr,
             color='darkorange', lw=2, label=f'ROC curve (area = {self.metrics_output.auc:.2f}, ks = {self.metrics_output.ks:.2f})')
+        plt.scatter(
+            self.metrics_output.roc_curve.fpr[max_idx],
+            self.metrics_output.roc_curve.tpr[max_idx],
+            alpha=0.7, marker='*', s=50, color='tab:red', label=r'$ks\ max\ point$'
+        ).set_zorder(10)
+
         plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
         plt.xlim([0.0, 1.0])
         plt.ylim([0.0, 1.0])
@@ -170,6 +200,57 @@ class BinaryMetrics:
         ax.set_ylabel('Predicted label')
         ax.set_yticklabels(["P", "N"])
         ax.set_title('Confusion matrix')
+        plt.show()
+
+    def plot_score(self, **kwargs):
+        """"""
+        """"""
+        if self.score is None:
+            raise ValueError("Score is None.")
+
+        sns.set_style("whitegrid")
+        fig, axs = plt.subplots()
+        good_score = self.score[self.target == 0]
+        bad_score = self.score[self.target == 1]
+        with sns.color_palette("muted", n_colors=2):
+            sns.histplot(good_score, label="good", kde=True, stat="percent", **kwargs)
+            sns.histplot(bad_score, label="bad", kde=True, stat="percent", **kwargs)
+        axs.legend()
+        axs.set_title(r"$Score\ Distribution$")
+        axs.set_xlabel('$Score$')
+        axs.set_ylabel('$Percent$')
+        plt.show()
+
+    def plot_ks(
+            self,
+            bins: Optional[Union[int, List[Union[int, float]]]] = 40,
+            show_bucket: Optional[bool] = False,
+    ):
+        """"""
+        df_score = pd.DataFrame({"score": self.score, "target": self.target})
+        df_lift = lift(df_score, bins=bins)
+        x = range(len(df_lift.index.tolist()))
+        mark_line_good = df_lift.loc[df_lift.ks == df_lift.ks.max(), "cum_good"].values[0]
+        mark_line_bad = df_lift.loc[df_lift.ks == df_lift.ks.max(), "cum_bad"].values[0]
+
+        fig, axs = plt.subplots()
+        axs.plot(x, df_lift.ks * 100, marker='o', ms=2, linewidth=1.5, c='tab:blue', label="ks")
+        axs.plot(x, df_lift.cum_good * 100, marker='o', ms=2, linewidth=1.5, c='tab:green', label="cum_good")
+        axs.plot(x, df_lift.cum_bad * 100, marker='o', ms=2, linewidth=1.5, c='tab:red', label="cum_bad")
+
+        axs.axvline(x=np.argmax(df_lift.ks.to_list()), linestyle='--', linewidth=0.7, alpha=0.5, c='gray')
+        axs.axhline(y=df_lift.ks.max() * 100, linestyle='--', linewidth=0.7, alpha=0.5, c='tab:blue')
+        axs.axhline(y=mark_line_good * 100, linestyle='--', linewidth=0.7, alpha=0.5, c='tab:green')
+        axs.axhline(y=mark_line_bad * 100, linestyle='--', linewidth=0.7, alpha=0.5, c='tab:red')
+
+        axs.set_title(f'KS = {df_lift.ks.max(): .2f} at {bins} bucket')
+        axs.legend()
+        axs.set_xlabel("buckets")
+        axs.set_ylabel(r'$Rate(\%)$')
+        if show_bucket:
+            axs.set_xticks(range(len(df_lift.index)))
+            axs.set_xticklabels(df_lift.index.tolist(), rotation=90)
+        plt.tight_layout()
         plt.show()
 
 

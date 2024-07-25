@@ -1,8 +1,11 @@
 import pandas as pd
-from ..utils.Bins import Bins
+from kivi.evaluate.utils import BinsMixin
 
 
-class CSI(Bins):
+__all__ = ["CSI"]
+
+
+class CSI(BinsMixin):
     def __init__(self, score=None):
         """
         Des: 计算CSI
