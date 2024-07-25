@@ -68,3 +68,8 @@ class TestModelEvaluate(unittest.TestCase):
         model_eval = ModelEvaluate(samples=self.samples, bins=10, verbose=True)
         model_eval.evaluate()
         print(model_eval.df_lifts.to_markdown())
+
+    def test_plot_score(self):
+        """"""
+        model_eval = ModelEvaluate(samples=self.samples, bins=10, verbose=True)
+        model_eval.evaluate()
