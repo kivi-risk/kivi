@@ -1,5 +1,4 @@
 import unittest
-import numpy as np
 from kivi.evaluate import *
 from kivi.datasets import MakeData
 from kivi.woe import *

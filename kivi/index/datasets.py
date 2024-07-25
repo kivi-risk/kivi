@@ -1,6 +1,9 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.dataframe import DataFrame
-from pyspark.sql import functions as F
+try:
+    from pyspark.sql import SparkSession
+    from pyspark.sql.dataframe import DataFrame
+    from pyspark.sql import functions as F
+except ImportError:
+    print("pyspark not installed, please install it first. < pip install pyspark >")
 
 
 __all__ = [

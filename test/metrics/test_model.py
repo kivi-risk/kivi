@@ -21,13 +21,6 @@ class TestScoreEvaluate(unittest.TestCase):
         })
         return df_sample
 
-    def test_(self):
-        """"""
-        df1 = pd.DataFrame({'A': [1, 2, 3]}, index=['a', 'b', 'c'])
-        df2 = pd.DataFrame({'A': [4, 5, 6]}, index=['d', 'e', 'f'])
-        result = pd.concat([df1, df2], keys=['d1', 'd2'], axis=1)
-        print(result)
-
     def test_init(self):
         model_eval = ScoreEvaluate(scores=self.scores, bins=10, border=(0, 100))
         df_eval = model_eval.score_evaluate()

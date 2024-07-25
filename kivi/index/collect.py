@@ -1,8 +1,11 @@
 from typing import List, Dict, Union, Callable, Optional
-from pyspark.sql import functions as F
-from pyspark.sql import SparkSession
-from pyspark.sql import DataFrame
-from pyspark.sql.types import FloatType
+try:
+    from pyspark.sql import functions as F
+    from pyspark.sql import SparkSession
+    from pyspark.sql import DataFrame
+    from pyspark.sql.types import FloatType
+except ImportError:
+    print("pyspark not installed, please install it first. < pip install pyspark >")
 from itertools import product
 from ..spark import insert_into_hive
 from .operator import *

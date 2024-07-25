@@ -12,3 +12,9 @@ class TestDataset(unittest.TestCase):
         ds = Dataset()
         df_crime = ds.crime_data()
         print(df_crime.shape)
+
+    def test_create_dataset(self):
+        ds = MakeData()
+        df = ds.sample()
+        print(df.shape)
+
