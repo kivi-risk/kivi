@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Dict, Optional
 
 
 __all__ = [
@@ -37,6 +37,7 @@ class BinaryMetricsOutput(BaseModel):
     ks: Optional[float] = Field(default=None, description="")
     auc: Optional[float] = Field(default=None, description="")
     recall: Optional[float] = Field(default=None, description="")
+    lift: Optional[float] = Field(default=None, description="")
     precision: Optional[float] = Field(default=None, description="")
     f1_score: Optional[float] = Field(default=None, description="")
     confusion_matrix: Optional[ConfusionMatrixOutput] = Field(default=None, description="")
@@ -49,3 +50,13 @@ class BinaryMetricsOutput(BaseModel):
             if key not in ["fpr", "tpr"]:
                 if isinstance(value, float):
                     print(f"{key}: {value:.4f}")
+
+    def to_univariate(self) -> Dict:
+        """"""
+        _eval = {
+            "auc": self.auc,
+            "ks": self.ks,
+            "tpr": self.roc_curve.tpr,
+            "fpr": self.roc_curve.fpr,
+        }
+        return _eval
