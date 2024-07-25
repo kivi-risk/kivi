@@ -282,9 +282,7 @@ def plot_bin(
     ax[1].set_ylabel('rate')
     ax[1].set_xlabel(f'Total sample: {totalNums} Good: {goodNums} Bad: {badNums} Bad rate: {badRate}')
     ax[1].xaxis.set_tick_params(rotation=rotation, labelsize=10)
-
     autolabel(rects1)
     autolabel(rects2)
-
     fig.tight_layout()
     return None
