@@ -4,7 +4,7 @@ from pandas import DataFrame
 from typing import Any, List, Callable, Literal, Optional
 
 from ..utils.logger import LoggerMixin
-from ..ModelEval import RocAucKs
+from ..evaluate import BinaryMetrics
 from .schema import StepwiseReport
 
 
@@ -35,8 +35,9 @@ class StepwiseMixin(LoggerMixin):
         try:
             model = sm.Logit(y_data, x_data).fit(disp=0)
             report = self.implication(model, columns, report)
-            metrics = RocAucKs(true=model.model.endog, predict=model.predict())
-            report = report.model_copy(update=metrics)
+            binary_metrics = BinaryMetrics(target=model.model.endog, proba=model.predict())
+            metrics = binary_metrics.evaluate()
+            report = report.model_copy(update=metrics.model_dump())
         except Exception as e:
             self._logger(msg=f'Model Error! Feature Name: {columns}, Error Msg: {e}', color="red")
         return report
