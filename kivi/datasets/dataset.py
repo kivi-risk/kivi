@@ -73,4 +73,6 @@ class MakeData:
         x_train, x_test, y_train, y_test = self.dataset()
         train = pd.concat([pd.DataFrame(x_train, columns=columns_name), pd.DataFrame(y_train, columns=['target'])], axis=1)
         test = pd.concat([pd.DataFrame(x_test, columns=columns_name), pd.DataFrame(y_test, columns=['target'])], axis=1)
+        train["uuid"] = np.arange(len(train))
+        test["uuid"] = np.arange(len(test))
         return train, test
