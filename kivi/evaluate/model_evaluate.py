@@ -35,11 +35,14 @@ class ScoreEvaluate(LoggerMixin):
             **kwargs: Any
     ):
         """
-        :param df_score: DataFrame 评分、PD 结果文件。
-        :param bins: 分箱数量。
-        :param border: 分数的最大最小边界， [min, max]。
+        :param scores: DataFrame 评分、PD 结果文件。
         :param score_name: 分数字段名称。
         :param target_name: 目标变量名称。
+        :param bins: 分数分析分箱数量。
+        :param border: 分数的最大最小边界， [min, max]。
+        :param keys: 用于多样本中区分不同样本的lift。
+        :param logger: 日志记录器。
+        :param verbose: 是否打印日志。
         """
         self.scores = scores
         self.score_name = score_name
@@ -158,6 +161,20 @@ class ModelEvaluate(ScoreEvaluate):
             verbose: Optional[bool] = False,
             **kwargs: Any,
     ):
+        """
+        :param samples: List of DataFrame
+        :param columns: List of columns to evaluate
+        :param train_sample_idx: Index of the training sample
+        :param id_name: Name of the id column
+        :param target_name: Name of the target column
+        :param score_range: Range of the score
+        :param decimal: Number of decimal places
+        :param threshold: Threshold for bad predictions
+        :param bins: Number of bins for score
+        :param border: Border for score
+        :param logger: Logger
+        :param verbose: Verbose mode
+        """
         self.samples = samples
         self.columns = columns
         self.train_sample_idx = train_sample_idx

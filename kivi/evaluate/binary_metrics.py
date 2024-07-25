@@ -64,7 +64,13 @@ class BinaryMetrics:
             score: Optional[Sequence] = None,
             **kwargs: Any,
     ):
-        """"""
+        """
+        :param target: 真实标签
+        :param proba: 预测概率
+        :param prediction: 预测标签
+        :param score: 预测得分
+        :param kwargs: 其他参数
+        """
         self.target = target
         self.proba = proba
         self.prediction = prediction
