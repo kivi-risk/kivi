@@ -33,7 +33,15 @@ class FeatureEvaluate(LoggerMixin):
             *args: Any,
             **kwargs: Any,
     ):
-        """"""
+        """
+        :param df: DataFrame
+        :param target_name: str
+        :param columns: List[str]
+        :param columns_mapping: Dict[Any, str]
+        :param eval_method: Literal["origin", "woe"]
+        :param logger: Callable
+        :param verbose: bool
+        """
         self.df = df
         self.target_name = target_name
         self.columns_mapping = columns_mapping
