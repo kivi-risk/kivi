@@ -1,5 +1,5 @@
 import unittest
-from kivi.index.operator import *
+from kivi.spark.operator import *
 
 
 class TestOperator(unittest.TestCase):
