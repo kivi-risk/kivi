@@ -1,9 +1,11 @@
 import os
 import numpy as np
 import pandas as pd
-from typing import Optional
+from pandas import DataFrame
+from typing import Tuple, Optional
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
+from .schema import *
 
 
 __all__ = [
@@ -59,20 +61,21 @@ class MakeData:
         self.n_redundant = n_redundant
         self.test_size = test_size
 
-    def dataset(self, ):
+    def dataset(self, ) -> MakeDataOutput:
         np.random.seed(0)
         x, y = datasets.make_classification(
             n_samples=self.n_samples, n_features=self.n_features,
             n_informative=self.n_informative, n_redundant=self.n_redundant)
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self.test_size, random_state=42)
-        return x_train, x_test, y_train, y_test
+        data = MakeDataOutput(x_train=x_train, x_test=x_test, y_train=y_train, y_test=y_test)
+        return data
 
-    def sample(self):
+    def sample(self) -> Tuple[DataFrame, DataFrame]:
         """"""
         columns_name = [f"col_{i}" for i in range(self.n_features)]
-        x_train, x_test, y_train, y_test = self.dataset()
-        train = pd.concat([pd.DataFrame(x_train, columns=columns_name), pd.DataFrame(y_train, columns=['target'])], axis=1)
-        test = pd.concat([pd.DataFrame(x_test, columns=columns_name), pd.DataFrame(y_test, columns=['target'])], axis=1)
+        data = self.dataset()
+        train = pd.concat([pd.DataFrame(data.x_train, columns=columns_name), pd.DataFrame(data.y_train, columns=['target'])], axis=1)
+        test = pd.concat([pd.DataFrame(data.x_test, columns=columns_name), pd.DataFrame(data.y_test, columns=['target'])], axis=1)
         train["uuid"] = np.arange(len(train))
         test["uuid"] = np.arange(len(test))
         return train, test

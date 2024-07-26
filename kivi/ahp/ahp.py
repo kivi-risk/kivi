@@ -95,6 +95,8 @@ class AHP(LoggerMixin):
             self,
     ) -> DataFrame:
         """"""
+        if len(self.metrix_weight) == 0:
+            raise ValueError("Please solve metrix first.")
         df_weight = pd.concat([weight.reset_index(drop=False) for key, weight in self.metrix_weight.items()])
         df_weight.rename(columns={"experimental": "dst", "weight": "group_weight"}, inplace=True)
         self.df_weight = df_weight.reset_index(drop=True)
