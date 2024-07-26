@@ -7,63 +7,6 @@ except ImportError:
     print("pyspark not installed, please install it first. < pip install pyspark >")
 from typing import List, Optional
 from pandas import DataFrame as TypePandasDataFrame
-from hashlib import md5
-
-
-__all__ = [
-    "operator_mapping",
-    "pct_rank",
-]
-
-
-operator_mapping = {
-    'cnt': F.count,
-    'avg': F.avg,
-    'sum': F.sum,
-    'cnt_dist': F.countDistinct,
-    'sum_dist': F.sumDistinct,
-    "min": F.min,
-    "max": F.max,
-    "mean": F.mean,
-    "first": F.first,
-    "last": F.last,
-    "skewness": F.skewness,
-    "kurtosis": F.kurtosis,
-    "collect_set": F.collect_set,
-    "collect_list": F.collect_list,
-    "approx_count_distinct": F.approx_count_distinct,
-    'stddev': F.stddev,
-    'stddev_samp': F.stddev_samp,
-    'stddev_pop': F.stddev_pop,
-    'variance': F.variance,
-    'var_pop': F.var_pop,
-    'var_samp': F.var_samp,
-}
-
-
-def pct_rank(
-        df: TypePandasDataFrame,
-        column_name,
-        index_name: str = None,
-        partition_by: Optional[List[str]] = None,
-) -> TypePandasDataFrame:
-    """
-    描述：返回依据行业作为窗口的行业排名 DataFrame
-    :param df: 原始数据
-    :param column_name: 新指标名称
-    :param index_name: 原指标名称
-    :param partition_by: 窗口字段
-    :return: spark DataFrame
-    """
-    if partition_by is None:
-        partition_by = ['load_date', 'industry']
-
-    if index_name is None:
-        index_name = column_name
-    # window of industry rank
-    wind_indu = Window.partitionBy(*partition_by).orderBy(F.desc(column_name))
-    df = df.withColumn(f'rank_indu_{index_name}', F.percent_rank().over(wind_indu))
-    return df
 
 
 @F.udf(returnType=DoubleType())
@@ -143,13 +86,6 @@ def operator_div(num, den):
     cond_b = ((F.col(den).isNull()) | (F.col(den) == 0))
     cond_c = F.col(num).isNull()
     return F.when(cond_a, -4404).when(cond_b, -9999).when(cond_c, -1111).otherwise(F.col(num) / F.col(den))
-
-
-
-@F.udf(returnType=StringType())
-def MD5(x):
-    """MD5生成器"""
-    return md5(str(x).encode("utf8")).hexdigest()
 
 
 # @F.udf(returnType=StringType())
