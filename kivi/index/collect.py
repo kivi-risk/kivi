@@ -7,8 +7,7 @@ try:
 except ImportError:
     print("pyspark not installed, please install it first. < pip install pyspark >")
 from itertools import product
-from ..spark import insert_into_hive
-from .operator import *
+from ..spark import *
 from .schema import *
 from .utils import *
 from .date import *
@@ -30,15 +29,28 @@ class CollectIndex(LoggerMixin):
             spark: SparkSession,
             reset: Optional[bool] = False,
             group_mapping: Optional[Dict[str, str]] = None,
+            operator_mapping: Optional[Dict[str, Callable]] = None,
             decimal: Optional[int] = 6,
             logger: Optional[Callable] = None,
             verbose: Optional[bool] = False,
     ):
+        """
+        :param df: DataFrame 原始数据
+        :param index_fields: List[IndexField] 指标衍生配置清单
+        :param spark: SparkSession
+        :param reset: 是否重置指标表
+        :param group_mapping: Dict[str, str] 分组字段映射 ent or other
+        :param operator_mapping: Dict[str, Callable] 指标运算符映射
+        :param decimal: 指标值保留小数位数
+        :param logger: 日志
+        :param verbose: 是否打印日志
+        """
         self.df = df
         self.index_fields = index_fields
         self.spark = spark
         self.reset = reset
         self.group_mapping = group_mapping
+        self.operator_mapping = operator_mapping
         self.decimal = decimal
         self.logger = logger
         self.verbose = verbose
@@ -105,7 +117,7 @@ class CollectIndex(LoggerMixin):
             agg_columns = index_field.columns
         agg_columns = [F.col(column).cast(FloatType()) for column in agg_columns]
         df_agg = self.df_origin.groupBy(group_col).agg(
-            operator_mapping.get(operate_name)(*agg_columns).alias("index_val")
+            self.operator_mapping.get(operate_name)(*agg_columns).alias("index_val")
         )
         df_agg = df_agg.withColumn("index_val", F.round(df_agg["index_val"], self.decimal))
         df_agg = df_agg.withColumn("index_name", F.lit(collect_index_name))
