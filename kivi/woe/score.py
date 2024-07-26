@@ -52,7 +52,17 @@ class WOEScore(LoggerMixin):
 
         self._validate_data()
         self._prepare_data()
-        self.df_private = self.df[[id_name, target_name]].copy()
+        self._set_private_data()
+
+    def _set_private_data(self):
+        """"""
+        data_columns = self.df.columns.tolist()
+        if self.id_name in data_columns and self.target_name in data_columns:
+            self.df_private = self.df[[self.id_name, self.target_name]].copy()
+        elif self.id_name in data_columns:
+            self.df_private = self.df[[self.id_name]].copy()
+        else:
+            raise ValueError('id_name and target_name must be in data_columns')
 
     def _validate_woe_data(self):
         """"""
@@ -72,8 +82,8 @@ class WOEScore(LoggerMixin):
         if len(self.df) != len(self.df[self.id_name].unique()):
             raise ValueError('uuid is not unique, please check your data.')
 
-        if self.target_name not in self.df.columns.tolist():
-            raise ValueError(f'target {self.target_name} not in columns, please check your data.')
+        # if self.target_name not in self.df.columns.tolist():
+        #     raise ValueError(f'target {self.target_name} not in columns, please check your data.')
 
         if not self._validate_woe_data():
             raise ValueError('WOE data is not valid, please check your data.')
