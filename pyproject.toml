@@ -7,14 +7,14 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "kivi"
 version = "0.2.7"
-description = "A LLM Agent Python package."
+description = "A risk control modeling tool python package."
 authors = ["chensy cao <chensy.cao@foxmail.com>"]
 maintainers = []
 license = "MIT"
 readme = "README.md"
 homepage = "https://kivi-risk.github.io/kivi-doc/"
 repository = "https://github.com/kivi-risk/kivi.git"
-keywords = ["llm", "agent", "embedding", "chatbot", "prompt"]
+keywords = ["risk", "score card", "modeling", "bank", "risk control"]
 classifiers = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
