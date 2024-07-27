@@ -68,8 +68,8 @@ class ScoreEvaluate(LoggerMixin):
             if self.score_name not in score.columns.tolist():
                 raise ValueError(f"score_name {self.score_name} not in score columns, score idx is {i}.")
             if self.target_name not in score.columns.tolist():
-                raise ValueError(f"target_name {self.target_name} not in score columns, score idx is {i}.")
-
+                # raise ValueError(f"target_name {self.target_name} not in score columns, score idx is {i}.")
+                self._logger(msg=f"[{__class__.__name__}] target_name {self.target_name} not in score columns, score idx is {i}.", color='red')
         if self.keys is None:
             self.keys = [f"score-{i}" for i, score in enumerate(self.scores)]
 
@@ -88,11 +88,15 @@ class ScoreEvaluate(LoggerMixin):
     def score_lifts(self) -> DataFrame:
         """"""
         self.lifts = []
-        for score in self.scores:
-            df_lift = self.lift(score)[self.lift_columns]
-            self.lifts.append(df_lift)
-        self.df_lifts = pd.concat(
-            self.lifts, keys=self.keys, join="outer", axis=1)
+        keys = []
+        for key, score in zip(self.keys, self.scores):
+            if self.target_name not in score.columns.tolist():
+                self._logger(msg=f"[{__class__.__name__}] Skip Evaluate. Message: target_name {self.target_name} not in score columns", color='red')
+            else:
+                df_lift = self.lift(score)[self.lift_columns]
+                self.lifts.append(df_lift)
+                keys.append(key)
+        self.df_lifts = pd.concat(self.lifts, keys=keys, join="outer", axis=1)
         return self.df_lifts
 
     def score_psi(
@@ -120,16 +124,19 @@ class ScoreEvaluate(LoggerMixin):
     def add_psi(
             self,
             score_idx: Optional[Tuple[int, int]] = None,
-    ):
+    ) -> Union[DataFrame, None]:
         """"""
-        if len(self.scores) < 2:
-            raise ValueError("At least two scores are required to calculate PSI")
-        if "psi" not in self.df_lifts.columns:
-            df_psi = self.score_psi(score_idx=score_idx)
-            self.df_lifts = pd.concat([self.df_lifts, df_psi], axis=1)
+        if len(self.scores) < 2 or len(self.lifts) < 2:
+            self._logger(msg=f"[{__class__.__name__}] At least two scores are required to calculate PSI.", color="red")
+            # raise ValueError("At least two scores are required to calculate PSI")
+            return None
         else:
-            self._logger(msg=f"PSI already exists in {self.df_lifts.columns}", color="blue")
-        return self.df_lifts
+            if "psi" not in self.df_lifts.columns:
+                df_psi = self.score_psi(score_idx=score_idx)
+                self.df_lifts = pd.concat([self.df_lifts, df_psi], axis=1)
+            else:
+                self._logger(msg=f"[{__class__.__name__}] PSI already exists in {self.df_lifts.columns}", color="blue")
+            return self.df_lifts
 
     def score_evaluate(
             self,
@@ -186,6 +193,7 @@ class ModelEvaluate(ScoreEvaluate):
         self.verbose = verbose
         self.threshold = self.set_threshold(threshold=threshold)
         self.columns = self.set_columns(columns=columns)
+        self.scores_metrics = []
         self.model_fit()
         scores = self.model_inference()
         super().__init__(
@@ -223,12 +231,15 @@ class ModelEvaluate(ScoreEvaluate):
         for sample in self.samples:
             df_sample = sm.add_constant(sample[self.columns])
             proba = self.model.predict(df_sample)
-            scores.append(pd.DataFrame({
+            score_data = {
+                "uuid": sample[self.id_name],
                 "proba": proba,
                 "score": self.model_score(sample),
                 "prediction": (proba > self.threshold).astype(int),
-                "target": sample[self.target_name],
-            }))
+            }
+            if self.target_name in sample.columns.tolist():
+                score_data.update({"target": sample[self.target_name],})
+            scores.append(pd.DataFrame(score_data))
         return scores
 
     def model_fit(self):
@@ -242,13 +253,15 @@ class ModelEvaluate(ScoreEvaluate):
 
     def model_evaluate(self):
         """"""
-        scores_metrics = []
         for i, score in enumerate(self.scores):
-            binary_metrics = BinaryMetrics(target=score.target, proba=score.proba, prediction=score.prediction)
-            score_metrics = binary_metrics.evaluate()
-            scores_metrics.append(score_metrics)
-            metrics_info = f"AUC = {score_metrics.auc:.2f}, KS = {score_metrics.ks:.2f}, Lift = {score_metrics.lift:.2f}, recall = {score_metrics.recall:.2f}, precision = {score_metrics.precision:.2f}, f1-score = {score_metrics.f1_score:.2f}\n"
-            self._logger(msg=f"[{__class__.__name__}] Sample ID {i} Metrics: {metrics_info}", color='blue')
+            if self.target_name in score.columns.tolist():
+                binary_metrics = BinaryMetrics(target=score.target, proba=score.proba, prediction=score.prediction)
+                score_metrics = binary_metrics.evaluate()
+                self.scores_metrics.append(score_metrics)
+                metrics_info = f"AUC = {score_metrics.auc:.2f}, KS = {score_metrics.ks:.2f}, Lift = {score_metrics.lift:.2f}, recall = {score_metrics.recall:.2f}, precision = {score_metrics.precision:.2f}, f1-score = {score_metrics.f1_score:.2f}\n"
+                self._logger(msg=f"[{__class__.__name__}] Sample ID {i} Metrics: {metrics_info}", color='blue')
+            else:
+                self._logger(msg=f"[{__class__.__name__}] Sample ID {i} Metrics: No target in score", color='red')
 
     def evaluate(
             self,
