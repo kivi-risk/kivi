@@ -44,13 +44,13 @@ class BinsMixin:
         """
 
         if cut_type == 'qcut':
-            cut = pd.qcut
+            _, self.cutoffpoint = pd.qcut(
+                data, bins, retbins=True, duplicates='drop',
+            )
         elif cut_type == 'cut':
-            cut = pd.cut
-
-        _, self.cutoffpoint = cut(
-            data, bins, retbins=True, include_lowest=True, duplicates='drop',
-        )
+            _, self.cutoffpoint = pd.cut(
+                data, bins, retbins=True, include_lowest=True, duplicates='drop',
+            )
 
         self.cutoffpoint[0] = -np.inf
         self.cutoffpoint[-1] = np.inf

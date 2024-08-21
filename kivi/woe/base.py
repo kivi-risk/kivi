@@ -33,7 +33,7 @@ class WOEMixin(LoggerMixin):
             target: Series,
             var_name: Optional[str] = None,
             fill_bin: Optional[bool] = True,
-            abnormal_vals: Optional[List[Union[str, int, float]]] = Any,
+            abnormal_vals: Optional[List[Union[str, int, float]]] = None,
             weight: Optional[Any] = None,
             woe_columns: Optional[List[str]] = None,
             *args: Any,
