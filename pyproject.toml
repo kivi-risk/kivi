@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "kivi"
-version = "0.2.7"
+version = "0.2.8"
 description = "A risk control modeling tool python package."
 authors = ["chensy cao <chensy.cao@foxmail.com>"]
 maintainers = []
