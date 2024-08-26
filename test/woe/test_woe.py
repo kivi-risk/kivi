@@ -3,15 +3,13 @@ import numpy as np
 import pandas as pd
 from kivi.woe import *
 from kivi.datasets import *
-from kivi.utils.operator import *
-from kivi.ModelEval import *
 
 
 class TestWOE(unittest.TestCase):
     """"""
     def setUp(self):
         """"""
-        self.df_bank = Dataset.BankData()
+        self.df_bank = Dataset.bank_data()
         print(self.df_bank.shape)
 
     def test_distance_bins(self):
