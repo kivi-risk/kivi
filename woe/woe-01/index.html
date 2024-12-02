@@ -12,7 +12,7 @@
         <meta name="author" content="CaoChensy">
       
       
-        <link rel="canonical" href="https://caochensy.github.io/wisecon/woe/woe-01/">
+        <link rel="canonical" href="https://kivi-risk.github.io/kivi/woe/woe-01/">
       
       
         <link rel="prev" href="../..">
@@ -72,7 +72,7 @@
       
         <meta  property="og:description"  content="kivi" >
       
-        <meta  property="og:image"  content="https://caochensy.github.io/wisecon/assets/images/social/woe/woe-01.png" >
+        <meta  property="og:image"  content="https://kivi-risk.github.io/kivi/assets/images/social/woe/woe-01.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -80,7 +80,7 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://caochensy.github.io/wisecon/woe/woe-01/" >
+        <meta  property="og:url"  content="https://kivi-risk.github.io/kivi/woe/woe-01/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
@@ -88,7 +88,7 @@
       
         <meta  name="twitter:description"  content="kivi" >
       
-        <meta  name="twitter:image"  content="https://caochensy.github.io/wisecon/assets/images/social/woe/woe-01.png" >
+        <meta  name="twitter:image"  content="https://kivi-risk.github.io/kivi/assets/images/social/woe/woe-01.png" >
       
     
     
@@ -619,6 +619,30 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kivi.woe.woe_obj.DistanceBins" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;DistanceBins
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kivi.woe.woe_obj.DistanceBins.fit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fit">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1099,6 +1123,30 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kivi.woe.woe_obj.DistanceBins" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;DistanceBins
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kivi.woe.woe_obj.DistanceBins.fit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fit">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1285,36 +1333,394 @@
 </ol>
 <h2 id="_1">无监督分箱<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <h3 id="_2">等距分箱<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p><code>DistanceBins</code> 参数：</p>
-</blockquote>
-<ul>
-<li><code>:param variables:</code> 待分箱变量。</li>
-<li><code>:param target:</code> 目标标签变量。</li>
-<li><code>:param bins:</code> 等频分箱数目。</li>
-<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</li>
-</ul>
-<blockquote>
-<p>示例：</p>
-</blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">kivi.woe</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="kivi.woe.woe_obj.DistanceBins"></a>
+    <div class="doc doc-contents first">
+
+
+        <p>等距分箱分析</p>
+
+        <p>等距分箱分析。
+Notes:
+    <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">kivi.woe</span> <span class="kn">import</span> <span class="o">*</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">kivi.datasets</span> <span class="kn">import</span> <span class="o">*</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">df_bank</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">bank_data</span><span class="p">()</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">DistanceBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">origin_border</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div></p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>variables</code>
+            </td>
+            <td>
+                  <code><span title="pandas.Series">Series</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>待分箱变量</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target</code>
+            </td>
+            <td>
+                  <code><span title="pandas.Series">Series</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>目标标签变量</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>bins</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>决策树分箱中最大的叶子结点数量，一般对应的是最终分箱数量，默认为 5 。</p>
+              </div>
+            </td>
+            <td>
+                  <code>5</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>abnormal_vals</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" title="typing.Union" href="https://docs.python.org/3/library/typing.html#typing.Union">Union</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>特殊值分箱，在变量存在特殊值时单独分一箱，如 -1111, -9999。</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>fill_bin</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>decimal</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>分箱后，WOE 和 IV 的保留小数位数，默认为 6 位。</p>
+              </div>
+            </td>
+            <td>
+                  <code>6</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>weight</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>样本权重变量，用于计算 WOE，默认为 None。</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>*args</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                  <code>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>**kwargs</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <p>woe = Distance(variables, target, bins=5, fill_bin=True)
+woe.fit()</p>
+</details>
+
+
+
+
+
+                  <details class="quote">
+                    <summary>Source code in <code>kivi\woe\woe_obj\woe_distance.py</code></summary>
+                    <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span>
+<span class="normal"><a href="#__codelineno-0-38">38</a></span>
+<span class="normal"><a href="#__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#__codelineno-0-44">44</a></span>
+<span class="normal"><a href="#__codelineno-0-45">45</a></span>
+<span class="normal"><a href="#__codelineno-0-46">46</a></span>
+<span class="normal"><a href="#__codelineno-0-47">47</a></span>
+<span class="normal"><a href="#__codelineno-0-48">48</a></span>
+<span class="normal"><a href="#__codelineno-0-49">49</a></span>
+<span class="normal"><a href="#__codelineno-0-50">50</a></span>
+<span class="normal"><a href="#__codelineno-0-51">51</a></span>
+<span class="normal"><a href="#__codelineno-0-52">52</a></span>
+<span class="normal"><a href="#__codelineno-0-53">53</a></span>
+<span class="normal"><a href="#__codelineno-0-54">54</a></span>
+<span class="normal"><a href="#__codelineno-0-55">55</a></span>
+<span class="normal"><a href="#__codelineno-0-56">56</a></span>
+<span class="normal"><a href="#__codelineno-0-57">57</a></span>
+<span class="normal"><a href="#__codelineno-0-58">58</a></span>
+<span class="normal"><a href="#__codelineno-0-59">59</a></span>
+<span class="normal"><a href="#__codelineno-0-60">60</a></span>
+<span class="normal"><a href="#__codelineno-0-61">61</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>        <span class="bp">self</span><span class="p">,</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>        <span class="n">variables</span><span class="p">:</span> <span class="n">Series</span><span class="p">,</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>        <span class="n">target</span><span class="p">:</span> <span class="n">Series</span><span class="p">,</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>        <span class="n">bins</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a>        <span class="n">abnormal_vals</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>        <span class="n">fill_bin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a>        <span class="n">decimal</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a>        <span class="n">weight</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a>        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="p">):</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;等距分箱分析。</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Notes:</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ```python</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        from kivi.woe import *</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from kivi.datasets import *</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        df_bank = Dataset.bank_data()</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        bins = DistanceBins(df_bank.age, df_bank.target, bins=5)</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        df_woe = bins.fit(score=True, origin_border=False)</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        print(df_woe.to_markdown())</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ```</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Args:</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        variables: 待分箱变量</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        target: 目标标签变量</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        bins: 决策树分箱中最大的叶子结点数量，一般对应的是最终分箱数量，默认为 5 。</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        abnormal_vals: 特殊值分箱，在变量存在特殊值时单独分一箱，如 -1111, -9999。</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        fill_bin: 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        decimal: 分箱后，WOE 和 IV 的保留小数位数，默认为 6 位。</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        weight: 样本权重变量，用于计算 WOE，默认为 None。</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        *args:</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        **kwargs:</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    Example:</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        woe = Distance(variables, target, bins=5, fill_bin=True)</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        woe.fit()</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="n">variables</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">bins</span> <span class="o">=</span> <span class="n">bins</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">max_leaf_nodes</span> <span class="o">=</span> <span class="n">bins</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">fill_bin</span> <span class="o">=</span> <span class="n">fill_bin</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">abnormal_vals</span> <span class="o">=</span> <span class="n">abnormal_vals</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">decimal</span> <span class="o">=</span> <span class="n">decimal</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">data_prepare</span><span class="p">(</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a>        <span class="n">variables</span><span class="o">=</span><span class="n">variables</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+                  </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="kivi.woe.woe_obj.DistanceBins.fit" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fit</span>
+
+
+<a href="#kivi.woe.woe_obj.DistanceBins.fit" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fit</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">score</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">origin_border</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">order</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span>
 </span></code></pre></div>
-<p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>|  0 | age        |              0 |      -inf |        32 |    1055 |   134 |   0.127014 |  0.110679 | 0.002983 |   0.122104 | 下降上升 |      85 |
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>|  1 | age        |              0 |        32 |        46 |    2104 |   207 |   0.098384 | -0.177011 | 0.013619 |   0.122104 | 下降上升 |     100 |
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>|  2 | age        |              0 |        46 |        59 |    1188 |   125 |   0.105219 | -0.102237 | 0.00264  |   0.122104 | 下降上升 |      95 |
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>|  3 | age        |              0 |        59 |        73 |     136 |    38 |   0.279412 |  1.09092  | 0.05284  |   0.122104 | 下降上升 |      35 |
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>|  4 | age        |              0 |        73 |       inf |      38 |    17 |   0.447368 |  1.82699  | 0.050022 |   0.122104 | 下降上升 |       0 |
-</span></code></pre></div>
-<h3 id="_3">等频分箱<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+        <p>:param score: 是否增加 WOEMixin score。
+:param origin_border: 是否增加 分箱中的最大值与最小值。
+:param order: 是否增加单调性判断。
+:return: DataFrame WOEMixin result.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>kivi\woe\woe_obj\woe_distance.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-63">63</a></span>
+<span class="normal"><a href="#__codelineno-0-64">64</a></span>
+<span class="normal"><a href="#__codelineno-0-65">65</a></span>
+<span class="normal"><a href="#__codelineno-0-66">66</a></span>
+<span class="normal"><a href="#__codelineno-0-67">67</a></span>
+<span class="normal"><a href="#__codelineno-0-68">68</a></span>
+<span class="normal"><a href="#__codelineno-0-69">69</a></span>
+<span class="normal"><a href="#__codelineno-0-70">70</a></span>
+<span class="normal"><a href="#__codelineno-0-71">71</a></span>
+<span class="normal"><a href="#__codelineno-0-72">72</a></span>
+<span class="normal"><a href="#__codelineno-0-73">73</a></span>
+<span class="normal"><a href="#__codelineno-0-74">74</a></span>
+<span class="normal"><a href="#__codelineno-0-75">75</a></span>
+<span class="normal"><a href="#__codelineno-0-76">76</a></span>
+<span class="normal"><a href="#__codelineno-0-77">77</a></span>
+<span class="normal"><a href="#__codelineno-0-78">78</a></span>
+<span class="normal"><a href="#__codelineno-0-79">79</a></span>
+<span class="normal"><a href="#__codelineno-0-80">80</a></span>
+<span class="normal"><a href="#__codelineno-0-81">81</a></span>
+<span class="normal"><a href="#__codelineno-0-82">82</a></span>
+<span class="normal"><a href="#__codelineno-0-83">83</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a>        <span class="bp">self</span><span class="p">,</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="n">score</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="n">origin_border</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a>        <span class="n">order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68"></a>        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    :param score: 是否增加 WOEMixin score。</span>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    :param origin_border: 是否增加 分箱中的最大值与最小值。</span>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    :param order: 是否增加单调性判断。</span>
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    :return: DataFrame WOEMixin result.</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="n">_bucket</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_data</span><span class="o">.</span><span class="n">variables</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">,</span> <span class="n">include_lowest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">duplicates</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a>    <span class="n">bucket</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a>        <span class="s1">&#39;variables&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_data</span><span class="o">.</span><span class="n">variables</span><span class="p">,</span>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a>        <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_data</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="s1">&#39;bucket&#39;</span><span class="p">:</span> <span class="n">_bucket</span><span class="p">,</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="p">})</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;bucket&#39;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">cal_woe_iv</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">score</span><span class="p">,</span> <span class="n">origin_border</span><span class="o">=</span><span class="n">origin_border</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">woe</span>
+</span></code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="_3">等频分箱<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p><code>FrequencyBins</code> 参数：</p>
 </blockquote>
@@ -1327,18 +1733,18 @@
 <blockquote>
 <p>示例：</p>
 </blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">FrequencyBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">FrequencyBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>|  0 | age        |              0 |      -inf |        32 |    1055 |   134 |   0.127014 |  0.110679 | 0.002983 |   0.037287 | 下降上升 |      35 |
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>|  1 | age        |              0 |        32 |        36 |     785 |    81 |   0.103185 | -0.12403  | 0.002546 |   0.037287 | 下降上升 |      75 |
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>|  2 | age        |              0 |        36 |        43 |     983 |    90 |   0.091556 | -0.256477 | 0.012953 |   0.037287 | 下降上升 |     100 |
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>|  3 | age        |              0 |        43 |        51 |     862 |    92 |   0.106729 | -0.086302 | 0.001374 |   0.037287 | 下降上升 |      70 |
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>|  4 | age        |              0 |        51 |       inf |     836 |   124 |   0.148325 |  0.290503 | 0.017431 |   0.037287 | 下降上升 |       0 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>|  0 | age        |              0 |      -inf |        32 |    1055 |   134 |   0.127014 |  0.110679 | 0.002983 |   0.037287 | 下降上升 |      35 |
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>|  1 | age        |              0 |        32 |        36 |     785 |    81 |   0.103185 | -0.12403  | 0.002546 |   0.037287 | 下降上升 |      75 |
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>|  2 | age        |              0 |        36 |        43 |     983 |    90 |   0.091556 | -0.256477 | 0.012953 |   0.037287 | 下降上升 |     100 |
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>|  3 | age        |              0 |        43 |        51 |     862 |    92 |   0.106729 | -0.086302 | 0.001374 |   0.037287 | 下降上升 |      70 |
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>|  4 | age        |              0 |        51 |       inf |     836 |   124 |   0.148325 |  0.290503 | 0.017431 |   0.037287 | 下降上升 |       0 |
 </span></code></pre></div>
 <h3 id="_4">类别型分箱<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -1352,25 +1758,25 @@
 <blockquote>
 <p>示例：</p>
 </blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">CategoryBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">job</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">origin_border</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">CategoryBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">job</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">origin_border</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>|    | var_name   |   missing_rate | min_bin       | max_bin       |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>|---:|:-----------|---------------:|:--------------|:--------------|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>|  0 | job        |              0 | admin.        | admin.        |     478 |    58 |   0.121339 |  0.058488 | 0.00037  |   0.132519 | 未知    |      60 |
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>|  1 | job        |              0 | blue-collar   | blue-collar   |     946 |    69 |   0.072939 | -0.504101 | 0.043762 |   0.132519 | 未知    |     100 |
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>|  2 | job        |              0 | entrepreneur  | entrepreneur  |     168 |    15 |   0.089286 | -0.284088 | 0.002687 |   0.132519 | 未知    |      85 |
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>|  3 | job        |              0 | housemaid     | housemaid     |     112 |    14 |   0.125    |  0.092389 | 0.000219 |   0.132519 | 未知    |      55 |
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>|  4 | job        |              0 | management    | management    |     969 |   131 |   0.135191 |  0.182479 | 0.007653 |   0.132519 | 未知    |      50 |
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>|  5 | job        |              0 | retired       | retired       |     230 |    54 |   0.234783 |  0.8568   | 0.051105 |   0.132519 | 未知    |       0 |
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>|  6 | job        |              0 | self-employed | self-employed |     183 |    20 |   0.10929  | -0.059718 | 0.000141 |   0.132519 | 未知    |      65 |
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>|  7 | job        |              0 | services      | services      |     417 |    38 |   0.091127 | -0.26165  | 0.005707 |   0.132519 | 未知    |      80 |
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>|  8 | job        |              0 | student       | student       |      84 |    19 |   0.22619  |  0.808351 | 0.016344 |   0.132519 | 未知    |       5 |
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>|  9 | job        |              0 | technician    | technician    |     768 |    83 |   0.108073 | -0.072279 | 0.000863 |   0.132519 | 未知    |      70 |
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>| 10 | job        |              0 | unemployed    | unemployed    |     128 |    13 |   0.101562 | -0.141683 | 0.000538 |   0.132519 | 未知    |      75 |
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>| 11 | job        |              0 | unknown       | unknown       |      38 |     7 |   0.184211 |  0.550223 | 0.003128 |   0.132519 | 未知    |      25 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>|    | var_name   |   missing_rate | min_bin       | max_bin       |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>|---:|:-----------|---------------:|:--------------|:--------------|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>|  0 | job        |              0 | admin.        | admin.        |     478 |    58 |   0.121339 |  0.058488 | 0.00037  |   0.132519 | 未知    |      60 |
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>|  1 | job        |              0 | blue-collar   | blue-collar   |     946 |    69 |   0.072939 | -0.504101 | 0.043762 |   0.132519 | 未知    |     100 |
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>|  2 | job        |              0 | entrepreneur  | entrepreneur  |     168 |    15 |   0.089286 | -0.284088 | 0.002687 |   0.132519 | 未知    |      85 |
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>|  3 | job        |              0 | housemaid     | housemaid     |     112 |    14 |   0.125    |  0.092389 | 0.000219 |   0.132519 | 未知    |      55 |
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>|  4 | job        |              0 | management    | management    |     969 |   131 |   0.135191 |  0.182479 | 0.007653 |   0.132519 | 未知    |      50 |
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>|  5 | job        |              0 | retired       | retired       |     230 |    54 |   0.234783 |  0.8568   | 0.051105 |   0.132519 | 未知    |       0 |
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>|  6 | job        |              0 | self-employed | self-employed |     183 |    20 |   0.10929  | -0.059718 | 0.000141 |   0.132519 | 未知    |      65 |
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>|  7 | job        |              0 | services      | services      |     417 |    38 |   0.091127 | -0.26165  | 0.005707 |   0.132519 | 未知    |      80 |
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>|  8 | job        |              0 | student       | student       |      84 |    19 |   0.22619  |  0.808351 | 0.016344 |   0.132519 | 未知    |       5 |
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>|  9 | job        |              0 | technician    | technician    |     768 |    83 |   0.108073 | -0.072279 | 0.000863 |   0.132519 | 未知    |      70 |
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>| 10 | job        |              0 | unemployed    | unemployed    |     128 |    13 |   0.101562 | -0.141683 | 0.000538 |   0.132519 | 未知    |      75 |
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>| 11 | job        |              0 | unknown       | unknown       |      38 |     7 |   0.184211 |  0.550223 | 0.003128 |   0.132519 | 未知    |      25 |
 </span></code></pre></div>
 <h4 id="kmeans"><code>Kmeans</code>分箱<a class="headerlink" href="#kmeans" title="Permanent link">&para;</a></h4>
 <blockquote>
@@ -1385,18 +1791,18 @@
 <blockquote>
 <p>示例：</p>
 </blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">KmeansBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">KmeansBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>|  0 | age        |              0 |      -inf |        34 |    1472 |   178 |   0.120924 |  0.05459  | 0.000991 |     0.0861 | 下降上升 |      85 |
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>|  1 | age        |              0 |        34 |        42 |    1236 |   116 |   0.093851 | -0.229194 | 0.013145 |     0.0861 | 下降上升 |     100 |
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>|  2 | age        |              0 |        42 |        51 |     977 |   103 |   0.105425 | -0.100052 | 0.002081 |     0.0861 | 下降上升 |      90 |
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>|  3 | age        |              0 |        51 |        64 |     747 |    92 |   0.123159 |  0.075453 | 0.000968 |     0.0861 | 下降上升 |      80 |
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>|  4 | age        |              0 |        64 |       inf |      89 |    32 |   0.359551 |  1.46098  | 0.068915 |     0.0861 | 下降上升 |       0 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>|  0 | age        |              0 |      -inf |        34 |    1472 |   178 |   0.120924 |  0.05459  | 0.000991 |     0.0861 | 下降上升 |      85 |
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>|  1 | age        |              0 |        34 |        42 |    1236 |   116 |   0.093851 | -0.229194 | 0.013145 |     0.0861 | 下降上升 |     100 |
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>|  2 | age        |              0 |        42 |        51 |     977 |   103 |   0.105425 | -0.100052 | 0.002081 |     0.0861 | 下降上升 |      90 |
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>|  3 | age        |              0 |        51 |        64 |     747 |    92 |   0.123159 |  0.075453 | 0.000968 |     0.0861 | 下降上升 |      80 |
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>|  4 | age        |              0 |        64 |       inf |      89 |    32 |   0.359551 |  1.46098  | 0.068915 |     0.0861 | 下降上升 |       0 |
 </span></code></pre></div>
 <h3 id="_5">手动分箱<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -1411,20 +1817,20 @@
 <blockquote>
 <p>示例：</p>
 </blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">ManuallyBins</span><span class="p">(</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],)</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">ManuallyBins</span><span class="p">(</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>|  0 | age        |              0 |      -inf |        20 |       7 |     3 |   0.428571 |  1.75062  | 0.00833  |   0.088071 | 下降上升 |       5 |
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>|  1 | age        |              0 |        20 |        22 |      16 |     4 |   0.25     |  0.939687 | 0.004395 |   0.088071 | 下降上升 |      45 |
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>|  2 | age        |              0 |        22 |        50 |    3571 |   384 |   0.107533 | -0.077893 | 0.004651 |   0.088071 | 下降上升 |     100 |
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>|  3 | age        |              0 |        50 |        70 |     873 |   106 |   0.12142  |  0.059252 | 0.000694 |   0.088071 | 下降上升 |      95 |
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>|  4 | age        |              0 |        70 |       inf |      54 |    24 |   0.444444 |  1.81516  | 0.070002 |   0.088071 | 下降上升 |       0 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>|  0 | age        |              0 |      -inf |        20 |       7 |     3 |   0.428571 |  1.75062  | 0.00833  |   0.088071 | 下降上升 |       5 |
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>|  1 | age        |              0 |        20 |        22 |      16 |     4 |   0.25     |  0.939687 | 0.004395 |   0.088071 | 下降上升 |      45 |
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>|  2 | age        |              0 |        22 |        50 |    3571 |   384 |   0.107533 | -0.077893 | 0.004651 |   0.088071 | 下降上升 |     100 |
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>|  3 | age        |              0 |        50 |        70 |     873 |   106 |   0.12142  |  0.059252 | 0.000694 |   0.088071 | 下降上升 |      95 |
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>|  4 | age        |              0 |        70 |       inf |      54 |    24 |   0.444444 |  1.81516  | 0.070002 |   0.088071 | 下降上升 |       0 |
 </span></code></pre></div>
 <h2 id="_6">有监督分箱<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <h3 id="pearson">Pearson 分箱<a class="headerlink" href="#pearson" title="Permanent link">&para;</a></h3>
@@ -1444,16 +1850,16 @@
 <blockquote>
 <p>示例：</p>
 </blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">PearsonBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">min_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">PearsonBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">min_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>|  0 | age        |              0 |      -inf |        35 |    1652 |   197 |   0.119249 |  0.038742 | 0.000557 |   0.024693 | 下降上升 |      30 |
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>|  1 | age        |              0 |        35 |        45 |    1388 |   129 |   0.092939 | -0.239961 | 0.016113 |   0.024693 | 下降上升 |     100 |
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>|  2 | age        |              0 |        45 |       inf |    1481 |   195 |   0.131668 |  0.152007 | 0.008023 |   0.024693 | 下降上升 |       0 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>|  0 | age        |              0 |      -inf |        35 |    1652 |   197 |   0.119249 |  0.038742 | 0.000557 |   0.024693 | 下降上升 |      30 |
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>|  1 | age        |              0 |        35 |        45 |    1388 |   129 |   0.092939 | -0.239961 | 0.016113 |   0.024693 | 下降上升 |     100 |
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>|  2 | age        |              0 |        45 |       inf |    1481 |   195 |   0.131668 |  0.152007 | 0.008023 |   0.024693 | 下降上升 |       0 |
 </span></code></pre></div>
 <h3 id="_7">决策树分箱<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -1468,18 +1874,18 @@
 <blockquote>
 <p>示例：</p>
 </blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">tree_bins</span> <span class="o">=</span> <span class="n">TreeBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">tree_bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">tree_bins</span> <span class="o">=</span> <span class="n">TreeBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">tree_bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>|  0 | age        |              0 |      -inf |        29 |     482 |    74 |   0.153527 |  0.331098 | 0.013255 |   0.153044 | 未知    |      40 |
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>|  1 | age        |              0 |        29 |        52 |    3289 |   332 |   0.100943 | -0.148496 | 0.015149 |   0.153044 | 未知    |      65 |
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>|  2 | age        |              0 |        52 |        55 |     255 |    34 |   0.133333 |  0.166497 | 0.001666 |   0.153044 | 未知    |      45 |
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>|  3 | age        |              0 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |   0.153044 | 未知    |     100 |
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>|  4 | age        |              0 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |   0.153044 | 未知    |       0 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>|  0 | age        |              0 |      -inf |        29 |     482 |    74 |   0.153527 |  0.331098 | 0.013255 |   0.153044 | 未知    |      40 |
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>|  1 | age        |              0 |        29 |        52 |    3289 |   332 |   0.100943 | -0.148496 | 0.015149 |   0.153044 | 未知    |      65 |
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>|  2 | age        |              0 |        52 |        55 |     255 |    34 |   0.133333 |  0.166497 | 0.001666 |   0.153044 | 未知    |      45 |
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>|  3 | age        |              0 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |   0.153044 | 未知    |     100 |
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>|  4 | age        |              0 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |   0.153044 | 未知    |       0 |
 </span></code></pre></div>
 <h3 id="best-ks"><code>Best-KS</code>分箱<a class="headerlink" href="#best-ks" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -1494,19 +1900,19 @@
 <blockquote>
 <p>示例：</p>
 </blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 类别型分箱计算</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">ks</span> <span class="o">=</span> <span class="n">KSBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="p">)</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">ks</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># 类别型分箱计算</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">ks</span> <span class="o">=</span> <span class="n">KSBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="p">)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">ks</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>|  0 | age        |              0 |      -inf |        30 |     632 |    90 |   0.142405 |  0.242843 | 0.009045 |   0.148341 | 未知    |      45 |
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>|  1 | age        |              0 |        30 |        45 |    2408 |   236 |   0.098007 | -0.181272 | 0.016319 |   0.148341 | 未知    |      65 |
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>|  2 | age        |              0 |        45 |        55 |     986 |   114 |   0.115619 |  0.003709 | 3e-06    |   0.148341 | 未知    |      55 |
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>|  3 | age        |              0 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |   0.148341 | 未知    |     100 |
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>|  4 | age        |              0 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |   0.148341 | 未知    |       0 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>|  0 | age        |              0 |      -inf |        30 |     632 |    90 |   0.142405 |  0.242843 | 0.009045 |   0.148341 | 未知    |      45 |
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>|  1 | age        |              0 |        30 |        45 |    2408 |   236 |   0.098007 | -0.181272 | 0.016319 |   0.148341 | 未知    |      65 |
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>|  2 | age        |              0 |        45 |        55 |     986 |   114 |   0.115619 |  0.003709 | 3e-06    |   0.148341 | 未知    |      55 |
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>|  3 | age        |              0 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |   0.148341 | 未知    |     100 |
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>|  4 | age        |              0 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |   0.148341 | 未知    |       0 |
 </span></code></pre></div>
 <h3 id="_8">卡方分箱<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -1601,19 +2007,19 @@
 <blockquote>
 <p>示例：</p>
 </blockquote>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">Chi2Bins</span><span class="p">(</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>   <span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">init_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">min_bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,)</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">Chi2Bins</span><span class="p">(</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>   <span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">init_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">min_bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <p><em>输出</em></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>|  0 | age        |              0 |      -inf |        29 |     482 |    74 |   0.153527 |  0.331098 | 0.013255 |   0.132842 | 未知    |      55 |
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>|  1 | age        |              0 |        29 |        45 |    2558 |   252 |   0.098514 | -0.175541 | 0.016293 |   0.132842 | 未知    |      85 |
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>|  2 | age        |              0 |        45 |        56 |    1060 |   120 |   0.113208 | -0.020089 | 9.4e-05  |   0.132842 | 未知    |      80 |
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>|  3 | age        |              0 |        56 |        59 |     247 |    20 |   0.080972 | -0.390918 | 0.007178 |   0.132842 | 未知    |     100 |
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>|  4 | age        |              0 |        59 |       inf |     174 |    55 |   0.316092 |  1.26651  | 0.096022 |   0.132842 | 未知    |       0 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>|  0 | age        |              0 |      -inf |        29 |     482 |    74 |   0.153527 |  0.331098 | 0.013255 |   0.132842 | 未知    |      55 |
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>|  1 | age        |              0 |        29 |        45 |    2558 |   252 |   0.098514 | -0.175541 | 0.016293 |   0.132842 | 未知    |      85 |
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>|  2 | age        |              0 |        45 |        56 |    1060 |   120 |   0.113208 | -0.020089 | 9.4e-05  |   0.132842 | 未知    |      80 |
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>|  3 | age        |              0 |        56 |        59 |     247 |    20 |   0.080972 | -0.390918 | 0.007178 |   0.132842 | 未知    |     100 |
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>|  4 | age        |              0 |        59 |       inf |     174 |    55 |   0.316092 |  1.26651  | 0.096022 |   0.132842 | 未知    |       0 |
 </span></code></pre></div>
 <h2 id="_9">异常值分箱<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <blockquote>
@@ -1625,22 +2031,22 @@
 资产不存在与负债不存在可能是完全不同的状况，需要在分箱时分类讨论。</li>
 </ol>
 <p><strong>在以上情况下，</strong> 可以指定<code>abnormal_vals</code>参数。示例如下：</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">TreeBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">abnormal_vals</span><span class="o">=</span><span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">31</span><span class="p">])</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">TreeBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">abnormal_vals</span><span class="o">=</span><span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">31</span><span class="p">])</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
 </span></code></pre></div>
 <blockquote>
 <p>结果数据的介绍</p>
 </blockquote>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>|  0 | age        |      0.0449016 |      -inf |        29 |     478 |    72 |   0.150628 |  0.308613 | 0.011325 |    0.16042 | 未知    |      60 |
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>|  1 | age        |      0.0449016 |        29 |        52 |    3090 |   316 |   0.102265 | -0.134004 | 0.011655 |    0.16042 | 未知    |      75 |
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>|  2 | age        |      0.0449016 |        52 |        55 |     255 |    34 |   0.133333 |  0.166497 | 0.001666 |    0.16042 | 未知    |      65 |
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>|  3 | age        |      0.0449016 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |    0.16042 | 未知    |     100 |
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>|  4 | age        |      0.0449016 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |    0.16042 | 未知    |      35 |
-</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>|  5 | age        |      0.0449016 |        19 |        19 |       4 |     2 |   0.5      |  2.0383   | 0.006805 |    0.16042 | 未知    |       0 |
-</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>|  6 | age        |      0.0449016 |        31 |        31 |     199 |    16 |   0.080402 | -0.398598 | 0.005995 |    0.16042 | 未知    |      85 |
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>|  0 | age        |      0.0449016 |      -inf |        29 |     478 |    72 |   0.150628 |  0.308613 | 0.011325 |    0.16042 | 未知    |      60 |
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>|  1 | age        |      0.0449016 |        29 |        52 |    3090 |   316 |   0.102265 | -0.134004 | 0.011655 |    0.16042 | 未知    |      75 |
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>|  2 | age        |      0.0449016 |        52 |        55 |     255 |    34 |   0.133333 |  0.166497 | 0.001666 |    0.16042 | 未知    |      65 |
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>|  3 | age        |      0.0449016 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |    0.16042 | 未知    |     100 |
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>|  4 | age        |      0.0449016 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |    0.16042 | 未知    |      35 |
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>|  5 | age        |      0.0449016 |        19 |        19 |       4 |     2 |   0.5      |  2.0383   | 0.006805 |    0.16042 | 未知    |       0 |
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>|  6 | age        |      0.0449016 |        31 |        31 |     199 |    16 |   0.080402 | -0.398598 | 0.005995 |    0.16042 | 未知    |      85 |
 </span></code></pre></div>
 <p><em>可以看到，上面的分箱过程中将<code>19/31</code>单独列为两个分箱进行计算。任何分箱都支持指定<code>abnormal_vals</code>值的方式对异常值进行单独的统计计算。</em></p>
 <h2 id="_10">分箱分数<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
@@ -1832,7 +2238,7 @@ woe_{score} = \frac{woe_{neg} - min(woe_{neg})}{max(woe_{neg}) - min(woe_{neg})}
       
       
     
-    <a href="https://github.com/CaoChensy/wisecon.git" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+    <a href="https://kivi-risk.github.io/kivi/" target="_blank" rel="noopener" title="kivi-risk.github.io" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
