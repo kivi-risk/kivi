@@ -5,8 +5,8 @@ site_author: CaoChensy
 site_description: WisEcon
 
 # Repository
-repo_name: CaoChensy/wisecon
-repo_url: https://github.com/CaoChensy/wisecon
+repo_name: kivi-risk/kivi
+repo_url: https://github.com/kivi-risk/kivi
 
 # Copyright
 copyright: Copyright &copy; 2024 Chensy
@@ -176,32 +176,14 @@ nav:
   - Quick start:
       - Quick start: index.md
   - API Documentation:
-      - 证券数据:
-          - 市场全貌: api/stock/market.md
-          - KLine: api/stock/kline.md
-          - Tick: api/stock/tick.md
-          - 股东分析: api/stock/holder.md
-          - 上市公司财务报表: api/stock/financial.md
-          - 成分股与市场行情: api/stock/constituent_stock.md
-          - 资金流分析: api/stock/capital_flow.md
-          - 主力持仓: api/stock/main_holder.md
-          - 估值分析: api/stock/valuation.md
-          - 股票排行: api/stock/ranking.md
-          - 新上市: api/stock/new_ipo.md
-          - ETF行情: api/stock/etf.md
-          - 融资融券: api/stock/margin.md
-          - 金融研究员指数: api/stock/analyst_rank.md
-          - 行业/地区/概念编码: api/stock/plate_mapping.md
-      - 公募基金(Editing): api/fund/value.md
-      - 宏观经济(Editing): api/macro.md
-      - 财经文本:
-          - 财经新闻(Editing): api/text/news.md
-          - 财经研报(Editing): api/text/reports.md
-      - 其他数据:
-          - 汽车销售数据: api/other/car_sales.md
-      - 其他工具:
-          - Time: api/utils/time.md
-      - Typing:
-          - Data: api/typing/response_data.md
+      - WOE:
+          - WOE-API: woe/woe-01.md
+          - 样本加权分箱: woe/woe-02.md
+          - 批量分箱技术: woe/woe-03.md
+      - API:
+          - datasets: api/datasets.md
+          - evaluate: api/evaluate.md
+          - stepwise: api/stepwise.md
+          - AHP: api/ahp.md
   - Blog:
       - blog: blog/index.md
