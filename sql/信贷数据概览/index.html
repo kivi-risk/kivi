@@ -1,0 +1,1322 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="kivi">
+      
+      
+        <meta name="author" content="CaoChensy">
+      
+      
+        <link rel="canonical" href="https://caochensy.github.io/wisecon/sql/%E4%BF%A1%E8%B4%B7%E6%95%B0%E6%8D%AE%E6%A6%82%E8%A7%88/">
+      
+      
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>信贷数据介绍 - kivi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="信贷数据介绍 - kivi" >
+      
+        <meta  property="og:description"  content="kivi" >
+      
+        <meta  property="og:image"  content="https://caochensy.github.io/wisecon/assets/images/social/sql/信贷数据概览.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://caochensy.github.io/wisecon/sql/%E4%BF%A1%E8%B4%B7%E6%95%B0%E6%8D%AE%E6%A6%82%E8%A7%88/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="信贷数据介绍 - kivi" >
+      
+        <meta  name="twitter:description"  content="kivi" >
+      
+        <meta  name="twitter:image"  content="https://caochensy.github.io/wisecon/assets/images/social/sql/信贷数据概览.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="kivi" class="md-header__button md-logo" aria-label="kivi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kivi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              信贷数据介绍
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kivi-risk/kivi" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kivi-risk/kivi
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+    
+  
+  Quick start
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../woe/woe-01/" class="md-tabs__link">
+          
+  
+    
+  
+  API Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kivi" class="md-nav__button md-logo" aria-label="kivi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kivi
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kivi-risk/kivi" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kivi-risk/kivi
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quick start
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Quick start
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    WOE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            WOE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../woe/woe-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WOE-API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../woe/woe-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    样本加权分箱
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../woe/woe-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    批量分箱技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/datasets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    datasets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/evaluate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    evaluate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/stepwise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    stepwise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/ahp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AHP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 征信数据介绍
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 征信数据介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 个人征信数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 企业征信数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 征信数据的指标衍生
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 发票数据介绍
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 发票数据介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 发票数据指标衍生
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+    
+      
+    
+    <a href="https://github.com/kivi-risk/kivi/raw/master/docs/sql/信贷数据概览.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="_1">信贷数据介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><center>信贷数据版图</center></p>
+<h2 id="1">1. 征信数据介绍<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>数据来源：</p>
+<p>数据概要：</p>
+</blockquote>
+<h3 id="11">1.1 个人征信数据<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<h3 id="11_1">1.1 企业征信数据<a class="headerlink" href="#11_1" title="Permanent link">&para;</a></h3>
+<h3 id="11_2">1.1 征信数据的指标衍生<a class="headerlink" href="#11_2" title="Permanent link">&para;</a></h3>
+<h2 id="2">2. 发票数据介绍<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>数据来源：</p>
+<p>数据概要：</p>
+</blockquote>
+<h3 id="21">2.1 发票数据指标衍生<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<hr />
+<p>01 小微基本信息
+主要是企业登记信息，具体字段包括</p>
+<p>统一社会信用代码
+纳税人识别号
+纳税人名称
+注册地址
+经营范围
+生产经营地址
+生产经营期限起
+生产经营期限至
+纳税人状态
+纳税人资格（纳税人类型状态）
+行业名称（多个时用半角逗号间隔）
+登记日期或注册日期（不一定有数据）
+所在省份（不一定有数据）
+所在城市（不一定有数据）
+注册资本（不一定有数据）
+从业人数
+企业登记注册类型名称
+适用会计制度(例如 小企业会计准则)
+主管税务机关名称
+注册地址电话号码
+组织机构代码
+批准设立机关类型
+批准设立机关
+批准设立证明或文件号
+证照名称
+证照号码
+开业（设立）日期
+核算方式
+生产经营地邮政编码
+其中外籍人数
+组织机构类型
+注册地邮政编码
+国有控股类型
+网站网址
+国标行业（主）
+主行业明细行业
+纳税人电子档案号
+税务登记表类型
+增值税企业类型
+总分机构标志
+代缴代扣标志
+主管税务人员
+生产经营地联系电话
+税收管理员
+纳税人资格信息记录
+02 企业基本信息
+2.1 qualification_information（纳税人资格信息）
+纳税人资格名称
+文书字轨
+有效期起
+有效期止
+数据终止日期
+认定日期
+2.2 person (公司代表人信息)
+项目内容
+姓名
+证件类型
+证件号码
+固定电话
+移动电话
+电子邮箱
+2.3 tax_registration(税务登记信息)
+投资总额
+投资信息
+总机构情况
+分支机构情况
+变更税务登记信息
+银行存款账户账号信息
+2.4 investment_amount(投资总额)
+投资币种
+投资金额
+2.5 investment(投资信息)
+投资方名称
+投资方经济性质
+投资比例
+证件种类
+证件号码
+国籍
+地址
+2.6 stocker(股东信息）
+股东名称
+类型（取值有E或P，E：企业，P：自然人）
+占股比,例如 100.00%
+股东类型,例如 工商股东
+投资金额(单位万) ,例如 1000.0
+2.7 general_branch_item(总机构情况)
+总机构经营范围
+总机构名称
+总机构注册地址
+总机构纳税人识别号
+总机构法定代表人姓名
+总分机构类型
+总机构邮政编码
+总机构联系电话
+纳税人所处街乡
+隶属关系
+主管税务局
+主管税务所（科、分局）
+核准税务机关
+核准日期
+2.8 branch(分支机构情况)
+分支机构纳税人识别号
+分支机构名称
+分支机构注册地址
+分支机构联系电话
+2.9 change_of_registration(变更税务登记信息)
+变更项目名称
+变更项目代码
+变更前内容
+变更后内容
+申请日期
+受理税务机关名称
+受理日期
+国地税类型
+2.10 deposit_account(银行存款账户账号信息)
+主管税务机关
+银行开户登记证号
+发证日期
+账户性质
+开户银行
+账号
+账户名称
+币种
+是否首选缴税账户
+是否退税账户
+开户日期
+变更日期
+注销日期
+纳税人经办人
+录入日期(报告日期)
+03 发票
+主要是invoice_information(销项发票信息)</p>
+<p>发票代码
+发票号码
+开具日期
+购货方识别号
+发票金额(不含税额)
+税额
+发票状态
+发票种类名称
+购货方名称
+商品明细(有多个时用竖线间隔),不一定有
+税率
+04 纳税申报
+主要是declaration(申报信息)</p>
+<p>征收项目
+申报日期
+税款所属期起
+税款所属期止
+本期应补退税额
+应纳税额
+减免税额
+征收品目名称</p>
+<p>在中小微企业的风险评估体系中，人行征信报告是一类非常重要的数据源，这里的征信报告并非指企业主的个人征信报告，而是以企业为主体的人行征信报告。
+作为企业的一种“经济身份证”，企业征信报告是体现企业综合信用程度的一种文书，客观描述了企业的基本信息、信贷信息、公共信息等主要信息，
+较为全面且准确地反映出企业的信用状况。</p>
+<p>本文将围绕具体的企业征信报告样例，介绍下报告的整体结构及其主要内容，同时会结合实际业务场景，对其中重要的信贷信息等数据，从风控应用角度作简单阐述。
+1、企业征信报告结构企业征信报告的数据信息主要包含了企业的8个部分内容，分别为报告头、报告说明、信息概要、基本信息、信贷信息、非信贷信息、
+公共信息、声明及异议标注信息。在实际业务中，由于企业征信报告服务对象的不同，以及应用场景的差异，上述各部分内容会有一定删减，
+从而形成信息或详细或简略的不同版式信用报告。在以上各部分内容中，我们最为关注的自然是信贷信息、非信贷信息、公共信息这3个维度信息，
+原因是这些数据在一定程度上可以直接体现出企业的整体情况。其中，信贷信息是企业征信报告的核心部分，指企业在金融信贷交易过程中形成的历史数据，
+反映了企业信贷的还款意愿与还款能力，具体信息维度包含企业在金融机构的当前负债、已还清债务和相关还款责任信息等。
+非信贷信息是指企业在非金融业务内的负债履约信息，常见维度包括企业的用水、用电、燃气、电信缴费等信息。
+公共信息是企业社会表现的数据，主要包括公共部门的行政信息，以及企业日常遵纪守法、履行法定义务的信息等。</p>
+<p>2、报告维度内容介绍</p>
+<p>2.1 报告头报告头是企业征信报告的文书标签，包含信息主体的企业名称、企业社会信用代码、中国人民银行征信代码，
+还有查询机构的具体名称、征信报告的生成时间等，具体报告头样例如图1所示。
+此外，还包括企业的身份标识、异议提示等重要信息，可以展示征信系统收录当前企业的所有身份标识，并提示当前处于异议流程中的关键信息，详情如图2所示。</p>
+<p>2.2 报告说明报告说明是对征信报告内容的一种解释备注，包括数据信息来源、相关专有名称、部分指标逻辑等，尤其是对其中某些重要事项的说明，可以从中了解到报告的数据来源概要与必要结果原理，部分样例如图3所示。例如，通过第8点的说明，了解到本报告信贷交易信息中的“不良”类型，是指除被追偿业务之外，五级分类为“次级、可疑、损失、违约”或“未分类”且逾期90天以上的业务，这对理解报告相关内容是非常重要的原则。           </p>
+<p>图3报告说明（部分）</p>
+<p>2.3 信息概要概要信息是对征信报告主要内容的概况，便于信息主体企业或查询信息机构，可以从整体上了解企业的信贷历史情况，包括借贷还款、违约负债等信息，这样不仅为后文的明细信息提供了较好的指引参考作用，而且还有效提升了解读企业征信报告的效率。概要信息从内容结构划分，共包括4个部分，分别为信息提示、未结清信贷及授信信息概要、相关还款责任信息概要、已结清信贷信息概要。</p>
+<p>（1）信息提示信息提示描述了信息主体企业的整体信用状况，具体内容可进一步细化为信贷信息总体描述、
+未结清信贷信息概况、公共信息总体描述共3个部分，参考样例如图4所示。                                                                       </p>
+<p>图4 信息提示上图展示的3个图表内容，依次对应3个信息维度。其中，上边部分代表的信贷信息总体描述，
+包括信息主体企业首次与金融机构发生信贷交易的年份、历史发生信贷交易的金融机构数量、目前仍存在信贷关系的金融机构数量、
+信息主体企业首次承担相关信贷还款责任的年份。中间部分代表的未结清信贷信息概况，包含当前未结清借贷交易和担保交易的余额，
+具体包括被追偿余额、关注类余额、不良类余额。最下边部分代表的公共信息总体描述，体现的是主体企业在社会遵纪守法方面的信息，
+主要包括企业的欠税记录、民事判决记录、强制执行记录、行政处罚记录等事件的类型及其数量。</p>
+<p>（2）未结清信贷及授信信息概要未结清信贷及授信信息概要，主要描述主体企业当前负债的整体分布情况与授信额度信息。
+企业当前负债包括未结清的由资产管理公司处置的债务、垫款、逾期汇总信息，以及未结清信贷业务汇总信息。
+同时，按照信贷业务类型与资产质量类型的组合，统计各情况下的账户数量和余额大小。
+授信额度信息则体现出企业通过金融机构融资获取的的授信额度，以及额度的使用情况。
+未结清信贷及授信信息概要的具体样例如图5所示。                                                            </p>
+<p>图5 未结清信贷及授信信息概要</p>
+<p>（3）相关还款责任信息概要相关还款责任是指形象主体企业为信贷交易承担的其他还款责任，例如保证人、票据承兑人、应收账款债务人等，可以反映出企业的或有负债，也就是由于历史交易行为可能导致未来所发生事件而产生的潜在负债，具体样例如图6所示。                                                               </p>
+<p>图6 相关还款责任信息概要</p>
+<p>（4）已结清信贷信息概要已结清信贷信息概要展示的是主体企业已还清债务的总体情况，具体包括已结清的由资产管理公司处置的债务、垫款的汇总，以及信贷交易的汇总信息，包括账户数量、金额大小、事件日期等，具体样例如图7所示。       <br />
+图7 已结清信贷信息概要</p>
+<p>2.4 基本信息基本信息模块的内容包括基本概况信息、注册资本及主要出资人信息、主要组成人员信息、上级机构信息、实际控制人信息共5个部分。</p>
+<p>（1）基本概况信息基本概况信息包含主体企业的经济类型、组织机构类型、企业规模、所属行业、成立年份、登记证书有效截止日期、登记地址、办公/经营地址、存续状态，具体样例如图8所示，从这些标签可以简单了解到当前企业的大体经营背景。                图8 基本概况信息</p>
+<p>（2）注册资本及主要出资人信息注册资本及主要出资人信息包括主体类型、出资方名称、身份标识类型、出资比例、信息来源机构、更新日期等，具体样例如
+图9所示。                <br />
+图9 注册资本及主要出资人信息
+（3）主要组成人员信息主要组成人员信息包括职务、姓名、证件类型、证件号码、信息来源机构、更新日期等，具体样例如图10所示。
+图10 主要组成人员信息</p>
+<p>（4）上级机构上级机构信息包括类型、名称、身份标识类型、身份标识号码、信息来源机构、更新日期等，具体样例如图11所示。                                                                  图11 上级机构信息
+（5）实际控制人实际控制人信息包括名称、身份标识类型、身份标识号码、信息来源机构、更新日期等，具体样例如图12所示，实际控制人可以是自然个人，也可以是企业机构。                                                                 图12 实际控制人信息2.5 信贷信息信贷明细信息是金融机构或助贷机构重点关注的内容，这里反映了信用主体企业历史借贷与还贷的详细信息。按照信息受金融机构关注的高低程度，先后展示了当前负债、已结清债务、相关还款责任等信息。（1）当前负债当前负债情况包括被追偿业务、未结清信贷两部分信息，具体样例分别如图13、14所示。信贷业务按照先表内后表外的顺序（资产负债表），依次展示欠息、中长期借款、短期借款、循环透支、贴现、银行承兑汇票和信用证、银行保函及其他担保交易等。                                                                图13 被追偿业务在上图展示的企业被追偿业务信息中，以倾斜字体显示的信息内容，代表此业务处于异议状态，有待主体企业与金融机构在后期进一步确认，这种表示方法也是企业征信报告对特殊信息内容的一种标识。此外，对于异议事件的数量汇总，在前边报告头的异议提示中有直接体现。                                                                图14 未结清信贷（部分）对于未结清信贷明细，前3个维度（欠息、中长期借款、短期借款）在实际业务场景中较为重要，能够较大程度体现企业的信贷负债情况。（2）已结清债务已结清信贷与未结清信贷的内容结构类似，也是依次展示欠息、中长期借款、短期借款、循环透支、贴现、银行承兑汇票和信用证、银行保函及其他担保交易等，已结清信贷“中长期借款”的具体样例如图15所示。                                                               图15 已结清信贷（部分）（3）相关还款责任相关还款责任明细包括为其他借款人承担的还款责任、为担保交易承担的还款责任共2个部分，具体展示信息主体企业对外承担其他还款责任对应未结清的主账户详细信息，相关样例如图16所示。                                                            图16 相关还款责任（部分）在信贷明细信息的描述中，企业征信报告对此内容有一定的展示逻辑，主要体现在以下几个方面：（1） 当某类信贷业务存在多笔订单信息时，同一顶级机构名下的业务信息放在一起进行展示；（2） 在当前负债信息中，不同顶级机构之间按照同一顶级机构项下的订单余额汇总值大小降序排列；（3） 在已结清债务信息中，不同顶级机构之间按照订单历史交易发生金额的汇总值大小降序排列；（4） 银行承兑汇票和信用证业务，银行保函及其他担保交易，未结清信息按照授信机构、业务种类、五级分类的维度，对账户数量与余额大小进行汇总展示，已结清信息汇总展示账户数量以及垫款标志。2.6 非信贷信息非信贷信息主要展示主体企业在公共事业缴费记录方面的信息，常见的包括电信缴费、用水、用电、燃气等信息，详细描述了交易机构、缴费状态、欠费金额、事件日期、历史情况等，具体样例如图17所示。 图18 公共正面信息                                                           图17 非信贷信息  </p>
+<p>2.7 公共信息公共信息是主体企业在社会遵纪守法、资质能力等维度的综合体现，可以从整体上体现出企业的风险程度与资质状况，分别代表企业的正面与负面的详细信息。其中，公共正面维度信息包括纳税欠税记录、民事判决记录、强制执行记录、行政处罚记录、住房公积金缴费记录等，部分样例如图18所示。                                                                  图18 公共正面信息公共负面维度信息公共信息包括获得许可记录、获得认证记录、获得资质记录、获得奖励记录、出入境检验检疫绿色通道信息、进出口商品免检信息、进出口免检分类监管信息、拥有专利情况等，部分样例如图19所示。                                                                   <br />
+图19 公共负面信息2.8 声明及异议标注信息声明及异议标注信息是企业征信报告的结束说明，依次展示了数据提供机构说明、征信中心标注、信息主体声明、异议标注共4项内容，具体样例如图20所示。                                                             <br />
+图20 声明及异议标注信息针对此部分信息，数据提供机构说明是报数机构对报告中企业的信息记录或对信息主体企业所作的补充说明；征信中心标注是描述一些与信息主体企业有关的重要事项；信息主体声明主要是信息主体企业对异议处理情况进行的申述；异议标注是对信用报告中所采集的信用信息进行异议标注。</p>
+<p>3、企业征信报告应用通过以上对报告各个维度的介绍，我们大体熟悉了企业征信报告的整体结构与维度内容，
+尤其是通过企业的信贷信息、公共信息等明细数据，可以获取企业主体非常重要的客观信息，
+这对金融机构或助贷机构在企业信贷业务场景中，具有很好的信息参考价值。 
+对于企业征信报告的获取，企业可以通过人民银行网点、自助查询机、商业银行网银、手机银行APP等多种渠道查询自身的信用报告。
+若企业对信用报告的部分信息存在错误或遗漏的意见，可以向所在地人民银行或商业银行等业务发生机构提出异议。
+此外，在经过企业的授权同意后，商业银行、政府部门等机构可以直接查询该企业的信用报告，以了解企业的综合信用状况。
+在实际业务场景中，企业征信报告主要有两个重要用途，</p>
+<p>一方面是企业可以主动了解自身的征信记录信息，例如查看信用报告中是否存在不良信贷信息、比较信用报告中的贷款余额与自身实际的借款账面余额是否相符等情况；</p>
+<p>另一方面是企业查询后提供给政府部门或金融机构使用，作为自身资质及信用状况的直接证明，以取得对方在相关业务中的认可，
+例如金融机构对企业融资的信贷审批与贷后管理，政府部门对企业的评奖评优与招标活动等。</p>
+<p>综合以上内容， 我们从企业征信报告的整体结构、维度内容、场景应用等方面，详细介绍了企业征信报告的重要信息，
+以及在实际业务中的参考价值。为了便于大家对企业征信报告有进一步的熟悉与理解，
+本文额外附带了一篇更为详细的企业征信报告样例，供大家参考学习，详情请移至知识星球查看相关内容。</p>
+<hr />
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/579196014">企业人行征信报告的全面梳理与数据介绍</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/458868381">企业征信数据字段</a></li>
+</ol>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月2日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月2日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Chensy
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/CaoChensy/wisecon.git" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "search.suggest", "search.share", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "announce.dismiss", "content.action.view", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

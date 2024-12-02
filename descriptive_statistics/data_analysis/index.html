@@ -1,0 +1,2318 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="kivi">
+      
+      
+        <meta name="author" content="CaoChensy">
+      
+      
+        <link rel="canonical" href="https://caochensy.github.io/wisecon/descriptive_statistics/data_analysis/">
+      
+      
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>Data analysis - kivi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Data analysis - kivi" >
+      
+        <meta  property="og:description"  content="kivi" >
+      
+        <meta  property="og:image"  content="https://caochensy.github.io/wisecon/assets/images/social/descriptive_statistics/data_analysis.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://caochensy.github.io/wisecon/descriptive_statistics/data_analysis/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Data analysis - kivi" >
+      
+        <meta  name="twitter:description"  content="kivi" >
+      
+        <meta  name="twitter:image"  content="https://caochensy.github.io/wisecon/assets/images/social/descriptive_statistics/data_analysis.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-pyspark" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="kivi" class="md-header__button md-logo" aria-label="kivi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kivi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data analysis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kivi-risk/kivi" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kivi-risk/kivi
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+    
+  
+  Quick start
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../woe/woe-01/" class="md-tabs__link">
+          
+  
+    
+  
+  API Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kivi" class="md-nav__button md-logo" aria-label="kivi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kivi
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kivi-risk/kivi" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kivi-risk/kivi
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quick start
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Quick start
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    WOE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            WOE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../woe/woe-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WOE-API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../woe/woe-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    样本加权分箱
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../woe/woe-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    批量分箱技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/datasets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    datasets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/evaluate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    evaluate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/stepwise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    stepwise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/ahp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AHP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-pyspark" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. PySpark中的列操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. PySpark中的列操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 两列相加
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 多列相加
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 多种混合运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 多种混合逻辑运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 自定义运算符
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 自定义运算符">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5.1 除法运算符
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6 其他列运算操作
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 分布分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 分布分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-pyspark-quantile" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 PySpark 下进行分位数计算 quantile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-pyspark-bucketizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 PySpark 下的分段统计 Bucketizer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-pyspark" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 PySpark 下进行排名计算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 PySpark 下进行排名计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 其他常用的分布统计量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 空值分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 空值分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-spark-null-npnan-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Spark Null 与 np.nan 与 None
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 关于 Null 的运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-wherehaving-join" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 WHERE、HAVING 和 JOIN 子句中的条件表达式。
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 空值的聚合、排序、集合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 现实数据提取中的空值成因
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 空值分析总结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 表转置操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 表转置操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 pivot 长表转宽表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-unpivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 unpivot 宽表转长表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 pandas 中的转置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 样本空间
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 样本空间">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 贷前样本空间的回溯
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 贷前单个样本空间提取
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 贷中样本空间的回溯
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 贷中单个样本空间提取
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 数据指标的匹配索引
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 数据指标的匹配索引">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 样本周期的计算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 获取全量指标的信息
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 指定UUID获取全量的指标长表与指标宽表
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x" class="md-nav__link">
+    <span class="md-ellipsis">
+      X 其他数据分析操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="X 其他数据分析操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x1-maplabel" class="md-nav__link">
+    <span class="md-ellipsis">
+      X.1 mapLabel键值转换
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+    
+      
+    
+    <a href="https://github.com/kivi-risk/kivi/raw/master/docs/descriptive_statistics/data_analysis.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+  <h1>Data analysis</h1>
+
+<blockquote>
+<p>在数据分析过程中的一些需要注意的点。</p>
+</blockquote>
+<h2 id="1-pyspark">1. PySpark中的列操作<a class="headerlink" href="#1-pyspark" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">pyspark.sql.functions</span> <span class="k">as</span> <span class="nn">F</span>
+</span></code></pre></div>
+<p><code>F.col()</code>是一个创建 PySpark DataFrame <code>Column</code> 对象的方式。通过<code>F.col()</code>可以轻易完成诸多数据列的运算操作或逻辑操作。</p>
+<h3 id="11">1.1 两列相加<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;I10101001&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;I10101001&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>output:
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>&gt;&gt;&gt;<span class="w"> </span>Column&lt;b<span class="s1">&#39;(I10101001 + I10101001)&#39;</span>&gt;
+</span></code></pre></div>
+<h3 id="12">1.2 多列相加<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I10101001&#39;</span><span class="p">,</span> <span class="s1">&#39;I10101002&#39;</span><span class="p">,</span> <span class="s1">&#39;I10101003&#39;</span><span class="p">,</span> <span class="s1">&#39;I10101004&#39;</span><span class="p">,]</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">sum_col</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">])</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">sum_col</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>output:
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>&gt;&gt;&gt;<span class="w"> </span>Column&lt;b<span class="s1">&#39;((((I10101001 + 0) + I10101002) + I10101003) + I10101004)&#39;</span>&gt;
+</span></code></pre></div>
+<h3 id="13">1.3 多种混合运算<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<p>如，<code>E = A + B - C * D / E</code></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">logic_info</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101001&#39;</span><span class="p">,},</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101002&#39;</span><span class="p">,},</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101003&#39;</span><span class="p">,},</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101004&#39;</span><span class="p">,},</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101005&#39;</span><span class="p">,},</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">operate</span> <span class="o">=</span> <span class="s1">&#39;(A + B) - ((C * D) / E)&#39;</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">logic_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="n">info_spare</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;F.col(&#39;</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index_id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="n">operate</span> <span class="o">=</span> <span class="n">operate</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">info_spare</span><span class="p">)</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="c1"># 解析规则运算至 Column 对象</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="n">logic_spare</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">operate</span><span class="p">)</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="n">logic_spare</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>output:
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>&gt;&gt;&gt;<span class="w"> </span>Column&lt;b<span class="s1">&#39;((I10101001 + I10101002) - ((I10101003 * I10101004) / I10101005))&#39;</span>&gt;
+</span></code></pre></div>
+<h3 id="14">1.4 多种混合逻辑运算<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<p>假设我们需要输出以下条件下的规则。</p>
+<p><code>condition = ((A | B) &amp; (C | D)) | F</code></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">logic_info</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101001&#39;</span><span class="p">,</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="s1">&#39;thres&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        <span class="s1">&#39;compare&#39;</span><span class="p">:</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,},</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101002&#39;</span><span class="p">,</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="s1">&#39;thres&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="s1">&#39;compare&#39;</span><span class="p">:</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,},</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101003&#39;</span><span class="p">,</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="s1">&#39;thres&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        <span class="s1">&#39;compare&#39;</span><span class="p">:</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,},</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>    <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>        <span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101004&#39;</span><span class="p">,</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>        <span class="s1">&#39;thres&#39;</span><span class="p">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        <span class="s1">&#39;compare&#39;</span><span class="p">:</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,},</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>        <span class="s1">&#39;index_id&#39;</span><span class="p">:</span> <span class="s1">&#39;I10101005&#39;</span><span class="p">,</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>        <span class="s1">&#39;thres&#39;</span><span class="p">:</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>        <span class="s1">&#39;compare&#39;</span><span class="p">:</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">,},</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="p">}</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="n">logic</span> <span class="o">=</span> <span class="s1">&#39;((A | B) &amp; (C | D)) | E&#39;</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">logic_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>    <span class="n">info_spare</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;(F.col(&#39;</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index_id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;) </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;compare&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;thres&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>    <span class="n">logic</span> <span class="o">=</span> <span class="n">logic</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">info_spare</span><span class="p">)</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="c1"># 解析规则运算至 Column 对象</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="n">logic_spare</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">logic</span><span class="p">)</span>
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="c1"># 配合 case when 生成逻辑结果，命中逻辑为 1 未命中为 0</span>
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">logic_spare</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">otherwise</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>output:<span class="w"> </span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>&gt;&gt;&gt;<span class="w"> </span>Column&lt;b<span class="s1">&#39;CASE WHEN ((((I10101001 &gt; 1) OR (I10101002 &gt; 2)) AND ((I10101003 &gt; 3) OR (I10101004 &gt; 4))) OR (I10101005 &gt; 5)) THEN 1 ELSE 0 END&#39;</span>&gt;
+</span></code></pre></div>
+<h3 id="15">1.5 自定义运算符<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>业务相关考虑，参考：<a href="/descriptive_statistics/data_analysis?id=_35-现实数据提取中的空值成因">现实数据提取中的空值成因</a></p>
+</blockquote>
+<h4 id="151">1.5.1 除法运算符<a class="headerlink" href="#151" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>说明，用于 spark 中做除法，并区分分子分母状态，计算逻辑如下：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>分母\分子</th>
+<th>null</th>
+<th>0</th>
+<th>正值或负值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>null</td>
+<td>-4404</td>
+<td>-4404</td>
+<td>-9999</td>
+</tr>
+<tr>
+<td>0</td>
+<td>-4404</td>
+<td>-4404</td>
+<td>-9999</td>
+</tr>
+<tr>
+<td>正值或负值</td>
+<td>-1111</td>
+<td>0</td>
+<td>正常计算</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>方法一：<code>operator_div</code>，该函数以<code>case-when</code>的方式返回结果。</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="s1">&#39;den&#39;</span><span class="p">])</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">operator_div</span><span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="s1">&#39;den&#39;</span><span class="p">))</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>&gt;&gt;&gt;<span class="w"> </span>output:
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span>+----+----+-------+
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="p">|</span><span class="w"> </span>num<span class="p">|</span><span class="w"> </span>den<span class="p">|</span><span class="w">    </span>div<span class="p">|</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span>+----+----+-------+
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="p">|</span>null<span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span>-1111.0<span class="p">|</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span><span class="w">    </span><span class="m">1</span>.0<span class="p">|</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="p">|</span>null<span class="p">|</span>null<span class="p">|</span>-4404.0<span class="p">|</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span>-4404.0<span class="p">|</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span><span class="w">    </span><span class="m">0</span>.0<span class="p">|</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span>null<span class="p">|</span>-4404.0<span class="p">|</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span>null<span class="p">|</span>-9999.0<span class="p">|</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span>-9999.0<span class="p">|</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">    </span>+----+----+-------+
+</span></code></pre></div>
+<blockquote>
+<p>方法二：<code>udf_operator_div</code>，该函数以<code>udf</code>自定义运算，返回运算结果。</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="s1">&#39;den&#39;</span><span class="p">])</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">udf_operator_div</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">),</span> <span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;den&#39;</span><span class="p">)))</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>&gt;&gt;&gt;<span class="w"> </span>output:
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span>+----+----+-------+
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="p">|</span><span class="w"> </span>num<span class="p">|</span><span class="w"> </span>den<span class="p">|</span><span class="w">    </span>div<span class="p">|</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span>+----+----+-------+
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="p">|</span>null<span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span>-1111.0<span class="p">|</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span><span class="w">    </span><span class="m">1</span>.0<span class="p">|</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="p">|</span>null<span class="p">|</span>null<span class="p">|</span>-4404.0<span class="p">|</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span>-4404.0<span class="p">|</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span><span class="w">    </span><span class="m">0</span>.0<span class="p">|</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span>null<span class="p">|</span>-4404.0<span class="p">|</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span>null<span class="p">|</span>-9999.0<span class="p">|</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="m">1</span><span class="p">|</span><span class="w">   </span><span class="m">0</span><span class="p">|</span>-9999.0<span class="p">|</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">    </span>+----+----+-------+
+</span></code></pre></div>
+<p><em>注：不同之处，<code>udf</code>方式需要以<code>F.col</code>对象的形式指定分子分母，<code>case-when</code>方式需要指定列名。</em></p>
+<h3 id="16">1.6 其他列运算操作<a class="headerlink" href="#16" title="Permanent link">&para;</a></h3>
+<p><strong>参考：<a href="https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/functions.html?highlight=functions">Functions 文档</a></strong></p>
+<p>这里介绍一下基本的<code>functions</code>类别和基本用途：</p>
+<ol>
+<li><code>Normal Functions</code>：普通的列操作函数，如：列的选取，空值操作，取小数位数等。</li>
+<li><code>Math Functions</code>：数学计算操作函数，如：<code>log, sin, abs</code>等。</li>
+<li><code>Datetime Functions</code>: 时间操作函数，如：转换时间格式，取一个月的最后一天，日期加减等。</li>
+<li><code>Collection Functions</code>: 对多个字段进行组合，如：将多个字段用<code>list, set, array</code>组合为一个字段等。</li>
+<li><code>Partition Transformation Functions</code>: 提取年月日小时等。</li>
+<li><code>Aggregate Functions</code>: 聚合操作函数，如：分组求平均，求和，最大，方差等。</li>
+<li><code>Window Functions</code>: 窗口操作函数，如：窗口上计算排名，分位数等。</li>
+<li><code>Sort Functions</code>: 排序操作函数。</li>
+<li><code>String Functions</code>: 字符串操作函数，如，正则表达式，截取字符串等。</li>
+<li><code>UDF</code>: 自定义函数。</li>
+<li><code>Misc Functions</code>: 加密操作函数，如，<code>MD5/sha1/sha2/hash</code>加密等。</li>
+</ol>
+<h2 id="2">2. 分布分析<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21-pyspark-quantile">2.1 PySpark 下进行分位数计算 <code>quantile</code><a class="headerlink" href="#21-pyspark-quantile" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明：计算字段的分位数</p>
+<p>参数</p>
+</blockquote>
+<ul>
+<li><code>:param cols[str]</code>: 字段名称。</li>
+<li><code>:param percent[float]</code>: 分位点。</li>
+</ul>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">ywcxUtils.Buckets</span> <span class="kn">import</span> <span class="n">quantile</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># OR </span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kn">from</span> <span class="nn">kivi.Buckets</span> <span class="kn">import</span> <span class="n">quantile</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># 示例一：计算字段 nsr 0, 0.25, 0.50 的分位数</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">stats</span> <span class="o">=</span> <span class="p">[</span><span class="n">quantile</span><span class="p">(</span><span class="s1">&#39;nsr&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">df</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="o">*</span><span class="n">stats</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="c1"># 示例二：计算按月份聚合的字段分位数</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;load_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>   <span class="n">quantile</span><span class="p">(</span><span class="s1">&#39;nsr&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>          <span class="c1"># nsr 50% 分位数 </span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>   <span class="n">quantile</span><span class="p">(</span><span class="s1">&#39;nsr&#39;</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span>          <span class="c1"># nsr 60% 分位数 </span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>   <span class="n">quantile</span><span class="p">(</span><span class="s1">&#39;zzc&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>          <span class="c1"># zzc 50% 分位数 </span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>   <span class="n">quantile</span><span class="p">(</span><span class="s1">&#39;ygr&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>          <span class="c1"># ygr 50% 分位数 </span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="22-pyspark-bucketizer">2.2 PySpark 下的分段统计 <code>Bucketizer</code><a class="headerlink" href="#22-pyspark-bucketizer" title="Permanent link">&para;</a></h3>
+<p><strong>NaN 单独分一箱</strong></p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">pyspark.ml.feature</span> <span class="kn">import</span> <span class="n">Bucketizer</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">bucketizer</span> <span class="o">=</span> <span class="n">Bucketizer</span><span class="p">(</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">inputCol</span><span class="o">=</span><span class="s1">&#39;values1&#39;</span><span class="p">,</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">outputCol</span><span class="o">=</span><span class="s1">&#39;buckets&#39;</span><span class="p">,</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)],</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="n">handleInvalid</span><span class="o">=</span><span class="s1">&#39;keep&#39;</span><span class="p">,</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="p">)</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="n">bucketed</span> <span class="o">=</span> <span class="n">bucketizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="n">bucketed</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>&gt;&gt;&gt;<span class="w"> </span>output<span class="w"> </span>Data:
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>&gt;&gt;&gt;
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>+-------+-------+-------+
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">|</span>values1<span class="p">|</span>values2<span class="p">|</span>buckets<span class="p">|</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>+-------+-------+-------+
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="p">|</span><span class="w">    </span><span class="m">0</span>.1<span class="p">|</span><span class="w">    </span><span class="m">0</span>.0<span class="p">|</span><span class="w">    </span><span class="m">0</span>.0<span class="p">|</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">|</span><span class="w">    </span><span class="m">0</span>.4<span class="p">|</span><span class="w">    </span><span class="m">1</span>.0<span class="p">|</span><span class="w">    </span><span class="m">0</span>.0<span class="p">|</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="p">|</span><span class="w">    </span><span class="m">1</span>.2<span class="p">|</span><span class="w">    </span><span class="m">1</span>.3<span class="p">|</span><span class="w">    </span><span class="m">1</span>.0<span class="p">|</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="p">|</span><span class="w">    </span><span class="m">1</span>.4<span class="p">|</span><span class="w">    </span><span class="m">1</span>.3<span class="p">|</span><span class="w">    </span><span class="m">2</span>.0<span class="p">|</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="p">|</span><span class="w">    </span><span class="m">1</span>.5<span class="p">|</span><span class="w">    </span>NaN<span class="p">|</span><span class="w">    </span><span class="m">2</span>.0<span class="p">|</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="p">|</span><span class="w">    </span>NaN<span class="p">|</span><span class="w">    </span><span class="m">1</span>.0<span class="p">|</span><span class="w">    </span><span class="m">3</span>.0<span class="p">|</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="p">|</span><span class="w">    </span>NaN<span class="p">|</span><span class="w">    </span><span class="m">0</span>.0<span class="p">|</span><span class="w">    </span><span class="m">3</span>.0<span class="p">|</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>+-------+-------+-------+
+</span></code></pre></div></p>
+<p><strong>NaN 剔除/跳过</strong></p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">bucketizer</span> <span class="o">=</span> <span class="n">Bucketizer</span><span class="p">(</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">inputCol</span><span class="o">=</span><span class="s1">&#39;values1&#39;</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">outputCol</span><span class="o">=</span><span class="s1">&#39;buckets&#39;</span><span class="p">,</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">splits</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">),</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)],</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">handleInvalid</span><span class="o">=</span><span class="s1">&#39;skip&#39;</span><span class="p">,</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">)</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="n">bucketed</span> <span class="o">=</span> <span class="n">bucketizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="n">bucketed</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>&gt;&gt;&gt;<span class="w"> </span>output<span class="w"> </span>Data:
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>&gt;&gt;&gt;
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>+-------+-------+-------+
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">|</span>values1<span class="p">|</span>values2<span class="p">|</span>buckets<span class="p">|</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>+-------+-------+-------+
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="p">|</span><span class="w">    </span><span class="m">0</span>.1<span class="p">|</span><span class="w">    </span><span class="m">0</span>.0<span class="p">|</span><span class="w">    </span><span class="m">0</span>.0<span class="p">|</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="p">|</span><span class="w">    </span><span class="m">0</span>.4<span class="p">|</span><span class="w">    </span><span class="m">1</span>.0<span class="p">|</span><span class="w">    </span><span class="m">1</span>.0<span class="p">|</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="p">|</span><span class="w">    </span><span class="m">1</span>.2<span class="p">|</span><span class="w">    </span><span class="m">1</span>.3<span class="p">|</span><span class="w">    </span><span class="m">1</span>.0<span class="p">|</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="p">|</span><span class="w">    </span><span class="m">1</span>.4<span class="p">|</span><span class="w">    </span><span class="m">1</span>.3<span class="p">|</span><span class="w">    </span><span class="m">2</span>.0<span class="p">|</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="p">|</span><span class="w">    </span><span class="m">1</span>.5<span class="p">|</span><span class="w">    </span>NaN<span class="p">|</span><span class="w">    </span><span class="m">2</span>.0<span class="p">|</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>+-------+-------+-------+
+</span></code></pre></div></p>
+<p><em>再对buckets列进行统计分析，即可得到各个分段的统计量。</em></p>
+<h3 id="23-pyspark">2.3 PySpark 下进行排名计算<a class="headerlink" href="#23-pyspark" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># 行业、地区排名窗口</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">wind_zone</span> <span class="o">=</span> <span class="n">Window</span><span class="o">.</span><span class="n">partitionBy</span><span class="p">(</span><span class="s1">&#39;load_date&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="n">feature_name</span><span class="p">))</span>     <span class="c1"># 地区排名窗口</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">wind_indu</span> <span class="o">=</span> <span class="n">Window</span><span class="o">.</span><span class="n">partitionBy</span><span class="p">(</span><span class="s1">&#39;load_date&#39;</span><span class="p">,</span> <span class="s1">&#39;industry&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="n">feature_name</span><span class="p">))</span> <span class="c1"># 行业排名窗口</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1"># 行业、地区排名字段</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;rank_zone&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">percent_rank</span><span class="p">()</span><span class="o">.</span><span class="n">over</span><span class="p">(</span><span class="n">wind_zone</span><span class="p">))</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;rank_indu&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">percent_rank</span><span class="p">()</span><span class="o">.</span><span class="n">over</span><span class="p">(</span><span class="n">wind_indu</span><span class="p">))</span>
+</span></code></pre></div>
+<h4 id="22">2.2 其他常用的分布统计量<a class="headerlink" href="#22" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Spark下的分布统计量</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">df_data</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s1">&#39;load_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="n">F</span><span class="o">.</span><span class="n">avg</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>             <span class="c1"># 均值</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="n">F</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>             <span class="c1"># 最大</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="n">F</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>             <span class="c1"># 最小</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="n">F</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>        <span class="c1"># 峰度</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    <span class="n">F</span><span class="o">.</span><span class="n">skewness</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>        <span class="c1"># 偏度</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    <span class="n">F</span><span class="o">.</span><span class="n">stddev</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>          <span class="c1"># 标准差 </span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>    <span class="n">F</span><span class="o">.</span><span class="n">stddev_samp</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>     <span class="c1"># 样本标准差</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="n">F</span><span class="o">.</span><span class="n">stddev_pop</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>      <span class="c1"># 总体标准差</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    <span class="n">F</span><span class="o">.</span><span class="n">variance</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>        <span class="c1"># 方差</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    <span class="n">F</span><span class="o">.</span><span class="n">var_samp</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>        <span class="c1"># 样本方差</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>    <span class="n">F</span><span class="o">.</span><span class="n">var_pop</span><span class="p">(</span><span class="s1">&#39;index_name&#39;</span><span class="p">),</span>         <span class="c1"># 总体方差</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p>Python下的分布统计量，包含<code>pandas.DataFrame/pandas.Series/numpy.array</code></p>
+</blockquote>
+<ol>
+<li><code>mean()</code> 均值</li>
+<li><code>median()</code> 中位数</li>
+<li><code>min()</code> 最小值</li>
+<li><code>max()</code> 最大值</li>
+<li><code>std()</code> 标准差</li>
+<li><code>var()</code> 方差</li>
+<li><code>skew()</code> 偏度</li>
+<li><code>kurt()</code> 峰度</li>
+<li><code>quantile()</code> 分位数</li>
+<li><code>cov()</code> 协方差</li>
+<li><code>corr()</code> 相关系数</li>
+<li><code>mode</code> 众数</li>
+</ol>
+<h2 id="3">3. 空值分析<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>**在实际数据的分析过程中，一定要注意空值的定义与运算。**不同的数据类型下，不同的空值定义方式，不同的空值运算方式都会导致关于空值的计算结果千差万别。</p>
+<ul>
+<li><code>nan/NaN/Nan</code>: 非数字（not a number）。</li>
+<li><code>null/Null/NULL</code>: 空。</li>
+</ul>
+<h3 id="31-spark-null-npnan-none">3.1 Spark Null 与 np.nan 与 None<a class="headerlink" href="#31-spark-null-npnan-none" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>nan</code>与<code>null</code>是完全不同的概念。Spark 在处理<code>Float</code> 或 <code>Double</code>时，对非数字 (NaN) 进行了特殊处理。具体来说：</p>
+</blockquote>
+<ol>
+<li><code>NaN = NaN</code> <code>return True</code>。</li>
+<li>在聚合中，所有 <code>NaN</code> 值都分组在一起。</li>
+<li><code>NaN</code> 在连接键中被视为正常值；在进行比较时，<code>NaN &gt; 8 return True</code>。</li>
+<li><code>NaN</code> 值在升序时排在最后，大于任何其他数值。</li>
+<li>与 <code>Python NaN</code> 相比，<code>Spark NaN</code>排序为最大且 <code>Spark</code> 认为 <code>NaN</code> 相等。</li>
+</ol>
+<blockquote>
+<p><code>Spark</code> 中的 <code>Null</code> 即为 <code>Python</code> 中的 <code>None</code>。</p>
+</blockquote>
+<ol>
+<li><code>F.isnan</code>: 是一个非数值。</li>
+<li><code>F.isnull</code>: 是一个Null。</li>
+</ol>
+<h3 id="32-null">3.2 关于 Null 的运算<a class="headerlink" href="#32-null" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Null的比较运算符</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Left Operand</th>
+<th>Right Operand</th>
+<th>&gt;</th>
+<th>&gt;=</th>
+<th>=</th>
+<th>&lt;</th>
+<th>&lt;=</th>
+<th>&lt;=&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NULL</td>
+<td>Any value</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Any value</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>False</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p><code>Spark</code> 提供了一个空安全相等运算符 <code>&lt;=&gt;</code>，一边为 <code>Null</code> 时返回 <code>False</code>，两边为 <code>Null</code> 时返回 <code>True</code>。</p>
+<blockquote>
+<p><strong>Null的逻辑运算符</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Left Operand</th>
+<th>Right Operand</th>
+<th>OR</th>
+<th>AND</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>True</td>
+<td>NULL</td>
+<td>True</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>False</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>False</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>True</td>
+<td>True</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>False</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Null 的聚合运算操作</strong></p>
+</blockquote>
+<p>聚合函数通过处理一组输入行来计算单个结果。以下是聚合函数如何处理 <code>NULL</code> 值的规则。</p>
+<p>所有聚合函数都会忽略 <code>NULL</code> 值，唯一例外是 <code>COUNT(*)</code> 函数。</p>
+<p>当所有输入值为 <code>NULL</code> 或输入数据集为空时，某些聚合函数会返回 <code>NULL</code>。
+这些函数是：</p>
+<ul>
+<li>MAX</li>
+<li>MIN</li>
+<li>SUM</li>
+<li>AVG</li>
+<li>EVERY</li>
+<li>ANY</li>
+<li>SOME</li>
+</ul>
+<h3 id="33-wherehaving-join">3.3 WHERE、HAVING 和 JOIN 子句中的条件表达式。<a class="headerlink" href="#33-wherehaving-join" title="Permanent link">&para;</a></h3>
+<p><code>WHERE</code>,<code>HAVING</code>运算符根据指定的条件过滤行。
+<code>JOIN</code>运算符用于根据连接条件组合两个表中的行。</p>
+<p>对于三个运算符，条件表达式都是布尔表达式并且可以返回 True 的记录, <code>False</code> 或 <code>Unknown (NULL)</code>的记录不返回。</p>
+<h3 id="34">3.4 空值的聚合、排序、集合<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<ol>
+<li>聚合（<code>GroupBy</code>）：NULL为一个分组。</li>
+<li>排序（<code>Order</code>）：默认NULL排在最前面。</li>
+<li>聚合（<code>UNION、INTERSECT、EXCEPT</code>）：Null值以安全比较的方式决定是否相等。</li>
+</ol>
+<h3 id="35">3.5 现实数据提取中的空值成因<a class="headerlink" href="#35" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>业务指标计算阶段：</strong></p>
+</blockquote>
+<ol>
+<li>
+<p>在实际业务指标计算的过程中，未找到某些企业的业务场景，在指标长表中体现为<code>无该企业的任何信息</code>，但转换为样本指标宽表后，该企业的该指标为<code>Null</code>。</p>
+<ul>
+<li>如：在“企业纳税”方案中，需要在交易流水中提取纳税相关的交易，然后聚合成企业的纳税指标，但是<code>若企业无符合该方案的记录，则映射到样本宽表时，该企业的纳税相关指标为Null</code>。</li>
+<li><code>空值</code>与<code>0值</code>，一般是在业务流水提取过程中找到了某主体的相关交易，但无某具体聚合分类时<code>赋值为0值</code>，或经过计算该指标确实为0值。比如：<ul>
+<li>企业有符合纳税方案的流水记录，但无符合纳税聚合的记录则赋值为0值；</li>
+<li>企业有未结清贷款，但是无未结清狭义贷款，则未结清狭义贷款为0；</li>
+<li>企业每天都有流水金额，但是每天流入流出正好相等，则企业日均活期存款为0值；</li>
+<li>企业有非银交易相关流水，但是无符合“小贷、保理”等具体非银交易的记录，则“小贷、保理”等指标值为0值。</li>
+<li>最后，需要特别注意的是，在某些方案中要求了聚合指标时统计值大于0，即聚合0值在库中无记录，宽表形态下为Null值；司法、止付、风险账户往来相关方案就是这种情况，没有记录0值，空值即为0值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>存在多家机构报送同样一个字段时，不同机构字段值出入过大，我们无法相信其中任何一家时，对该主体的该指标赋值为<code>Null</code>。这类字段主要是主体的基本信息，如：员工人数、总资产、年收入等。</p>
+</li>
+<li>
+<p>关联指标时出现空值，有如下几种情况：</p>
+<ul>
+<li>主体无关联方时，关联指标为<code>Null</code>。</li>
+<li>主体有关联方但关联方该指标值为<code>Null</code>。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>指标衍生阶段：</strong></p>
+</blockquote>
+<ol>
+<li>指标的衍生一般指，在业务指标的基础之上计算同比、环比、交叉比率、行业排名等。</li>
+<li>数值相除，**在实际的业务分析中，分母为Null，与分子为Null可能体现不同的业务含义。**在计算两个数相除时，分以下几种情况考虑：<ul>
+<li>分子为<code>Null</code>，分母为<code>Null</code>时，指标值为应为<code>Null</code>，系统记录为<code>-4404</code>；在计算企业的资产负债率时，此种情况一般认为<code>企业既无存款也无贷款</code>。</li>
+<li>分子为<code>Null</code>，分母不为<code>Null</code>时，指标值为应为<code>Null</code>，系统记录为<code>-1111</code>；在计算企业的资产负债率时，此种情况一般认为<code>企业既有存款无贷款</code>。</li>
+<li>分子不为<code>Null</code>，分母为<code>Null</code>时，指标值为应为<code>Null</code>，系统记录为<code>-1111</code>；在计算企业的资产负债率时，此种情况一般认为<code>企业既无存款但有贷款</code>。</li>
+<li>分母为0时，指标值为应为<code>Null</code>，系统记录为<code>-1111</code>。在计算企业的资产负债率时，此种情况一般认为<code>企业无存款</code>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>在企业资产负债率的业务分析中，在其他条件相同的情况下，一般认为客户资质有如这样的排列（<code>无存款有负债 &lt; 有存款有负债 &lt; 有存款无负债</code>）；在数据分析与建模中应当分布考虑以上种种情况对于风险的影响。</strong></p>
+<p><em>注：以上情况讨论假设资产负债率计算如下</em>
+$$
+资产负债 = \frac{负债}{存款}
+$$</p>
+<ol>
+<li>数值排名（百分位）：<ul>
+<li>一般指数值从大到小排列，数值大的百分位大。</li>
+<li><code>Null/Nan</code>不参与百分位排列，这里<code>Nan</code>值应指业务上不参与百分位排名，在实际计算上应注意排除该类型的值再进行排名计算，赋值<code>Null</code>。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>特别注意更复杂的一些空值情况：</strong></p>
+</blockquote>
+<ol>
+<li>
+<p>关联方的资产负债率指标为<code>Null</code>，可能为以下情况：</p>
+<ul>
+<li>主体无关联人。</li>
+<li>主体有关联人，有贷款无存款。</li>
+<li>主体有关联人，无贷款无存款。</li>
+<li>主体有关联人，无贷款无存款。</li>
+</ul>
+</li>
+<li>
+<p>关联方未结清非抵质押类的贷款指标为<code>Null</code>：</p>
+<ul>
+<li>主体无关联人。</li>
+<li>主体有关联人，关联人历史无信贷记录时值为<code>Null</code>;</li>
+<li>主体有关联人，关联人历史有信贷记录，但无非抵质押贷款，指标值为<code>0</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="36">3.6 空值分析总结<a class="headerlink" href="#36" title="Permanent link">&para;</a></h3>
+<p><strong>1. 空值的分析，是指标建设处理最精细的一个环节，处理的好可以大大增强指标的风险指示效果。</strong></p>
+<p><strong>2. 在技术计算细节上理清各类空值的算法是及其重要的，重点要区分<code>Null</code>与<code>Nan</code>的区别，以及在<code>Spark集群</code>与<code>单机Python</code>环境下计算的各种区别，计算错了就麻烦了。</strong></p>
+<p><strong>3. 在业务分析上分别明晰空值的特征工程操作，可以大大提高模型的效果，是值得花费功夫处理清楚的一块重要工作内容。</strong></p>
+<p><strong>4. 以上空值的分类讨论应该概况了工作中98%以上的场景；其他极少数的场景还应该具体问题具体分析。</strong></p>
+<h2 id="4">4. 表转置操作<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41-pivot">4.1 <code>pivot</code> 长表转宽表<a class="headerlink" href="#41-pivot" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明：<strong>长表转宽表直接可以使用：<code>pivot</code></strong></p>
+</blockquote>
+<ol>
+<li>一般该操作用于构建样本宽表，进行统计分析，模型分析使用。</li>
+<li>该方法可以构建列联表，用于数据分析。</li>
+</ol>
+<blockquote>
+<p>参数</p>
+</blockquote>
+<ul>
+<li><code>param: groupBy</code>: 聚合主键信息。</li>
+<li><code>param: pivot</code>: 将哪列转换为表值。</li>
+<li><code>param: agg</code>: 聚合方式。</li>
+<li>在长表转宽表时一般为<code>F.first</code>，即仅取第一个值就可以了（实际上也只有一个值）；</li>
+<li>在列联表转换中可以是其他聚合方式，如：<code>F.mean/F.max/F.min</code>。</li>
+</ul>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">df_wide</span> <span class="o">=</span> <span class="n">df_long</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;uuid&#39;</span><span class="p">,</span> <span class="s1">&#39;load_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;index_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="n">F</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="s2">&quot;index_val&quot;</span><span class="p">),)</span>
+</span></code></pre></div>
+<h3 id="42-unpivot">4.2 <code>unpivot</code> 宽表转长表<a class="headerlink" href="#42-unpivot" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明：将指标宽表转换为指标长表，</p>
+</blockquote>
+<ol>
+<li>一般用于在不修改表结构时进行指标的提取。</li>
+<li>也可以用于数据分析的维度聚合，长表可以更方便的聚合数据的各类维度。</li>
+</ol>
+<blockquote>
+<p>参数</p>
+</blockquote>
+<ul>
+<li><code>:param df_wide[PySpark DataFrame]:</code> 宽表。</li>
+<li><code>:param columns[List]:</code> 转换指标名称List。</li>
+<li><code>:param val_type[PySpark.sql.types]:</code> 数据类型，如：<code>StringType()</code>, <code>FloatType()</code>。</li>
+<li><code>:param index_name[Str, List]:</code> 基础信息，一般为<code>uuid</code>或<code>["uuid", "load_date"]</code>。</li>
+<li><code>:param feature_name:</code> 指标名称列。</li>
+<li><code>:param feature_value:</code> 指标值列。</li>
+</ul>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span> <span class="nn">ywcxUtils</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="c1"># OR</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="kn">from</span> <span class="nn">kivi</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="n">df_long</span> <span class="o">=</span> <span class="n">unpivot</span><span class="p">(</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">df_wide</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">val_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;uuid&#39;</span><span class="p">,</span> 
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="n">feature_name</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">feature_value</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="43-pandas">4.3 <code>pandas</code> 中的转置<a class="headerlink" href="#43-pandas" title="Permanent link">&para;</a></h3>
+<ol>
+<li>long to wide: <code>pd.pivot</code></li>
+<li>long to wide: <code>pd.pivot_table</code></li>
+<li>wide to long: <code>pd.wide_to_long</code></li>
+</ol>
+<h2 id="5">5. 样本空间<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 <code>贷前</code>样本空间的回溯<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明：用于贷前样本空间的回溯构建。</p>
+<p>参数</p>
+</blockquote>
+<ul>
+<li><code>:param data_date</code>: 数据周期，依据该日期进行样本指标的回溯。</li>
+<li><code>:param sample_date</code>: 样本周期 <code>[观察点, 表现期结束时点]</code>。</li>
+<li><code>:param sxje</code>: 筛选样本的授信金额；默认为跨机构授信金额 1 千万。</li>
+<li><code>:param dbfs</code>: 担保类型，默认不限制担保类型，如<code>['信用', '保证]</code>。</li>
+<li><code>:param table_name</code>: 保存样本空间表表名。</li>
+<li><code>:param load_dates</code>: 回溯信贷合同时间周期，如<code>['20190131', end_date]</code>。</li>
+<li><code>:param update_date</code>: 最新指标数据日期。</li>
+<li><code>:param schema</code>: 样本表的表结构。</li>
+<li><code>:param db_name</code>: 样本库名。</li>
+<li><code>:param disp</code>: 是否展示必要的关键节点。</li>
+<li><code>:param spark</code>: spark session。</li>
+</ul>
+<blockquote>
+<p>示例-样本表表结构</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># 默认模式</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">schema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">([</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;uuid&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>        <span class="c1"># uuid</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>       <span class="c1"># label: 观察时点的违约状况，一般回溯过去一年的未结清贷款。0-正常；1-关注；2-不良；null-未知。</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>     <span class="c1"># target: 表现期结束时点的违约状况。0-正常；1-违约。</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;obs_date&#39;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>   <span class="c1"># obs_date: 观察时点，以该时间进行指标数据的索引。</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;load_date&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>   <span class="c1"># load_date: 落库时最新指标的日期；这是分区字段，用以在未来时回溯该数据日期下的样本结果，模型结果。</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="p">])</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># 补充模式</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">schema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">([</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;uuid&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>                 <span class="c1"># uuid</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>                <span class="c1"># label: 观察时点的违约状况，一般回溯过去一年的未结清贷款。0-正常；1-关注；2-不良；null-未知。</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>              <span class="c1"># target: 表现期结束时点的违约状况。0-正常；1-违约。</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;je_max&#39;</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>                <span class="c1"># je_max: 最大合同金额。</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;je_min&#39;</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>                <span class="c1"># je_min: 最小合同金额。</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;je_avg&#39;</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>                <span class="c1"># je_avg: 平均合同金额。</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;zydbfs&#39;</span><span class="p">,</span> <span class="n">ArryType</span><span class="p">(</span><span class="n">StringType</span><span class="p">()),</span> <span class="kc">True</span><span class="p">),</span>     <span class="c1"># zydbfs: 主要担保方式。</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;obs_date&#39;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>            <span class="c1"># obs_date: 观察时点，以该时间进行指标数据的索引。</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>   <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;load_date&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>            <span class="c1"># load_date: 落库时最新指标的日期；这是分区字段，用以在未来时回溯该数据日期下的样本结果，模型结果。</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="p">])</span>
+</span></code></pre></div>
+<blockquote>
+<p>示例-跑数函数</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># 全量 300 万授信样本</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">SampleSpeaceInfrontCredit</span><span class="p">(</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">data_date</span><span class="p">,</span> <span class="n">sample_date</span><span class="p">,</span> <span class="n">sxje</span><span class="o">=</span><span class="mf">3e6</span><span class="p">,</span> <span class="n">dbfs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>   <span class="n">table_name</span><span class="o">=</span><span class="s1">&#39;znfk_bj_sample_zj_pd_a_v2&#39;</span><span class="p">,</span> <span class="n">shcema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>    <span class="n">load_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;20190131&#39;</span><span class="p">,</span> <span class="n">end_date</span><span class="p">],</span> 
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>   <span class="n">update_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span> <span class="n">spark</span><span class="o">=</span><span class="n">spark</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="52">5.2 <code>贷前</code>单个样本空间提取<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明：<code>5.1</code> 中构建的样本表可能存在多个数据时间的样本，实际使用建模样本是，一般仅需要一个数据时间的样本，<code>5.2</code>是一个提取一个时间样本的示例。</p>
+<p>示例</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">def</span> <span class="nf">trans_sample_speace</span><span class="p">(</span><span class="n">db_name</span><span class="o">=</span><span class="s1">&#39;tmp_work&#39;</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">load_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spark</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="sd">    :param db_name: 样本表库名</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="sd">    :param table_name: 样本表表名</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="sd">    :param label: 观察时点的违约状况，一般回溯过去一年的未结清贷款。0-正常；1-关注；2-不良；null-未知。</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="sd">    :param load_date: 数据时间日期</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="sd">    :param spark: spark session</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>    <span class="n">df_sample</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="s2">        SELECT uuid, target, obs_date AS load_date</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="s2">        FROM </span><span class="si">{</span><span class="n">db_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span>
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="s2">        WHERE label = </span><span class="si">{</span><span class="n">label</span><span class="si">}</span>
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="s2">            AND load_date = &#39;</span><span class="si">{</span><span class="n">load_date</span><span class="si">}</span><span class="s2">&#39;</span>
+</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>    <span class="n">FrameToHive</span><span class="p">(</span><span class="n">df_sample</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">db_name</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">load_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">spark</span><span class="o">=</span><span class="n">spark</span><span class="p">,</span> <span class="n">partitionBy</span><span class="o">=</span><span class="s1">&#39;load_date&#39;</span><span class="p">)</span>
+</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>
+</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a><span class="n">trans_sample_speace</span><span class="p">(</span><span class="n">table_name</span><span class="o">=</span><span class="s1">&#39;znfk_bj_sample_zj_pd_a_v2&#39;</span><span class="p">,</span> <span class="n">load_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span> <span class="n">spark</span><span class="o">=</span><span class="n">spark</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>注意：</strong>
+1. <em>单一数据日期的样本表表名会默认保存为{table_name}_{load_date}。</em>
+2. <em>原样本表的<code>obs_date</code>会修改为<code>load_date</code>，这样与指标的<code>load_data</code>进行对应，便于指标取数。</em>
+3. <em><code>label</code>选取应该注意，若预测为<code>good To bad</code>则<code>label=0</code>，若预测为<code>首贷 To bad</code>则<code>label=null</code>，其他预测情况应根据业务要求选择适当的观察时点状态，这里不一一列举。</em></p>
+<h3 id="53">5.3 <code>贷中</code>样本空间的回溯<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># 待建设</span>
+</span></code></pre></div>
+<h3 id="54">5.4 <code>贷中</code>单个样本空间提取<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># 待建设</span>
+</span></code></pre></div>
+<h2 id="6">6. 数据指标的匹配索引<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 样本周期的计算<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明：用以计算观察期的开始时间，结束时间；计算表现期的开始时间，结束时间。</p>
+<p>参数</p>
+</blockquote>
+<ul>
+<li><code>:param obs_months[int]</code>: 表现期长度。</li>
+<li><code>:param start_date</code>: 观察时点的开始日期。</li>
+<li><code>:param end_date</code>: 最新指标日期。</li>
+<li><code>:param start_data_date</code>: 索引数据最早日期。</li>
+</ul>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kn">from</span> <span class="nn">ywcxUtils.Dataset</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="c1"># 贷前样本信息表</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="n">obs_months</span> <span class="o">=</span> <span class="mi">16</span>                 <span class="c1"># 表现期时长</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="n">start_date</span> <span class="o">=</span> <span class="s1">&#39;20191231&#39;</span>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="n">end_date</span> <span class="o">=</span> <span class="s1">&#39;20211031&#39;</span>
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="n">start_data_date</span><span class="o">=</span><span class="s1">&#39;20180901&#39;</span>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="c1"># 数据周期与样本周期</span>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="n">data_date</span><span class="p">,</span> <span class="n">sample_date</span> <span class="o">=</span> <span class="n">data_dates</span><span class="p">(</span>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>    <span class="n">obs_months</span><span class="o">=</span><span class="n">obs_months</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> 
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>    <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span> <span class="n">start_data_date</span><span class="o">=</span><span class="n">start_data_date</span><span class="p">)</span>
+</span></code></pre></div>
+<blockquote>
+<p><code>sample_date</code>：第一个日期为观察时点日期，第二个日期为表现期结束时点日期；在实际应用中以第一个日期索引指标构建样本<code>X</code>，以第二个日期回溯样本好坏标签构建样本<code>Y</code>。
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="o">[[</span><span class="s1">&#39;20191231&#39;</span>,<span class="w"> </span><span class="s1">&#39;20210430&#39;</span><span class="o">]</span>,
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w"> </span><span class="o">[</span><span class="s1">&#39;20200131&#39;</span>,<span class="w"> </span><span class="s1">&#39;20210531&#39;</span><span class="o">]</span>,
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w"> </span><span class="o">[</span><span class="s1">&#39;20200229&#39;</span>,<span class="w"> </span><span class="s1">&#39;20210630&#39;</span><span class="o">]</span>,
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w"> </span><span class="o">[</span><span class="s1">&#39;20200331&#39;</span>,<span class="w"> </span><span class="s1">&#39;20210731&#39;</span><span class="o">]</span>,
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w"> </span><span class="o">[</span><span class="s1">&#39;20200430&#39;</span>,<span class="w"> </span><span class="s1">&#39;20210831&#39;</span><span class="o">]</span>,
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w"> </span><span class="o">[</span><span class="s1">&#39;20200531&#39;</span>,<span class="w"> </span><span class="s1">&#39;20210930&#39;</span><span class="o">]</span>,
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w"> </span><span class="o">[</span><span class="s1">&#39;20200630&#39;</span>,<span class="w"> </span><span class="s1">&#39;20211031&#39;</span><span class="o">]]</span>
+</span></code></pre></div></p>
+<p><code>data_date</code>: 第一个日期为观察期开始时间，第二个日期为观察期结束日期。
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="o">[(</span><span class="s1">&#39;20180930&#39;</span>,<span class="w"> </span><span class="s1">&#39;20191231&#39;</span><span class="o">)</span>,
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w"> </span><span class="o">(</span><span class="s1">&#39;20181031&#39;</span>,<span class="w"> </span><span class="s1">&#39;20200131&#39;</span><span class="o">)</span>,
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">  </span>.........<span class="w"> </span>,<span class="w">   </span>........<span class="w"> </span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w"> </span><span class="o">(</span><span class="s1">&#39;20200630&#39;</span>,<span class="w"> </span><span class="s1">&#39;20210930&#39;</span><span class="o">)</span>,
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w"> </span><span class="o">(</span><span class="s1">&#39;20200731&#39;</span>,<span class="w"> </span><span class="s1">&#39;20211031&#39;</span><span class="o">)]</span>
+</span></code></pre></div></p>
+</blockquote>
+<h3 id="62">6.2 获取全量指标的信息<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明：获取当前全量的指标信息，包括指标名称、代码、存储表等。</p>
+<p>示例</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">df_index</span> <span class="o">=</span> <span class="n">GetIndexName</span><span class="p">()</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">df_index</span>
+</span></code></pre></div>
+<blockquote>
+<p>输出结果</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"></th>
+<th style="text-align: left;">body</th>
+<th style="text-align: left;">class</th>
+<th style="text-align: left;">sub_class</th>
+<th style="text-align: left;">module</th>
+<th style="text-align: left;">index_name</th>
+<th style="text-align: left;">index_id</th>
+<th style="text-align: left;">biz_code</th>
+<th style="text-align: left;">dat_store_tab_nme</th>
+<th style="text-align: left;">db</th>
+<th style="text-align: left;">table</th>
+<th style="text-align: left;">dim</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">企业</td>
+<td style="text-align: left;">融资</td>
+<td style="text-align: left;">行为充分度</td>
+<td style="text-align: left;">融资行为评价</td>
+<td style="text-align: left;">距离最早****</td>
+<td style="text-align: left;">I10301***</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">zj_dws.t_ent_index_******</td>
+<td style="text-align: left;">zj_dws</td>
+<td style="text-align: left;">t_ent_index_credit</td>
+<td style="text-align: left;">日期</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">企业</td>
+<td style="text-align: left;">融资</td>
+<td style="text-align: left;">行为充分度</td>
+<td style="text-align: left;">融资行为评价</td>
+<td style="text-align: left;">历史发生****</td>
+<td style="text-align: left;">I10301***</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">zj_dws.t_ent_index_******</td>
+<td style="text-align: left;">zj_dws</td>
+<td style="text-align: left;">t_ent_index_credit</td>
+<td style="text-align: left;">机构数</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">企业</td>
+<td style="text-align: left;">融资</td>
+<td style="text-align: left;">行为充分度</td>
+<td style="text-align: left;">融资行为评价</td>
+<td style="text-align: left;">历史发生****</td>
+<td style="text-align: left;">I10301***</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">zj_dws.t_ent_index_******</td>
+<td style="text-align: left;">zj_dws</td>
+<td style="text-align: left;">t_ent_index_credit</td>
+<td style="text-align: left;">贷款余额</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">企业</td>
+<td style="text-align: left;">融资</td>
+<td style="text-align: left;">行为充分度</td>
+<td style="text-align: left;">融资行为评价</td>
+<td style="text-align: left;">距离最早****</td>
+<td style="text-align: left;">I10301***</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">zj_dws.t_ent_index_******</td>
+<td style="text-align: left;">zj_dws</td>
+<td style="text-align: left;">t_ent_index_credit</td>
+<td style="text-align: left;">月份数</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">企业</td>
+<td style="text-align: left;">融资</td>
+<td style="text-align: left;">行为充分度</td>
+<td style="text-align: left;">融资行为评价</td>
+<td style="text-align: left;">距离最早****</td>
+<td style="text-align: left;">I10301***</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">zj_dws.t_ent_index_******</td>
+<td style="text-align: left;">zj_dws</td>
+<td style="text-align: left;">t_ent_index_credit</td>
+<td style="text-align: left;">月份数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-uuid">6.3 指定<code>UUID</code>获取全量的指标长表与指标宽表<a class="headerlink" href="#63-uuid" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明：用于对样本空间，进行指标匹配，由于指标比较多，会先创建样本长表，然后在转换为样本宽表。</p>
+<p>示例</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">Ft</span> <span class="o">=</span> <span class="n">ExtractInfrontIndex</span><span class="p">(</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>   <span class="n">env</span><span class="o">=</span><span class="s1">&#39;bj&#39;</span><span class="p">,</span>                  <span class="c1"># 所属环境 bj-北京 zj-浙江 cq-重庆</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>   <span class="n">spark</span><span class="o">=</span><span class="n">spark</span><span class="p">,</span>               <span class="c1"># spark session</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>   <span class="n">db_name</span><span class="o">=</span><span class="s1">&#39;tmp_work&#39;</span><span class="p">,</span>        <span class="c1"># 样本表长表、宽表存储的库</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>   <span class="n">dates</span><span class="o">=</span><span class="n">sample_date</span><span class="p">,</span>         <span class="c1"># 样本的日期</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>   <span class="n">sample_speace_table</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;tmp_work.znfk_sample_zj_pd_a_v2_new_credit_20211031&#39;</span><span class="p">,</span>  <span class="c1"># 样本空间名称</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>   <span class="n">long_table_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;t_cch_sample_infront_long_jt_v2_new_credit&#39;</span><span class="p">,</span>               <span class="c1"># 样本长表名称</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>   <span class="n">wide_table_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;t_cch_sample_infront_wide_jt_v2_new_credit&#39;</span><span class="p">,</span>               <span class="c1"># 样本宽表名称</span>
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="p">)</span>
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="n">Ft</span><span class="o">.</span><span class="n">BatchLong</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ind</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>       <span class="c1"># 样本长表跑数，reset=True 重置长表，reset=False 不重置长表从之前最后的分区时间继续跑数。</span>
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="n">Ft</span><span class="o">.</span><span class="n">stringCols</span> <span class="o">=</span> <span class="p">[]</span>                        <span class="c1"># 指定宽表中的字符串列，默认情况下宽表中的字段均为Float类型。</span>
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="n">Ft</span><span class="o">.</span><span class="n">BatchWide</span><span class="p">(</span><span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                  <span class="c1"># 样本宽表跑数，reset=True 重置宽表，reset=False 不重置宽表从之前最后的分区时间继续跑数。</span>
+</span></code></pre></div>
+<blockquote>
+<p>长表表结构：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>英文名</th>
+<th>中文名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uuid</td>
+<td>唯一编码</td>
+</tr>
+<tr>
+<td>index_id</td>
+<td>指标编码</td>
+</tr>
+<tr>
+<td>index_val</td>
+<td>指标日期</td>
+</tr>
+<tr>
+<td>module</td>
+<td>指标来源（分区字段，一般是表名）</td>
+</tr>
+<tr>
+<td>load_date</td>
+<td>数据日期（分区字段）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>宽表示例：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>uuid</th>
+<th>target</th>
+<th>index_1</th>
+<th>index_2</th>
+<th>index_3</th>
+<th>... ...</th>
+<th>load_date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>唯一编码</td>
+<td>违约标签y</td>
+<td>指标x</td>
+<td>指标x</td>
+<td>指标x</td>
+<td>指标x</td>
+<td>数据日期</td>
+</tr>
+</tbody>
+</table>
+<p><em>这里，有个性能问题，随着指标数量的增加，<code>pivot</code>转宽表的效率会变低；一两千指标百万数据量（uuid）以下还是可以的，后续考虑如何解决吧。</em></p>
+<h2 id="x">X 其他数据分析操作<a class="headerlink" href="#x" title="Permanent link">&para;</a></h2>
+<h3 id="x1-maplabel">X.1 <code>mapLabel</code>键值转换<a class="headerlink" href="#x1-maplabel" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>说明: <code>[UDF]</code> 用来匹配 <code>pyspark DataFrame</code> 中的键值对</p>
+<p>参数</p>
+</blockquote>
+<ul>
+<li><code>:param mapping[Dict]</code>: 需要匹配的字典</li>
+</ul>
+<blockquote>
+<p>示例
+<div class="language-python highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># 使用行业分类码值表，设置一列中文行业名称。</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;industryCnName&#39;</span><span class="p">,</span> <span class="n">mapLabel</span><span class="p">(</span><span class="n">industryDict</span><span class="p">)(</span><span class="n">df</span><span class="o">.</span><span class="n">industryCode</span><span class="p">))</span>
+</span></code></pre></div></p>
+</blockquote>
+<p><em>也可用<code>replace</code></em></p>
+<hr />
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月2日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月2日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Chensy
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/CaoChensy/wisecon.git" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "search.suggest", "search.share", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "announce.dismiss", "content.action.view", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

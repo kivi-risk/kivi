@@ -1,0 +1,1866 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="kivi">
+      
+      
+        <meta name="author" content="CaoChensy">
+      
+      
+        <link rel="canonical" href="https://caochensy.github.io/wisecon/woe/woe-01/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../woe-02/">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS 订阅" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="已更新内容的 RSS 订阅" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>WOE-API - kivi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="WOE-API - kivi" >
+      
+        <meta  property="og:description"  content="kivi" >
+      
+        <meta  property="og:image"  content="https://caochensy.github.io/wisecon/assets/images/social/woe/woe-01.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://caochensy.github.io/wisecon/woe/woe-01/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="WOE-API - kivi" >
+      
+        <meta  name="twitter:description"  content="kivi" >
+      
+        <meta  name="twitter:image"  content="https://caochensy.github.io/wisecon/assets/images/social/woe/woe-01.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#woe-api" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="kivi" class="md-header__button md-logo" aria-label="kivi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kivi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              WOE-API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kivi-risk/kivi" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kivi-risk/kivi
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+    
+  
+  Quick start
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+    
+  
+  API Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kivi" class="md-nav__button md-logo" aria-label="kivi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    kivi
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kivi-risk/kivi" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kivi-risk/kivi
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quick start
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Quick start
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    WOE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            WOE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    WOE-API
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    WOE-API
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督分箱
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无监督分箱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      等频分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      类别型分箱
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="类别型分箱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kmeans" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kmeans分箱
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      手动分箱
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      有监督分箱
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="有监督分箱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pearson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pearson 分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      决策树分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-ks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best-KS分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      卡方分箱
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常值分箱
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      分箱分数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      补充说明
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      分箱比较
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../woe-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    样本加权分箱
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../woe-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    批量分箱技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/datasets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    datasets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/evaluate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    evaluate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/stepwise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    stepwise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/ahp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AHP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    归档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      无监督分箱
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="无监督分箱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      等距分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      等频分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      类别型分箱
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="类别型分箱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kmeans" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kmeans分箱
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      手动分箱
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      有监督分箱
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="有监督分箱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pearson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pearson 分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      决策树分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-ks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best-KS分箱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      卡方分箱
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      异常值分箱
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      分箱分数
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      补充说明
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      分箱比较
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+    
+      
+    
+    <a href="https://github.com/kivi-risk/kivi/raw/master/docs/woe/woe-01.md" title="查看本页的源代码" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="woe-api">WOE-API<a class="headerlink" href="#woe-api" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><code>WOE-IV</code> 简介</p>
+</blockquote>
+<p>WOE技术是指“权重编码（Weight of Evidence）”技术，用于评估自变量（解释变量）对因变量（被解释变量）的影响。该技术常用于信用风险评估、欺诈检测等金融领域的风险评估和分类模型构建中。</p>
+<ul>
+<li><code>WOE(Weight of Evidence)</code>常用于特征变换</li>
+<li><code>IV(Information Value)</code>则用来衡量特征的预测能力</li>
+</ul>
+<blockquote>
+<p><code>WOE</code> 应用</p>
+</blockquote>
+<ul>
+<li>处理缺失值：当数据源没有<code>100%</code>覆盖时，那就会存在缺失值，此时可以把<code>null</code>单独作为一个分箱。这点在分数据源建模时非常有用，可以有效将覆盖率哪怕只有<code>20%</code>的数据源利用起来。</li>
+<li>处理异常值：当数据中存在离群点时，可以把其通过分箱离散化处理，从而提高变量的鲁棒性（抗干扰能力）。例如，<code>age</code>若出现<code>200</code>这种异常值，可分入<code>age &gt; 60</code>这个分箱里，排除影响。</li>
+<li>业务解释性：我们习惯于线性判断变量的作用，当<code>x</code>越来越大，<code>y</code>就越来越大。但实际<code>x</code>与<code>y</code>之间经常存在着非线性关系，此时可经过<code>WOE</code>变换。</li>
+</ul>
+<blockquote>
+<p>本文介绍<code>kivi</code>中的各类分箱API，您可以在实际场景中灵活选用。</p>
+</blockquote>
+<ol>
+<li>无监督分箱：等距分箱 、等频分箱 、类别型分箱、<code>Kmeans</code> 分箱 、手动指定分箱模式</li>
+<li>有监督分箱：<code>Pearson</code> 分箱 、决策树分箱、<code>KS-Best</code> 分箱 、卡方分箱</li>
+</ol>
+<h2 id="_1">无监督分箱<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">等距分箱<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>DistanceBins</code> 参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量。</li>
+<li><code>:param target:</code> 目标标签变量。</li>
+<li><code>:param bins:</code> 等频分箱数目。</li>
+<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">kivi.woe</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">kivi.datasets</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">df_bank</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">bank_data</span><span class="p">()</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">DistanceBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">origin_border</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>|  0 | age        |              0 |      -inf |        32 |    1055 |   134 |   0.127014 |  0.110679 | 0.002983 |   0.122104 | 下降上升 |      85 |
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>|  1 | age        |              0 |        32 |        46 |    2104 |   207 |   0.098384 | -0.177011 | 0.013619 |   0.122104 | 下降上升 |     100 |
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>|  2 | age        |              0 |        46 |        59 |    1188 |   125 |   0.105219 | -0.102237 | 0.00264  |   0.122104 | 下降上升 |      95 |
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>|  3 | age        |              0 |        59 |        73 |     136 |    38 |   0.279412 |  1.09092  | 0.05284  |   0.122104 | 下降上升 |      35 |
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>|  4 | age        |              0 |        73 |       inf |      38 |    17 |   0.447368 |  1.82699  | 0.050022 |   0.122104 | 下降上升 |       0 |
+</span></code></pre></div>
+<h3 id="_3">等频分箱<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>FrequencyBins</code> 参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量。</li>
+<li><code>:param target:</code> 目标标签变量。</li>
+<li><code>:param bins:</code> 等频分箱数目。</li>
+<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">FrequencyBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>|  0 | age        |              0 |      -inf |        32 |    1055 |   134 |   0.127014 |  0.110679 | 0.002983 |   0.037287 | 下降上升 |      35 |
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>|  1 | age        |              0 |        32 |        36 |     785 |    81 |   0.103185 | -0.12403  | 0.002546 |   0.037287 | 下降上升 |      75 |
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>|  2 | age        |              0 |        36 |        43 |     983 |    90 |   0.091556 | -0.256477 | 0.012953 |   0.037287 | 下降上升 |     100 |
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>|  3 | age        |              0 |        43 |        51 |     862 |    92 |   0.106729 | -0.086302 | 0.001374 |   0.037287 | 下降上升 |      70 |
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>|  4 | age        |              0 |        51 |       inf |     836 |   124 |   0.148325 |  0.290503 | 0.017431 |   0.037287 | 下降上升 |       0 |
+</span></code></pre></div>
+<h3 id="_4">类别型分箱<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量。</li>
+<li><code>:param target:</code> 目标标签变量。</li>
+<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">CategoryBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">job</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">origin_border</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>|    | var_name   |   missing_rate | min_bin       | max_bin       |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>|---:|:-----------|---------------:|:--------------|:--------------|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>|  0 | job        |              0 | admin.        | admin.        |     478 |    58 |   0.121339 |  0.058488 | 0.00037  |   0.132519 | 未知    |      60 |
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>|  1 | job        |              0 | blue-collar   | blue-collar   |     946 |    69 |   0.072939 | -0.504101 | 0.043762 |   0.132519 | 未知    |     100 |
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>|  2 | job        |              0 | entrepreneur  | entrepreneur  |     168 |    15 |   0.089286 | -0.284088 | 0.002687 |   0.132519 | 未知    |      85 |
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>|  3 | job        |              0 | housemaid     | housemaid     |     112 |    14 |   0.125    |  0.092389 | 0.000219 |   0.132519 | 未知    |      55 |
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>|  4 | job        |              0 | management    | management    |     969 |   131 |   0.135191 |  0.182479 | 0.007653 |   0.132519 | 未知    |      50 |
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>|  5 | job        |              0 | retired       | retired       |     230 |    54 |   0.234783 |  0.8568   | 0.051105 |   0.132519 | 未知    |       0 |
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>|  6 | job        |              0 | self-employed | self-employed |     183 |    20 |   0.10929  | -0.059718 | 0.000141 |   0.132519 | 未知    |      65 |
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>|  7 | job        |              0 | services      | services      |     417 |    38 |   0.091127 | -0.26165  | 0.005707 |   0.132519 | 未知    |      80 |
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>|  8 | job        |              0 | student       | student       |      84 |    19 |   0.22619  |  0.808351 | 0.016344 |   0.132519 | 未知    |       5 |
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>|  9 | job        |              0 | technician    | technician    |     768 |    83 |   0.108073 | -0.072279 | 0.000863 |   0.132519 | 未知    |      70 |
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>| 10 | job        |              0 | unemployed    | unemployed    |     128 |    13 |   0.101562 | -0.141683 | 0.000538 |   0.132519 | 未知    |      75 |
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>| 11 | job        |              0 | unknown       | unknown       |      38 |     7 |   0.184211 |  0.550223 | 0.003128 |   0.132519 | 未知    |      25 |
+</span></code></pre></div>
+<h4 id="kmeans"><code>Kmeans</code>分箱<a class="headerlink" href="#kmeans" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量。</li>
+<li><code>:param target:</code> 目标标签变量。</li>
+<li><code>:param cutoffpoint:</code> 分箱截断点。</li>
+<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">KmeansBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>|  0 | age        |              0 |      -inf |        34 |    1472 |   178 |   0.120924 |  0.05459  | 0.000991 |     0.0861 | 下降上升 |      85 |
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>|  1 | age        |              0 |        34 |        42 |    1236 |   116 |   0.093851 | -0.229194 | 0.013145 |     0.0861 | 下降上升 |     100 |
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>|  2 | age        |              0 |        42 |        51 |     977 |   103 |   0.105425 | -0.100052 | 0.002081 |     0.0861 | 下降上升 |      90 |
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>|  3 | age        |              0 |        51 |        64 |     747 |    92 |   0.123159 |  0.075453 | 0.000968 |     0.0861 | 下降上升 |      80 |
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>|  4 | age        |              0 |        64 |       inf |      89 |    32 |   0.359551 |  1.46098  | 0.068915 |     0.0861 | 下降上升 |       0 |
+</span></code></pre></div>
+<h3 id="_5">手动分箱<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量。</li>
+<li><code>:param target:</code> 目标标签变量。</li>
+<li><code>:param bins:</code> 分箱截断点。</li>
+<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">ManuallyBins</span><span class="p">(</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>|  0 | age        |              0 |      -inf |        20 |       7 |     3 |   0.428571 |  1.75062  | 0.00833  |   0.088071 | 下降上升 |       5 |
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>|  1 | age        |              0 |        20 |        22 |      16 |     4 |   0.25     |  0.939687 | 0.004395 |   0.088071 | 下降上升 |      45 |
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>|  2 | age        |              0 |        22 |        50 |    3571 |   384 |   0.107533 | -0.077893 | 0.004651 |   0.088071 | 下降上升 |     100 |
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>|  3 | age        |              0 |        50 |        70 |     873 |   106 |   0.12142  |  0.059252 | 0.000694 |   0.088071 | 下降上升 |      95 |
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>|  4 | age        |              0 |        70 |       inf |      54 |    24 |   0.444444 |  1.81516  | 0.070002 |   0.088071 | 下降上升 |       0 |
+</span></code></pre></div>
+<h2 id="_6">有监督分箱<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="pearson">Pearson 分箱<a class="headerlink" href="#pearson" title="Permanent link">&para;</a></h3>
+<ul>
+<li>计算全部变量的最优分箱，依据<code>Pearson</code>相关系数合并最优分箱的优化过程。</li>
+</ul>
+<blockquote>
+<p>参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量。</li>
+<li><code>:param target:</code> 目标标签变量。</li>
+<li><code>:param r:</code> 相关系数阈值。</li>
+<li><code>:param min_bin:</code> 最小分箱数。</li>
+<li><code>:param max_bin:</code> 最大分箱数。</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">PearsonBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">min_bin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>|  0 | age        |              0 |      -inf |        35 |    1652 |   197 |   0.119249 |  0.038742 | 0.000557 |   0.024693 | 下降上升 |      30 |
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>|  1 | age        |              0 |        35 |        45 |    1388 |   129 |   0.092939 | -0.239961 | 0.016113 |   0.024693 | 下降上升 |     100 |
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>|  2 | age        |              0 |        45 |       inf |    1481 |   195 |   0.131668 |  0.152007 | 0.008023 |   0.024693 | 下降上升 |       0 |
+</span></code></pre></div>
+<h3 id="_7">决策树分箱<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量。</li>
+<li><code>:param target:</code> 目标标签变量。</li>
+<li><code>:param bins:</code> 分箱数量，默认为 5 。</li>
+<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">tree_bins</span> <span class="o">=</span> <span class="n">TreeBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">tree_bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>|  0 | age        |              0 |      -inf |        29 |     482 |    74 |   0.153527 |  0.331098 | 0.013255 |   0.153044 | 未知    |      40 |
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>|  1 | age        |              0 |        29 |        52 |    3289 |   332 |   0.100943 | -0.148496 | 0.015149 |   0.153044 | 未知    |      65 |
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>|  2 | age        |              0 |        52 |        55 |     255 |    34 |   0.133333 |  0.166497 | 0.001666 |   0.153044 | 未知    |      45 |
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>|  3 | age        |              0 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |   0.153044 | 未知    |     100 |
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>|  4 | age        |              0 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |   0.153044 | 未知    |       0 |
+</span></code></pre></div>
+<h3 id="best-ks"><code>Best-KS</code>分箱<a class="headerlink" href="#best-ks" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量。</li>
+<li><code>:param target:</code> 目标标签变量。</li>
+<li><code>:param bins:</code> 分箱数量。</li>
+<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 类别型分箱计算</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">ks</span> <span class="o">=</span> <span class="n">KSBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="p">)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">ks</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>|  0 | age        |              0 |      -inf |        30 |     632 |    90 |   0.142405 |  0.242843 | 0.009045 |   0.148341 | 未知    |      45 |
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>|  1 | age        |              0 |        30 |        45 |    2408 |   236 |   0.098007 | -0.181272 | 0.016319 |   0.148341 | 未知    |      65 |
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>|  2 | age        |              0 |        45 |        55 |     986 |   114 |   0.115619 |  0.003709 | 3e-06    |   0.148341 | 未知    |      55 |
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>|  3 | age        |              0 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |   0.148341 | 未知    |     100 |
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>|  4 | age        |              0 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |   0.148341 | 未知    |       0 |
+</span></code></pre></div>
+<h3 id="_8">卡方分箱<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>什么是卡方分箱</p>
+</blockquote>
+<p>卡方分箱正是一种基于卡方检验的分箱方法，使用卡方独立性检验来实现核心分箱功能的。</p>
+<blockquote>
+<p>卡方统计量</p>
+</blockquote>
+<div class="arithmatex">\[\chi^2 = \sum_{i=1}^{m}\sum_{j=1}^{k}\frac{(A_{ij} - E_{ij})^2}{E_{ij}}\]</div>
+<ul>
+<li><span class="arithmatex">\(m=2\)</span>：表示相邻的两个分箱数目</li>
+<li><span class="arithmatex">\(k\)</span>：表示目标变量的类别数，比如目标是网贷违约的好和坏，那么<span class="arithmatex">\(k=2\)</span>。<span class="arithmatex">\(k\)</span>也可以是多类，大于2。</li>
+<li><span class="arithmatex">\(A_{ij}\)</span>：实际频数，即第i个分箱的j类频数</li>
+<li><span class="arithmatex">\(E_{ij}\)</span>：期望频数</li>
+</ul>
+<p>其中，期望频数的公式如下，可根据<span class="arithmatex">\(P(AB)=P(A)P(B)\)</span>推导出来：</p>
+<div class="arithmatex">\[E_{ij} = \frac{R_i}{C_k}{N}\]</div>
+<ul>
+<li><span class="arithmatex">\(R_i\)</span>&amp;<span class="arithmatex">\(C_j\)</span>：分别是实际频数整列和整行的加和。</li>
+</ul>
+<blockquote>
+<p><strong>假设有以下数据，分为Bins-1，Bins-2两组。频数如下表：</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>组别</th>
+<th>标签：0</th>
+<th>标签：1</th>
+<th>R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bins-1</td>
+<td>100</td>
+<td>9</td>
+<td>109</td>
+</tr>
+<tr>
+<td>Bins-2</td>
+<td>101</td>
+<td>8</td>
+<td>109</td>
+</tr>
+<tr>
+<td>C</td>
+<td>201</td>
+<td>17</td>
+<td>218</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>卡方分箱步骤</p>
+</blockquote>
+<ol>
+<li>初始化步骤</li>
+<li>根据连续变量值大小进行排序 </li>
+<li>构建最初的离散化，即把每一个单独的值视为一个箱体。这样做的目的就是想从每个单独的个体开始逐渐合并。</li>
+<li>
+<p>计算所有相邻分箱的卡方值：也就是说如果有1,2,3,4个分箱，那么就需要绑定相邻的两个分箱，共三组：12,23,34。然后分别计算三个组的卡方值。</p>
+</li>
+<li>
+<p>合并：</p>
+</li>
+<li>从计算的卡方值中找出最小的一个，并把这两个分箱合并，比如，23是卡方值最小的一个，那么就将2和3合并，本轮计算中分箱就变为了1,23,4。</li>
+<li>
+<p>低卡方值表明它们具有相似的类分布。直到满足停止条件。</p>
+</li>
+<li>
+<p>停止条件：</p>
+</li>
+<li>卡方停止的阈值</li>
+<li>分箱数目的限制</li>
+</ol>
+<p><em>只要当所有分箱对的卡方值都大于阈值，并且分箱数目小于最大分箱数时，计算就会继续，直到不满足。</em></p>
+<blockquote>
+<p>参数：</p>
+</blockquote>
+<ul>
+<li><code>:param variables:</code> 待分箱变量</li>
+<li><code>:param target:</code> 目标标签变量</li>
+<li><code>:param init_bins:</code> 初始化分箱数量，在此分箱数量基础上进行等频分箱，再依据卡方检验进行分箱的合并</li>
+<li><code>:param min_bins:</code> 最小的分箱数量</li>
+<li><code>:param max_bins:</code> 最大的分箱数量</li>
+<li><code>:param m:</code> 目标变量类别数</li>
+<li><code>:param fill_bin:</code> 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_bin 为 True ，为该分箱填充 0.5。</li>
+<li><code>:param confidence_level:</code> 卡方检验置信度</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">Chi2Bins</span><span class="p">(</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>   <span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">init_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">min_bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,)</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<p><em>输出</em></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>|  0 | age        |              0 |      -inf |        29 |     482 |    74 |   0.153527 |  0.331098 | 0.013255 |   0.132842 | 未知    |      55 |
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>|  1 | age        |              0 |        29 |        45 |    2558 |   252 |   0.098514 | -0.175541 | 0.016293 |   0.132842 | 未知    |      85 |
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>|  2 | age        |              0 |        45 |        56 |    1060 |   120 |   0.113208 | -0.020089 | 9.4e-05  |   0.132842 | 未知    |      80 |
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>|  3 | age        |              0 |        56 |        59 |     247 |    20 |   0.080972 | -0.390918 | 0.007178 |   0.132842 | 未知    |     100 |
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>|  4 | age        |              0 |        59 |       inf |     174 |    55 |   0.316092 |  1.26651  | 0.096022 |   0.132842 | 未知    |       0 |
+</span></code></pre></div>
+<h2 id="_9">异常值分箱<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>数据中存在异常值</p>
+</blockquote>
+<ol>
+<li>当数据中存在异常值：<code>-1111</code>,<code>-9999</code>。</li>
+<li>当比率型指标，分子不存在，或分母不存在时需要进行分类讨论；比如资产负债率指标，
+资产不存在与负债不存在可能是完全不同的状况，需要在分箱时分类讨论。</li>
+</ol>
+<p><strong>在以上情况下，</strong> 可以指定<code>abnormal_vals</code>参数。示例如下：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">bins</span> <span class="o">=</span> <span class="n">TreeBins</span><span class="p">(</span><span class="n">df_bank</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df_bank</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">abnormal_vals</span><span class="o">=</span><span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mi">31</span><span class="p">])</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">df_woe</span> <span class="o">=</span> <span class="n">bins</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_woe</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">())</span>
+</span></code></pre></div>
+<blockquote>
+<p>结果数据的介绍</p>
+</blockquote>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order   |   score |
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:--------|--------:|
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>|  0 | age        |      0.0449016 |      -inf |        29 |     478 |    72 |   0.150628 |  0.308613 | 0.011325 |    0.16042 | 未知    |      60 |
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>|  1 | age        |      0.0449016 |        29 |        52 |    3090 |   316 |   0.102265 | -0.134004 | 0.011655 |    0.16042 | 未知    |      75 |
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>|  2 | age        |      0.0449016 |        52 |        55 |     255 |    34 |   0.133333 |  0.166497 | 0.001666 |    0.16042 | 未知    |      65 |
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>|  3 | age        |      0.0449016 |        55 |        58 |     250 |    13 |   0.052    | -0.864811 | 0.029661 |    0.16042 | 未知    |     100 |
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>|  4 | age        |      0.0449016 |        58 |       inf |     245 |    68 |   0.277551 |  1.08166  | 0.093313 |    0.16042 | 未知    |      35 |
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>|  5 | age        |      0.0449016 |        19 |        19 |       4 |     2 |   0.5      |  2.0383   | 0.006805 |    0.16042 | 未知    |       0 |
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>|  6 | age        |      0.0449016 |        31 |        31 |     199 |    16 |   0.080402 | -0.398598 | 0.005995 |    0.16042 | 未知    |      85 |
+</span></code></pre></div>
+<p><em>可以看到，上面的分箱过程中将<code>19/31</code>单独列为两个分箱进行计算。任何分箱都支持指定<code>abnormal_vals</code>值的方式对异常值进行单独的统计计算。</em></p>
+<h2 id="_10">分箱分数<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Score 计算方式</p>
+</blockquote>
+<p><em>step 1:</em></p>
+<div class="arithmatex">\[
+woe_{neg} = - woe
+\]</div>
+<p><em>step 2:</em></p>
+<div class="arithmatex">\[
+woe_{score} = \frac{woe_{neg} - min(woe_{neg})}{max(woe_{neg}) - min(woe_{neg})}
+\]</div>
+<p><em>step 3:</em></p>
+<p>对 <span class="arithmatex">\(woe_{score}\)</span> 按照 <code>5</code> 进行取整。如：
+1. <code>24.5</code> 取整为 <code>25</code>；
+2. <code>25.5</code> 取整为 <code>25</code>；
+3. <code>28.5</code> 取整为 <code>30</code>；</p>
+<h2 id="_11">补充说明<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><code>.fit()</code> 说明</p>
+</blockquote>
+<ul>
+<li><code>score=True</code>: 是否增加 WOE 分数，默认为 <code>True</code>。</li>
+<li><code>order=True</code>: 是否增加分箱的排序判断，默认为 <code>True</code>。</li>
+<li><code>origin_border=False</code>: 是否增加统计分箱中的最大值与最小值，默认为 <code>False</code>。</li>
+</ul>
+<blockquote>
+<p>其他变量方法：</p>
+</blockquote>
+<ul>
+<li><code>woe.cutoff_point</code>: 分箱截断点。</li>
+<li><code>var_name</code>: 指标的名称。</li>
+<li><code>missing_rate</code>: 指标的缺失率。</li>
+<li><code>min_bin</code>: 分箱的左边界，左开右闭。</li>
+<li><code>max_bin</code>: 分箱的右边界，左开右闭。</li>
+<li><code>total</code>: 该箱样本总量。</li>
+<li><code>bad</code>: 该箱坏样本量。</li>
+<li><code>bad_rate</code>: 该箱违约率。</li>
+<li><code>woe</code>: <code>woe</code> 值。</li>
+<li><code>iv</code>: 该箱 <code>iv</code> 贡献。</li>
+<li><code>iv_value</code>: 该变量的<code>IV</code>值。</li>
+<li><code>order</code>: 变量单调性<code>['单调上升', '单调下降', '数据不足', '未知',]</code>。</li>
+<li><code>score</code>: 分箱的分值，值域为<code>[0, 100]</code>分，违约越低分值越大。</li>
+</ul>
+<blockquote>
+<p>指标选取的一般原则</p>
+</blockquote>
+<ol>
+<li>各分箱的样本数量应相对均衡。</li>
+<li>分箱应尽量保证单调性。</li>
+<li>...</li>
+</ol>
+<h2 id="_12">分箱比较<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>无监督分箱</p>
+</blockquote>
+<p>无监督分箱一般只取决于数据字段自身的分布，不同的分箱方式有的时候好有的时候差。</p>
+<blockquote>
+<p>有监督分箱</p>
+</blockquote>
+<p>决策树分箱与卡方分箱一般优于<code>Best-KS</code>；决策树分箱比卡方分箱效率会高一些。</p>
+<hr />
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月2日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年12月2日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="上一页: Quick start">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Quick start
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../woe-02/" class="md-footer__link md-footer__link--next" aria-label="下一页: 样本加权分箱">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                样本加权分箱
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Chensy
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/CaoChensy/wisecon.git" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "search.suggest", "search.share", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.indexes", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "announce.dismiss", "content.action.view", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
