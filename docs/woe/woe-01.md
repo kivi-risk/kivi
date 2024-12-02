@@ -22,36 +22,7 @@ WOE技术是指“权重编码（Weight of Evidence）”技术，用于评估�
 
 ### 等距分箱
 
-> `DistanceBins` 参数：
-
-- `:param variables:` 待分箱变量。
-- `:param target:` 目标标签变量。
-- `:param bins:` 等频分箱数目。
-- `:param fill_bin:` 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。
-
-> 示例：
-
-```python
-from kivi.woe import *
-from kivi.datasets import *
-df_bank = Dataset.bank_data()
-
-bins = DistanceBins(df_bank.age, df_bank.target, bins=5)
-df_woe = bins.fit(score=True, origin_border=False)
-print(df_woe.to_markdown())
-```
-
-*输出*
-
-```markdown
-|    | var_name   |   missing_rate |   min_bin |   max_bin |   total |   bad |   bad_rate |       woe |       iv |   iv_value | order    |   score |
-|---:|:-----------|---------------:|----------:|----------:|--------:|------:|-----------:|----------:|---------:|-----------:|:---------|--------:|
-|  0 | age        |              0 |      -inf |        32 |    1055 |   134 |   0.127014 |  0.110679 | 0.002983 |   0.122104 | 下降上升 |      85 |
-|  1 | age        |              0 |        32 |        46 |    2104 |   207 |   0.098384 | -0.177011 | 0.013619 |   0.122104 | 下降上升 |     100 |
-|  2 | age        |              0 |        46 |        59 |    1188 |   125 |   0.105219 | -0.102237 | 0.00264  |   0.122104 | 下降上升 |      95 |
-|  3 | age        |              0 |        59 |        73 |     136 |    38 |   0.279412 |  1.09092  | 0.05284  |   0.122104 | 下降上升 |      35 |
-|  4 | age        |              0 |        73 |       inf |      38 |    17 |   0.447368 |  1.82699  | 0.050022 |   0.122104 | 下降上升 |       0 |
-```
+::: kivi.woe.woe_obj.DistanceBins
 
 ### 等频分箱 
 

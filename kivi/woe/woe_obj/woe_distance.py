@@ -21,14 +21,28 @@ class DistanceBins(WOEMixin):
             *args: Any,
             **kwargs: Any,
     ):
-        """
-        描述：等距分箱分析。
+        """等距分箱分析。
+        Notes:
+            ```python
+            from kivi.woe import *
+            from kivi.datasets import *
+            df_bank = Dataset.bank_data()
 
-        :param variables: 待分箱变量
-        :param target: 目标标签变量
-        :param bins: 决策树分箱中最大的叶子结点数量，一般对应的是最终分箱数量，默认为 5 。
-        :param abnormal_vals: 特殊值分箱，在变量存在特殊值时单独分一箱，如 -1111, -9999。
-        :param fill_bin: 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。
+            bins = DistanceBins(df_bank.age, df_bank.target, bins=5)
+            df_woe = bins.fit(score=True, origin_border=False)
+            print(df_woe.to_markdown())
+            ```
+
+        Args:
+            variables: 待分箱变量
+            target: 目标标签变量
+            bins: 决策树分箱中最大的叶子结点数量，一般对应的是最终分箱数量，默认为 5 。
+            abnormal_vals: 特殊值分箱，在变量存在特殊值时单独分一箱，如 -1111, -9999。
+            fill_bin: 在各分箱中偶发性会出现 good 或 bad 为 0 的情况，默认 fill_pos 为 True ，为该分箱填充 0.5。
+            decimal: 分箱后，WOE 和 IV 的保留小数位数，默认为 6 位。
+            weight: 样本权重变量，用于计算 WOE，默认为 None。
+            *args:
+            **kwargs:
 
         Example:
             woe = Distance(variables, target, bins=5, fill_bin=True)
