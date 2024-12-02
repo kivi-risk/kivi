@@ -22,7 +22,8 @@ class DistanceBins(WOEMixin):
             **kwargs: Any,
     ):
         """等距分箱分析。
-        Notes:
+
+        Example:
             ```python
             from kivi.woe import *
             from kivi.datasets import *
@@ -43,10 +44,6 @@ class DistanceBins(WOEMixin):
             weight: 样本权重变量，用于计算 WOE，默认为 None。
             *args:
             **kwargs:
-
-        Example:
-            woe = Distance(variables, target, bins=5, fill_bin=True)
-            woe.fit()
         """
         self.variables = variables
         self.target = target
@@ -67,11 +64,16 @@ class DistanceBins(WOEMixin):
             order: Optional[bool] = True,
             **kwargs: Any,
     ) -> DataFrame:
-        """
-        :param score: 是否增加 WOEMixin score。
-        :param origin_border: 是否增加 分箱中的最大值与最小值。
-        :param order: 是否增加单调性判断。
-        :return: DataFrame WOEMixin result.
+        """计算分箱后的 WOE 和 IV 值。
+
+        Args:
+            score: 是否增加 WOEMixin score。
+            origin_border: 是否增加 分箱中的最大值与最小值。
+            order: 是否增加单调性判断。
+            **kwargs:
+
+        Returns:
+            DataFrame: 包含 WOE 和 IV 的 DataFrame
         """
         _bucket = pd.cut(self.df_data.variables, self.bins, include_lowest=True, duplicates='drop')
         bucket = pd.DataFrame({
@@ -81,4 +83,3 @@ class DistanceBins(WOEMixin):
         }).groupby('bucket', as_index=True, observed=False)
         self.cal_woe_iv(bucket, score=score, origin_border=origin_border, order=order)
         return self.woe
-
