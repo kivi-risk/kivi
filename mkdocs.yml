@@ -1,0 +1,207 @@
+# Project information
+site_name: WisEcon
+site_url: https://caochensy.github.io/wisecon/
+site_author: CaoChensy
+site_description: WisEcon
+
+# Repository
+repo_name: CaoChensy/wisecon
+repo_url: https://github.com/CaoChensy/wisecon
+
+# Copyright
+copyright: Copyright &copy; 2024 Chensy
+
+theme:
+  name: material
+  language: zh
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    - search.highlight
+    - search.suggest
+    - search.share
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - toc.follow
+#    - toc.integrate
+#    - header.autohide
+    - announce.dismiss
+    - content.action.view
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/git-alt
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/CaoChensy/wisecon.git
+
+plugins:
+#  - mkdocstrings
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [ . ]
+          options:
+            show_labels: true
+            show_summary:
+                - attributes: true
+                - functions: true
+                - modules: true
+            show_source: true
+            show_bases: false
+            members_order: source
+            separate_signature: true
+            filters: [ "!^_", "!^params", "!^base_", "!^clean" ]
+#            docstring_options:
+#              ignore_init_summary: true
+            merge_init_into_class: true
+            show_signature_annotations: true
+            show_symbol_type_heading: true
+            signature_crossrefs: true
+            show_symbol_type_toc: true
+            parameter_headings: false
+            group_by_category: true
+            show_category_heading: false
+            show_docstring_attributes: true
+          import:
+            - url: https://docs.python.org/3/objects.inv
+              domains: [ py, std ]
+  - search:
+      separator: '[\s\u200b\-]'
+  - social
+#  - git-authors
+  - git-committers:
+      repository: CaoChensy/wisecon
+      branch: master
+      enabled: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - blog:
+      blog_dir: blog
+      post_url_date_format: yyyy/MM/dd
+      authors_profiles: true
+  - rss:
+      match_path: blog/posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+        - tags
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: CaoChensy
+      repo: mkdoc
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - includes/mkdocs.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+
+extra_css:
+  - https://unpkg.com/katex@0/dist/katex.min.css
+
+# Page tree
+nav:
+  - Quick start:
+      - Quick start: index.md
+  - API Documentation:
+      - 证券数据:
+          - 市场全貌: api/stock/market.md
+          - KLine: api/stock/kline.md
+          - Tick: api/stock/tick.md
+          - 股东分析: api/stock/holder.md
+          - 上市公司财务报表: api/stock/financial.md
+          - 成分股与市场行情: api/stock/constituent_stock.md
+          - 资金流分析: api/stock/capital_flow.md
+          - 主力持仓: api/stock/main_holder.md
+          - 估值分析: api/stock/valuation.md
+          - 股票排行: api/stock/ranking.md
+          - 新上市: api/stock/new_ipo.md
+          - ETF行情: api/stock/etf.md
+          - 融资融券: api/stock/margin.md
+          - 金融研究员指数: api/stock/analyst_rank.md
+          - 行业/地区/概念编码: api/stock/plate_mapping.md
+      - 公募基金(Editing): api/fund/value.md
+      - 宏观经济(Editing): api/macro.md
+      - 财经文本:
+          - 财经新闻(Editing): api/text/news.md
+          - 财经研报(Editing): api/text/reports.md
+      - 其他数据:
+          - 汽车销售数据: api/other/car_sales.md
+      - 其他工具:
+          - Time: api/utils/time.md
+      - Typing:
+          - Data: api/typing/response_data.md
+  - Blog:
+      - blog: blog/index.md
