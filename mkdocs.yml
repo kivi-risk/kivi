@@ -1,6 +1,6 @@
 # Project information
 site_name: kivi
-site_url: https://caochensy.github.io/wisecon/
+site_url: https://kivi-risk.github.io/kivi/
 site_author: CaoChensy
 site_description: kivi
 
@@ -58,7 +58,7 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/CaoChensy/wisecon.git
+      link: https://kivi-risk.github.io/kivi/
 
 plugins:
 #  - mkdocstrings
@@ -96,7 +96,7 @@ plugins:
   - social
 #  - git-authors
   - git-committers:
-      repository: CaoChensy/wisecon
+      repository: kivi-risk/kivi
       branch: master
       enabled: true
   - git-revision-date-localized:
